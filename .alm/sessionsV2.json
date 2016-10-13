@@ -1,0 +1,24 @@
+{
+  "sessions": [
+    {
+      "id": "3cbee072-249e-43dc-884f-0d21de80998a",
+      "tabLayout": {
+        "type": "stack",
+        "width": 100,
+        "height": 100,
+        "tabs": [
+          {
+            "id": "b9cc3bee-440c-4872-bd50-f20626af9870",
+            "relativeUrl": "file://./package.json",
+            "additionalData": null
+          }
+        ],
+        "subItems": [],
+        "activeItemIndex": 0
+      },
+      "lastUsed": 1476403000425,
+      "fileTreeExpanded": false,
+      "selectedTabId": "b9cc3bee-440c-4872-bd50-f20626af9870"
+    }
+  ]
+}
