@@ -27,7 +27,7 @@ import {style} from "typestyle";
 const className = style({color: 'red'});
 
 /** Use the class name in a framework of choice e.g. React */
-const MyButton = ({onClick,children})=><button className={className}>{children}</button>
+const MyButton = ({onClick,children})=><button className={className} onClick={onClick}>{children}</button>
 ```
 
 ## How
