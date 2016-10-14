@@ -109,7 +109,7 @@ const ohhhhClass = typestyle.style({
 });
 ```
 
-**Protip: Namespaces!**
+**TypeScript Protip: namespace**
 ```tsx
 /** Think of it like an inline stylesheet */
 namespace MyStyles {
