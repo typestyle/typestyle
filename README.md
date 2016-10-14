@@ -4,7 +4,9 @@
 
 Writing CSS with TypeStyle will be just as fluent as writing JavaScript with TypeScript.
 
-There are quite a few css in js frameworks out there. This one is different in that it is focused on providing a cohesive type safe story around managing CSS.
+![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/master/images/autocomplete.gif)
+
+There are quite a few css in js frameworks out there. This one is different in that it is focused on providing a cohesive story around managing CSS for TypeScript developers.
 
 ## Overview
 
