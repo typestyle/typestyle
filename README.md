@@ -96,9 +96,9 @@ const greyOnHoverClass = style(
 ```
 
 **Animations**
-Use `keyframes` to define an animation:
+Use `animationName` to define an animation:
 ```tsx
-const ohhhh = typestyle.keyframes({
+const colorAnimation = typestyle.animationName({
   from: { color: 'red' },
   to: { color: 'blue' }
 })

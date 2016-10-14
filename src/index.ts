@@ -49,7 +49,7 @@ export function style(...objects: StatefulCSSProperties[]) {
 /**
  * Takes Keyframes and returns a generated animation name
  */
-export function keyframes(frames: KeyFrames) {
+export function animationName(frames: KeyFrames) {
   const animationName = freeStyle.registerKeyframes(frames);
   styleUpdated();
   return animationName;
