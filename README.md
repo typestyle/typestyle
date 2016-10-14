@@ -9,17 +9,20 @@ There are quite a few css in js frameworks out there. This one is different in t
 ## Overview
 
 * [Quickstart](#quickstart)
+* [Server side](#servers-side)
 * [How](#how)
-* [Really How](#really-how)
-
+  * [Really How](#really-how)
+* [Performance](#performance)
 
 ## Quickstart
+
+Use it like you would use CSS modules or CSS in general with webpack etc, but this time you get to use TypeScript / JavaScript!
 
 **Install**
 `npm install typestyle --save`  
 
 **Use**
-```ts
+```tsx
 /** Import */
 import {style} from "typestyle";
 
@@ -27,15 +30,38 @@ import {style} from "typestyle";
 const className = style({color: 'red'});
 
 /** Use the class name in a framework of choice e.g. React */
-const MyButton = ({onClick,children})=><button className={className} onClick={onClick}>{children}</button>
+const MyButton = 
+  ({onClick,children})
+    => <button className={className} onClick={onClick}>
+        {children}
+      </button>
+```
+
+## Server Side
+
+Just get the styles as CSS at any point and render it in a style tag yourself. e.g. 
+
+```ts
+/** Import */
+import {style, getStyles} from "typestyle";
+
+/** convert a style object to a CSS class name */
+const className = style({color: 'red'});
+
+/** Render to CSS style tag */
+const styleTag = `<style>${getStyles()}</style>`
+/** ^ send this as a part of your HTML response */
 ```
 
 ## How
 This works very much in the same principle as CSS modules in that it takes a style object and generates a *non conflicting generated* class name.
 
-## Really How
+### Really How
 * [FreeStyle][free-style] converts a JS style object to a CSS className using hashing
 * We keep a single style sheet updated as you register styles.
 * Provide `css.d.ts` to help with autocomplete + error reporting.
+
+## Performance
+Same as [FreeStyle][free-style] which is *super simple* and does the *absolute minimum but necessary*, so faster than other CSS in JS frameworks for sure. We'd love to be told otherwise.
 
 [free-style]:https://github.com/blakeembrey/free-style

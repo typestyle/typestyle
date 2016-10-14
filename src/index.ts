@@ -27,7 +27,7 @@ const styleUpdated = () => afterAllSync(() => {
 /**
  * Allows use to use the stylesheet in a node.js environment
  */
-export const getRawStyles = () => freeStyle.getStyles();
+export const getStyles = () => freeStyle.getStyles();
 
 /**
  * Takes CSSProperties and return a generated className you can use on your component
