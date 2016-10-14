@@ -34,7 +34,7 @@ const styleUpdated = () => {
 /**
  * Allows use to use the stylesheet in a node.js environment
  */
-export const getStyles = () => freeStyle.getStyles();
+export const css = () => freeStyle.getStyles();
 
 /**
  * Takes CSSProperties and return a generated className you can use on your component

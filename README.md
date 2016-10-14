@@ -46,13 +46,13 @@ Just get the styles as CSS at any point and render it in a style tag yourself. e
 
 ```ts
 /** Import */
-import {style, getStyles} from "typestyle";
+import {style, css} from "typestyle";
 
 /** convert a style object to a CSS class name */
 const className = style({color: 'red'});
 
 /** Render to CSS style tag */
-const styleTag = `<style>${getStyles()}</style>`
+const styleTag = `<style>${css()}</style>`
 /** ^ send this as a part of your HTML response */
 ```
 
