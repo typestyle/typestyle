@@ -1,3 +1,5 @@
+/// <reference path="./css.d.ts"/>
+
 /**
  * @module Maintains a single stylesheet and keeps it in sync with requested styles
  */
