@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/typestyle/typestyle/issues"
   },
-  "homepage": "https://github.com/typestyle/typestyle#readme"
+  "homepage": "https://github.com/typestyle/typestyle#readme",
+  "dependencies": {
+    "free-style": "2.0.0"
+  }
 }
