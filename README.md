@@ -83,6 +83,12 @@ const greyOnHoverClass = style(
 );
 ```
 
+**Animations**
+:memo: TODO
+
+**Media Queries**
+:memo: TODO
+
 **Protip: Namespaces!**
 ```tsx
 /** Think of it like an inline stylesheet */
