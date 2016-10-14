@@ -57,7 +57,7 @@ const styleTag = `<style>${css()}</style>`
 ```
 
 ## Advanced
-**Psedo States**
+**Pseudo States**
 `&:hover`, `&:active`, `&:focus`, `&:disabled` as you would expect e.g.
 
 ```tsx
