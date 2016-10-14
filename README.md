@@ -11,7 +11,7 @@ There are quite a few css in js frameworks out there. This one is different in t
 ## Overview
 
 * [Quickstart](#quickstart)
-* [Server side](#servers-side)
+* [Server side](#server-side)
 * [Pseudo Classes, Animations, Media Queries](#advanced)
 * [How](#how)
   * [Really How](#really-how)
