@@ -31,14 +31,19 @@
             "id": "e04ad2cd-9dd2-49c1-92f8-14c1c63c966e",
             "relativeUrl": "file://./src/index.ts",
             "additionalData": null
+          },
+          {
+            "id": "a88d0746-ae10-4557-aec6-30d2221f000e",
+            "relativeUrl": "file://./README.md",
+            "additionalData": null
           }
         ],
         "subItems": [],
         "activeItemIndex": 0
       },
-      "lastUsed": 1476409404926,
+      "lastUsed": 1476409704620,
       "fileTreeExpanded": true,
-      "selectedTabId": "b9cc3bee-440c-4872-bd50-f20626af9870"
+      "selectedTabId": "a88d0746-ae10-4557-aec6-30d2221f000e"
     }
   ],
   "relativePathToTsconfig": "./tsconfig.json"
