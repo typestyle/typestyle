@@ -5,6 +5,7 @@
   "main": "./src/index.js",
   "typings": "./src/index",
   "scripts": {
+    "preversion": "tsc -p .",
     "postversion": "git push --follow-tags && npm publish"
   },
   "repository": {
@@ -20,5 +21,8 @@
   "homepage": "https://github.com/typestyle/typestyle#readme",
   "dependencies": {
     "free-style": "2.0.0"
+  },
+  "devDependencies": {
+    "typescript": "2.1.0-dev.20161013"
   }
 }
