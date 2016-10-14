@@ -12,7 +12,7 @@ There are quite a few css in js frameworks out there. This one is different in t
 
 * [Quickstart](#quickstart)
 * [Server side](#servers-side)
-* [Pseudo Classes, Animations, Media Queries](#Advanced)
+* [Pseudo Classes, Animations, Media Queries](#advanced)
 * [How](#how)
   * [Really How](#really-how)
 * [Performance](#performance)
@@ -73,6 +73,16 @@ const className = style({
 });
 ```
 
+**Media Queries**
+```tsx
+const colorChangingClass = style({
+  backgroundColor: 'red',
+  '@media (min-width: 400px)': {
+    backgroundColor: 'pink'
+  }
+})
+```
+
 **Merge Objects**
 Pass as many style objects to `style` and they merge *just right*.
 
@@ -88,42 +98,16 @@ const greyOnHoverClass = style(
 **Animations**
 Use `keyframes` to define an animation:
 ```tsx
-const spinnerRotate = typestyle.keyframes({
-  '0%': {
-    transform: 'rotate(0deg)'
-  },
-  '100%': {
-    transform: 'rotate(360deg)'
-  }
-});
+const ohhhh = typestyle.keyframes({
+  from: { color: 'red' },
+  to: { color: 'blue' }
+})
 
-export const spinnerClass = typestyle.style({
-  display: 'inline-block',
-  background: 'transparent',
-
-  /** Set it up with a side missing */
-  color: 'red',
-  borderStyle: 'solid',
-  broderTopColor: 'currentColor',
-  broderLeftColor: 'currentColor',
-  broderRightColor: 'currentColor',
-  borderBottomColor: 'transparent',
-
-  /** Setup to be a circle */
-  borderRadius: '100%',
-
-  /** Fixed size */
-  width: '20px',
-  height: '20px',
-  borderWidth: '2px',
-
-  /** Animation */
-  animation: `${spinnerRotate} .75s linear infinite`,
+const ohhhhClass = typestyle.style({
+  animationName: colorAnimation,
+  animationDuration: '1s'
 });
 ```
-
-**Media Queries**
-:memo: TODO
 
 **Protip: Namespaces!**
 ```tsx
