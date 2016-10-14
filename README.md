@@ -10,6 +10,7 @@ There are quite a few css in js frameworks out there. This one is different in t
 
 * [Quickstart](#quickstart)
 * [Server side](#servers-side)
+* [Pseudo Classes, Animations, Media Queries](#Advanced)
 * [How](#how)
   * [Really How](#really-how)
 * [Performance](#performance)
@@ -51,6 +52,50 @@ const className = style({color: 'red'});
 /** Render to CSS style tag */
 const styleTag = `<style>${getStyles()}</style>`
 /** ^ send this as a part of your HTML response */
+```
+
+## Advanced
+**Psedo States**
+`&:hover`, `&:active`, `&:focus`, `&:disabled` as you would expect e.g.
+
+```tsx
+/** Import */
+import {style} from "typestyle";
+
+/** convert a style object to a CSS class name */
+const className = style({
+  color: 'blue',
+  '&:hover': {
+    color: 'red'
+  }
+});
+```
+
+**Merge Objects**
+Pass as many style objects to `style` and they merge *just right*.
+
+```tsx
+const redMaker = {color:'red'};
+const alwaysRedClass = style(redMaker);
+const greyOnHoverClass = style(
+  redMaker,
+  {'&:hover':{color: 'grey'}}
+);
+```
+
+**Protip: Namespaces!**
+```tsx
+/** Think of it like an inline stylesheet */
+namespace MyStyles {
+  const color = 'red';
+
+  export const alwaysRedClass = style({color});
+  export const onlyRedOnHoverClass = style({'&:hover':{color});
+}
+
+/** Use e.g. with React */
+const AlwaysRed = ({text}) => <div className={MyStyles.alwaysRedClass}>{text}</div>
+const OnlyRedOnHover = ({text}) => <div className={MyStyles.onlyRedOnHoverClass}>{text}</div>
 ```
 
 ## How
