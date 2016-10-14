@@ -84,7 +84,41 @@ const greyOnHoverClass = style(
 ```
 
 **Animations**
-:memo: TODO
+Use `keyframes` to define an animation:
+```tsx
+const spinnerRotate = typestyle.keyframes({
+  '0%': {
+    transform: 'rotate(0deg)'
+  },
+  '100%': {
+    transform: 'rotate(360deg)'
+  }
+});
+
+export const spinnerClass = typestyle.style({
+  display: 'inline-block',
+  background: 'transparent',
+
+  /** Set it up with a side missing */
+  color: 'red',
+  borderStyle: 'solid',
+  broderTopColor: 'currentColor',
+  broderLeftColor: 'currentColor',
+  broderRightColor: 'currentColor',
+  borderBottomColor: 'transparent',
+
+  /** Setup to be a circle */
+  borderRadius: '100%',
+
+  /** Fixed size */
+  width: '20px',
+  height: '20px',
+  borderWidth: '2px',
+
+  /** Animation */
+  animation: `${spinnerRotate} .75s linear infinite`,
+});
+```
 
 **Media Queries**
 :memo: TODO
