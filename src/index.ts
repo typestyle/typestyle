@@ -20,11 +20,16 @@ const {afterAllSync} = new class {
  * We have a single stylesheet that we update as components register themselves
  */
 const freeStyle = FreeStyle.create();
+let lastChangeId = freeStyle.changeId;
 const singletonStyle = typeof window === 'undefined' ? { innerHTML: '' } : document.createElement('style');
 if (typeof document !== 'undefined') document.head.appendChild(singletonStyle as any);
-const styleUpdated = () => afterAllSync(() => {
-  singletonStyle.innerHTML = freeStyle.getStyles();
-});
+const styleUpdated = () => {
+  if (freeStyle.changeId === lastChangeId) return;
+  lastChangeId = freeStyle.changeId;
+  afterAllSync(() => {
+    singletonStyle.innerHTML = freeStyle.getStyles();
+  })
+};
 
 /**
  * Allows use to use the stylesheet in a node.js environment
