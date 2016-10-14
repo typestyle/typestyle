@@ -1390,3 +1390,20 @@ interface CSSProperties {
   [propertyName: string]: any;
 }
 
+/** Provides additional autocomplete for pseudo states + nesting */
+interface StatefulCSSProperties extends CSSProperties {
+  '&:hover'?: StatefulCSSProperties;
+  '&:active'?: StatefulCSSProperties;
+  '&:disabled'?: StatefulCSSProperties;
+  '&:focus'?: StatefulCSSProperties;
+}
+
+/**
+ * For animation keyframe definition
+ */
+interface KeyFrames {
+  [
+  /** stuff like `from`, `to` or `10%` etc*/
+  key: string
+  ]: StatefulCSSProperties;
+}
