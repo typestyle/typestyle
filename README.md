@@ -32,12 +32,20 @@ import {style} from "typestyle";
 /** convert a style object to a CSS class name */
 const className = style({color: 'red'});
 
-/** Use the class name in a framework of choice e.g. React */
+/** Use the class name in a framework of choice */
+//  e.g. React
 const MyButton = 
   ({onClick,children})
     => <button className={className} onClick={onClick}>
         {children}
       </button>
+// or Angular2
+@Component({
+  selector: 'my-component',
+  template: `<div class="${className}">Tada</div>`
+})
+export class MyComponent {}
+
 ```
 
 ## Server Side
