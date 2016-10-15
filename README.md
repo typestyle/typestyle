@@ -2,6 +2,8 @@
 
 > Making CSS type safe.
 
+[![Build Status][travis-image]][travis-url]
+
 Writing CSS with TypeStyle will be just as fluent as writing JavaScript with TypeScript.
 
 ![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/master/images/autocomplete.gif)
@@ -144,3 +146,5 @@ This works very much in the same principle as CSS modules in that it takes a sty
 Same as [FreeStyle][free-style] which is *super simple* and does the *absolute minimum but necessary*, so faster than other CSS in JS frameworks for sure. We'd love to be told otherwise.
 
 [free-style]:https://github.com/blakeembrey/free-style
+[travis-image]: https://travis-ci.org/typestyle/typestyle.svg?branch=master
+[travis-url]:https://travis-ci.org/typestyle/typestyle
