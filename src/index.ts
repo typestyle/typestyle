@@ -49,7 +49,7 @@ export function style(...objects: StatefulCSSProperties[]) {
 /**
  * Takes Keyframes and returns a generated animation name
  */
-export function animationName(frames: KeyFrames) {
+export function keyframes(frames: KeyFrames) {
   const animationName = freeStyle.registerKeyframes(frames);
   styleUpdated();
   return animationName;
@@ -59,7 +59,7 @@ export function animationName(frames: KeyFrames) {
  * Merges various styles into a single style object.
  * Note: if two objects have the same property the last one wins
  */
-export function extend(...objects: StatefulCSSProperties[]): StatefulCSSProperties{
+export function extend(...objects: StatefulCSSProperties[]): StatefulCSSProperties {
   /** The final result we will return */
   const result: StatefulCSSProperties = {};
   for (const object of objects) {
