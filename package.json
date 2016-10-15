@@ -5,7 +5,9 @@
   "main": "./src/index.js",
   "typings": "./src/index",
   "scripts": {
-    "preversion": "tsc -p .",
+    "build": "tsc -p .",
+    "test": "npm run build",
+    "preversion": "npm run build",
     "postversion": "git push --follow-tags && npm publish"
   },
   "repository": {
