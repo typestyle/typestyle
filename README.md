@@ -9,7 +9,11 @@ Writing CSS with TypeStyle will be just as fluent as writing JavaScript with Typ
 
 ![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/master/images/autocomplete.gif)
 
-There are quite a few css in js frameworks out there. This one is different in that it is focused on providing a cohesive story around managing CSS for TypeScript developers.
+There are quite a few css in js frameworks out there. This one is different:
+
+- Provides great TypeScript developer experience.
+- No custom AST transform or module loader (webpack) support needed.
+- Works with any framework (react, angular2, whatever, doesn't matter).
 
 ## Overview
 
