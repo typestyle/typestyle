@@ -3,6 +3,7 @@
 > Making CSS type safe.
 
 [![Build Status][travis-image]][travis-url]
+[![NPM version][npm-image]][npm-url]
 
 Writing CSS with TypeStyle will be just as fluent as writing JavaScript with TypeScript.
 
@@ -148,3 +149,5 @@ Same as [FreeStyle][free-style] which is *super simple* and does the *absolute m
 [free-style]:https://github.com/blakeembrey/free-style
 [travis-image]: https://travis-ci.org/typestyle/typestyle.svg?branch=master
 [travis-url]:https://travis-ci.org/typestyle/typestyle
+[npm-image]: https://img.shields.io/npm/v/typestyle.svg?style=flat
+[npm-url]: https://npmjs.org/package/typestyle
