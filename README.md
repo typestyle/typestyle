@@ -14,6 +14,7 @@ There are quite a few css in js frameworks out there. This one is different:
 - Provides great TypeScript developer experience.
 - No custom AST transform or module loader (webpack) support needed.
 - Works with any framework (react, angular2, whatever, doesn't matter).
+- *super* **small** (~1k)
 
 ## Overview
 
