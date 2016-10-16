@@ -1,0 +1,7 @@
+{
+  "tests": {
+    "include": [
+      "./src/tests/**/*"
+    ]
+  }
+}
