@@ -10,7 +10,7 @@ import * as FreeStyle from "free-style";
  */
 const {afterAllSync} = new class {
   pending: any;
-  afterAllSync = (cb) => {
+  afterAllSync = (cb:()=>void) => {
     if (this.pending) clearTimeout(this.pending);
     this.pending = setTimeout(cb);
   }
