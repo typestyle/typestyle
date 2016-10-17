@@ -1391,11 +1391,17 @@ interface CSSProperties {
 }
 
 /** Provides additional autocomplete for pseudo states + nesting */
-interface StatefulCSSProperties extends CSSProperties {
-  '&:hover'?: StatefulCSSProperties;
-  '&:active'?: StatefulCSSProperties;
-  '&:disabled'?: StatefulCSSProperties;
-  '&:focus'?: StatefulCSSProperties;
+interface NestedCSSProperties extends CSSProperties {
+  /** States */
+  '&:hover'?: NestedCSSProperties;
+  '&:active'?: NestedCSSProperties;
+  '&:disabled'?: NestedCSSProperties;
+  '&:focus'?: NestedCSSProperties;
+
+  /** Children */
+  '&:child'?: NestedCSSProperties;
+  '&:first-child'?: NestedCSSProperties;
+  '&:last-child'?: NestedCSSProperties;
 }
 
 /**
@@ -1405,5 +1411,5 @@ interface KeyFrames {
   [
   /** stuff like `from`, `to` or `10%` etc*/
   key: string
-  ]: StatefulCSSProperties;
+  ]: NestedCSSProperties;
 }

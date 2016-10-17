@@ -50,7 +50,7 @@ export const css = () => freeStyle.getStyles();
 /**
  * Takes CSSProperties and return a generated className you can use on your component
  */
-export function style(...objects: StatefulCSSProperties[]) {
+export function style(...objects: NestedCSSProperties[]) {
   const object = extend(...objects);
   const className = freeStyle.registerStyle(object);
   styleUpdated();
@@ -70,9 +70,9 @@ export function keyframes(frames: KeyFrames) {
  * Merges various styles into a single style object.
  * Note: if two objects have the same property the last one wins
  */
-export function extend(...objects: StatefulCSSProperties[]): StatefulCSSProperties {
+export function extend(...objects: NestedCSSProperties[]): NestedCSSProperties {
   /** The final result we will return */
-  const result: StatefulCSSProperties = {};
+  const result: NestedCSSProperties = {};
   for (const object of objects) {
     for (const key in object) {
       if (
