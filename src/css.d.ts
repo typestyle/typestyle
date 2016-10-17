@@ -1,3 +1,6 @@
+type CSSValueGeneral = number | string | (number | string)[];
+type CSSValueString = number | string | (number | string)[];
+
 /**
  * This interface documents key CSS properties for autocomplete 
  */
@@ -23,7 +26,10 @@ interface CSSProperties {
    */
   alignmentAdjust?: any;
 
-  alignmentBaseline?: any;
+  /**
+   * The alignment-baseline attribute specifies how an object is aligned with respect to its parent.
+   */
+  alignmentBaseline?: 'auto' | 'baseline' | 'before-edge' | 'text-before-edge' | 'middle' | 'central' | 'after-edge' | 'text-after-edge' | 'ideographic' | 'alphabetic' | 'hanging' | 'mathematical' | 'inherit';
 
   /**
    * Defines a length of time to elapse before an animation starts, allowing an animation to begin execution some time after it is applied.
@@ -353,7 +359,7 @@ interface CSSProperties {
   /**
    * The color property sets the color of an element's foreground content (usually text), accepting any standard CSS color from keywords and hex values to RGB(a) and HSL(a).
    */
-  color?: any;
+  color?: CSSValueGeneral;
 
   /**
    * Describes the number of columns of the element.
