@@ -16,10 +16,16 @@ describe("initial test", () => {
     assert.equal(css(), '.f1jvcvsh{color:red}');
   });
 
-  it("child", () => {
+  it("child same", () => {
     reinit();
     style({ color: 'red', '&>*': { color: 'red' } });
     assert.equal(css(), '.f1nv0def,.f1nv0def>*{color:red}');
+  });
+
+  it("child different", () => {
+    reinit();
+    style({ color: 'red', '&>*': { color: 'blue' } });
+    assert.equal(css(), '.fv84gyi{color:red}.fv84gyi>*{color:blue}');
   });
 
   it("media", () => {
