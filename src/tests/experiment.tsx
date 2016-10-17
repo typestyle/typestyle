@@ -28,9 +28,15 @@ describe("initial test", () => {
     assert.equal(css(), '.fv84gyi{color:red}.fv84gyi>*{color:blue}');
   });
 
-  it("media", () => {
+  it("media same", () => {
     reinit();
     style({ color: 'red', '@media (min-width: 400px)': { color: 'red' } });
     assert.equal(css(), '.f12z113b{color:red}@media (min-width: 400px){.f12z113b{color:red}}');
+  });
+
+  it("media different", () => {
+    reinit();
+    style({ color: 'red', '@media (min-width: 400px)': { color: 'blue' } });
+    assert.equal(css(), '.fxfrsga{color:red}@media (min-width: 400px){.fxfrsga{color:blue}}');
   });
 })
