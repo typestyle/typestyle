@@ -24,6 +24,7 @@ There are quite a few css in js frameworks out there. This one is different:
 * [How](#how)
   * [Really How](#really-how)
 * [Performance](#performance)
+* [Help](#help)
 
 ## Quickstart
 
@@ -172,6 +173,10 @@ This works very much in the same principle as CSS modules in that it takes a sty
 * [FreeStyle][free-style] converts a JS style object to a CSS className using hashing
 * We keep a single style sheet updated as you register styles.
 * Provide [`css.d.ts`][css.d.ts] to help with autocomplete + error reporting.
+
+## Help
+
+Really apprecate as many PRs for [`css.d.ts`][css.d.ts] `CSSProperties` as you can throw at us 🌹
 
 ## Performance
 Same as [FreeStyle][free-style] which is *super simple* and does the *absolute minimum but necessary*, so faster than other CSS in JS frameworks for sure. We'd love to be told otherwise.
