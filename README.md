@@ -90,7 +90,7 @@ const className = style({
 ```
 
 **Child selectors**
-`&:first-child`, `&:last-child`, `&:child` etc work too e.g. use it to design a vertical layout:
+`&:first-child`, `&:last-child`, `&>*` etc work too e.g. use it to design a vertical layout:
 
 ```tsx
 /** Import */
@@ -101,7 +101,7 @@ const spacing = '5px';
 
 /** style -> className :) */
 const className = style({
-  '&:child': {
+  '&>*': {
     marginTop: spacing,
     marginBottom: spacing
   },

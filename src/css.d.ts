@@ -1399,7 +1399,7 @@ interface NestedCSSProperties extends CSSProperties {
   '&:focus'?: NestedCSSProperties;
 
   /** Children */
-  '&:child'?: NestedCSSProperties;
+  '&>*'?: NestedCSSProperties;
   '&:first-child'?: NestedCSSProperties;
   '&:last-child'?: NestedCSSProperties;
 }

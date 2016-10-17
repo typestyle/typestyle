@@ -18,7 +18,7 @@ describe("initial test", () => {
 
   it("child", () => {
     reinit();
-    style({ color: 'red', '&:child': { color: 'red' } });
-    assert.equal(css(), '.f1f5eowj,.f1f5eowj:child{color:red}');
+    style({ color: 'red', '&>*': { color: 'red' } });
+    assert.equal(css(), '.f1nv0def,.f1nv0def>*{color:red}');
   });
 })
