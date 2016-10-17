@@ -137,7 +137,7 @@ const greyOnHoverClass = style(
 );
 ```
 
-**Compose Classes** You can compose styles easily by passing them to style. You can similar compose class names using `classes`
+**Compose Classes** You can easily compose class names using `classes`
 
 ```tsx
 const redClass = style({color:'red'});
@@ -146,7 +146,7 @@ const tallClass = style({height:'100px'});
 /** Compose classes */
 const tallRedClass = typestyle.classes(redClass,tallClass);
 
-/** Even conditionally */
+/** Even conditionally (any falsy parameters are ignored in the composed class name) */
 const mightBeTallAswell = typestyle.classes(redClass,someBoolean && tallClass);
 ``` 
 
