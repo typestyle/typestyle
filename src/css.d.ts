@@ -679,7 +679,7 @@ interface CSSProperties {
   /**
    * Sets the left edge of an element
    */
-  left?: any;
+  left?: CSSValueGeneral;
 
   /**
    * The letter-spacing CSS property specifies the spacing behavior between text characters.
@@ -741,7 +741,7 @@ interface CSSProperties {
   /**
    * margin-top sets the top margin of an element.
    */
-  marginTop?: any;
+  marginTop?: CSSValueGeneral;
 
   /**
    * The marquee-direction determines the initial direction in which the marquee content moves.
@@ -896,7 +896,7 @@ interface CSSProperties {
   /**
    * The padding-top CSS property of an element sets the padding space required on the top of an element. The padding area is the space between the content of the element and its border. Contrary to margin-top values, negative values of padding-top are invalid.
    */
-  paddingTop?: any;
+  paddingTop?: CSSValueGeneral;
 
   /**
    * The page-break-after property is supported in all major browsers. With CSS3, page-break-* properties are only aliases of the break-* properties. The CSS3 Fragmentation spec defines breaks for all CSS box fragmentation.
