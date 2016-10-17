@@ -21,4 +21,10 @@ describe("initial test", () => {
     style({ color: 'red', '&>*': { color: 'red' } });
     assert.equal(css(), '.f1nv0def,.f1nv0def>*{color:red}');
   });
+
+  it("media", () => {
+    reinit();
+    style({ color: 'red', '@media (min-width: 400px)': { color: 'red' } });
+    assert.equal(css(), '.f12z113b{color:red}@media (min-width: 400px){.f12z113b{color:red}}');
+  });
 })
