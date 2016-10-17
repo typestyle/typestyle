@@ -89,6 +89,31 @@ const className = style({
 });
 ```
 
+**Child selectors**
+`&:first-child`, `&:last-child`, `&:child` etc work too e.g. use it to design a vertical layout:
+
+```tsx
+/** Import */
+import {style} from "typestyle";
+
+/** Share constants in TS! */
+const spacing = '5px';
+
+/** style -> className :) */
+const className = style({
+  '&:child': {
+    marginTop: spacing,
+    marginBottom: spacing
+  },
+  '&:first-child': {
+    marginTop: '0px',
+  }
+  '&:last-child': {
+    marginBottom: '0px',
+  }
+});
+```
+
 **Media Queries**
 ```tsx
 const colorChangingClass = style({
