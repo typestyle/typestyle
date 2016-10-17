@@ -15,4 +15,10 @@ describe("initial test", () => {
     style({ color: 'red' });
     assert.equal(css(), '.f1jvcvsh{color:red}');
   });
+
+  it("child", () => {
+    reinit();
+    style({ color: 'red', '&:child': { color: 'red' } });
+    assert.equal(css(), '.f1f5eowj,.f1f5eowj:child{color:red}');
+  });
 })
