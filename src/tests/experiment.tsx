@@ -1,4 +1,4 @@
-import { style, css, reinit } from '../index';
+import { style, css, reinit, classes } from '../index';
 import * as assert from 'assert';
 describe("initial test", () => {
   it("should pass", () => {
@@ -38,5 +38,11 @@ describe("initial test", () => {
     reinit();
     style({ color: 'red', '@media (min-width: 400px)': { color: 'blue' } });
     assert.equal(css(), '.fxfrsga{color:red}@media (min-width: 400px){.fxfrsga{color:blue}}');
+  });
+
+  it("classes should compose", () => {
+    assert.equal(classes("a", "b"), "a b");
+    assert.equal(classes("a", false && "b"), "a");
+    assert.equal(classes("a", false && "b", "c"), "a c");
   });
 })

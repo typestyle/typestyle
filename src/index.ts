@@ -92,3 +92,10 @@ export function extend(...objects: NestedCSSProperties[]): NestedCSSProperties {
   }
   return result;
 }
+
+/**
+ * Utility to join classes conditionally
+ */
+export function classes(...classes: (string | boolean | undefined | null)[]): string {
+  return classes.filter(c => !!c).join(' ');
+}
