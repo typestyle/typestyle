@@ -77,12 +77,12 @@ export function extend(...objects: NestedCSSProperties[]): NestedCSSProperties {
     for (const key in object) {
       if (
         // Some psuedo state or media query
-        (key.indexOf('&:') === 0 || key.indexOf('@media') === 0)
+        (key.indexOf('&') !== -1 || key.indexOf('@media') === 0)
         // And we already have something for this key
         && result[key]
       ) {
         // Then extend in the final result
-        result[key] = extend(result[key], object);
+        result[key] = extend(result[key] as any, object);
       }
       // Otherwise just copy to output
       else {

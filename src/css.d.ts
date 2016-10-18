@@ -1,5 +1,5 @@
 type CSSValueGeneral = number | string | (number | string)[];
-type CSSValueString = number | string | (number | string)[];
+type CSSValueString = string | string[];
 
 /**
  * This interface documents key CSS properties for autocomplete 
@@ -1408,6 +1408,9 @@ interface NestedCSSProperties extends CSSProperties {
   '&>*'?: NestedCSSProperties;
   '&:first-child'?: NestedCSSProperties;
   '&:last-child'?: NestedCSSProperties;
+
+  /** General purpose */
+  [selector: string]: CSSValueGeneral | NestedCSSProperties;
 }
 
 /**
