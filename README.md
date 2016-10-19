@@ -140,14 +140,14 @@ const greyOnHoverClass = style(
 **Compose Classes** You can easily compose class names using `classes`
 
 ```tsx
-const redClass = style({color:'red'});
 const tallClass = style({height:'100px'});
+const redClass = style({color:'red'});
 
 /** Compose classes */
-const tallRedClass = typestyle.classes(redClass,tallClass);
+const tallRedClass = typestyle.classes(tallClass, redClass);
 
 /** Even conditionally (any falsy parameters are ignored in the composed class name) */
-const mightBeTallAswell = typestyle.classes(redClass,someBoolean && tallClass);
+const mightBeRed = typestyle.classes(tallClass, hasError && redClass);
 ``` 
 
 **Animations**
