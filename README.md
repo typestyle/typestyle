@@ -44,7 +44,7 @@ const className = style({color: 'red'});
 
 /** Use the class name in a framework of choice */
 //  e.g. React
-const MyButton = 
+const MyButton =
   ({onClick,children})
     => <button className={className} onClick={onClick}>
         {children}
@@ -59,7 +59,7 @@ export class MyComponent {}
 
 ## Server Side
 
-Just get the styles as CSS at any point and render it in a style tag yourself. e.g. 
+Just get the styles as CSS at any point and render it in a style tag yourself. e.g.
 
 ```ts
 /** Import */
@@ -148,7 +148,7 @@ const tallRedClass = typestyle.classes(tallClass, redClass);
 
 /** Even conditionally (any falsy parameters are ignored in the composed class name) */
 const mightBeRed = typestyle.classes(tallClass, hasError && redClass);
-``` 
+```
 
 **Animations**
 Use `keyframes` to define an animation and get the animation name
@@ -163,6 +163,21 @@ const ooooClass = typestyle.style({
   animationDuration: '1s'
 });
 ```
+
+**Display names for Debugging**
+ The first argument to style and keyframes can be a "display name". The display
+ name will be used as the class name prefix in development (process.env.NODE_ENV !== 'production').
+ ```tsx
+ const colorAnimationName = typestyle.keyframes('myAnimation', {
+   from: { color: 'red' },
+   to: { color: 'blue' }
+ })
+
+ const ooooClass = typestyle.style('myClass', {
+   animationName: colorAnimationName,
+   animationDuration: '1s'
+ });
+ ```
 
 **TypeScript Protip: namespace**
 ```tsx
