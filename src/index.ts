@@ -48,20 +48,34 @@ export function reinit() {
 export const css = () => freeStyle.getStyles();
 
 /**
- * Takes CSSProperties and return a generated className you can use on your component
+ * Takes CSSProperties and return a generated className you can use on your component.
+ * The first argument can be a "display name". The display name will be used as
+ * the class name prefix in development (process.env.NODE_ENV !== 'production')
  */
-export function style(...objects: NestedCSSProperties[]) {
-  const object = extend(...objects);
-  const className = freeStyle.registerStyle(object);
+export function style(nameOrObject:(string | NestedCSSProperties), ...objects: NestedCSSProperties[]) {
+  let object = extend(...objects);
+  let displayName: string = null;
+  if (typeof nameOrObject !== "string") {
+    object = extend(nameOrObject, ...objects);
+  }else {
+    displayName = nameOrObject
+  }
+  const className = freeStyle.registerStyle(object, displayName);
   styleUpdated();
   return className;
 }
 
 /**
  * Takes Keyframes and returns a generated animation name
+ * The first argument can be a "display name". The display name will be used as
+ * the class name prefix in development (process.env.NODE_ENV !== 'production')
  */
-export function keyframes(frames: KeyFrames) {
-  const animationName = freeStyle.registerKeyframes(frames);
+export function keyframes(nameOrFrames:(string | KeyFrames), frames: KeyFrames) {
+  const displayName: string = typeof nameOrFrames === "string" ? nameOrFrames : null;
+  const framesToUse: KeyFrames = typeof nameOrFrames !== "string" ? nameOrFrames : frames
+
+  const animationName = freeStyle.registerKeyframes(framesToUse, displayName);
+
   styleUpdated();
   return animationName;
 }
