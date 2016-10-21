@@ -22,6 +22,7 @@ There are quite a few css in js frameworks out there. This one is different:
 * [Quickstart](#quickstart)
 * [Server side](#server-side)
 * [Pseudo Classes, Animations, Media Queries](#advanced)
+* [Fallbacks](#fallbacks)
 * [How](#how)
   * [Really How](#really-how)
 * [Performance](#performance)
@@ -179,6 +180,38 @@ const AlwaysRed = ({text}) => <div className={MyStyles.alwaysRedClass}>{text}</d
 const OnlyRedOnHover = ({text}) => <div className={MyStyles.onlyRedOnHoverClass}>{text}</div>
 ```
 
+## Fallbacks
+There are two kinds of fallbacks in CSS and both are supported: 
+
+* Same key multiple values: Just use an *array* for the value e.g. background colors
+
+```ts
+const fallBackBackground = style({
+  backgroundColor: [
+    /* The fallback */
+    'rgb(200, 54, 54)',
+    /** Graceful upgrade */
+    'rgba(200, 54, 54, 0.5)'
+  ]
+});
+```
+
+* Vendor prefixing: Anything that starts with `-` is not case renamed (i.e. no `fooBar` => `foo-bar`) e.g. for smooth scroll: 
+
+```ts
+const scroll = style({
+  '-webkit-overflow-scrolling': 'touch',
+  overflow: 'auto'
+});
+```
+
+> Protip: Big fan of flexbox? Use [csx][csx] as it provides the necessary vendor prefixes so you don't need to worry about them.
+
+Note: We don't do *automatic* vendor prefixing for a few reasons:
+
+* Code bloat, runtime performance, you might want more control (we don't make choices that you might need to undo).
+* Vendor prefixing has no future: https://webkit.org/blog/6131/updating-our-prefixing-policy/
+
 ## How
 This works very much in the same principle as CSS modules in that it takes a style object and generates a *non conflicting generated* class name.
 
@@ -200,3 +233,4 @@ Same as [FreeStyle][free-style] which is *super simple* and does the *absolute m
 [npm-image]: https://img.shields.io/npm/v/typestyle.svg?style=flat
 [npm-url]: https://npmjs.org/package/typestyle
 [css.d.ts]: https://github.com/typestyle/typestyle/blob/master/src/css.d.ts
+[csx]:https://github.com/typestyle/csx
