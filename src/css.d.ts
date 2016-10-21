@@ -2,7 +2,7 @@ type CSSValueGeneral = number | string | (number | string)[];
 type CSSValueString = string | string[];
 
 /**
- * This interface documents key CSS properties for autocomplete 
+ * This interface documents key CSS properties for autocomplete
  */
 interface CSSProperties {
 
@@ -42,12 +42,19 @@ interface CSSProperties {
   animationDirection?: any;
 
   /**
+   * The animation-duration CSS property specifies the length of time that an animation should take to complete one cycle.
+   * A value of '0s', which is the default value, indicates that no animation should occur.
+   */
+  animationDuration?: CSSValueString;
+
+  /**
    * Specifies how many times an animation cycle should play.
    */
   animationIterationCount?: any;
 
   /**
    * Defines the list of animations that apply to the element.
+   * Note: You probably want animationDuration as well
    */
   animationName?: any;
 
