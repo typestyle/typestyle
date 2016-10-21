@@ -1,5 +1,9 @@
+type CSSDirection = CSSGlobalValues | 'normal' | 'alternate' | 'reverse' | 'alternate-reverse';
+type CSSGlobalValues = 'unset' | 'initial' | 'inherit';
+type CSSTimingFunction = string | CSSGlobalValues | 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear' | 'step-start' | 'step-end';
 type CSSValueGeneral = number | string | (number | string)[];
 type CSSValueString = string | string[];
+
 
 /**
  * This interface documents key CSS properties for autocomplete
@@ -39,7 +43,7 @@ interface CSSProperties {
   /**
    * Defines whether an animation should run in reverse on some or all cycles.
    */
-  animationDirection?: any;
+  animationDirection?: CSSDirection;
 
   /**
    * The animation-duration CSS property specifies the length of time that an animation should take to complete one cycle.
@@ -58,6 +62,11 @@ interface CSSProperties {
    */
   animationName?: any;
 
+  /**
+   * Sets the pace of an animation
+   */  
+  animationTimingFunction?: CSSTimingFunction; 
+  
   /**
    * Defines whether an animation is running or paused.
    */
@@ -1260,7 +1269,7 @@ interface CSSProperties {
   /**
    * Sets the pace of action within a transition
    */
-  transitionTimingFunction?: any;
+  transitionTimingFunction?: CSSTimingFunction;
 
   /**
    * The unicode-bidi CSS property specifies the level of embedding with respect to the bidirectional algorithm.
