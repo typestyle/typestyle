@@ -1447,6 +1447,17 @@ interface NestedCSSProperties extends CSSProperties {
   '&:first-child'?: NestedCSSProperties;
   '&:last-child'?: NestedCSSProperties;
 
+  /**
+   * Mobile first media query example
+   * e.g. style({ mobile, '@media' : notMobile });
+   **/
+  '@media screen and (min-width: 700px)'?: NestedCSSProperties;
+  /**
+   * Desktop first media query example
+   * e.g. style({ desktop, '@media' : notDesktop });
+   **/
+  '@media screen and (max-width: 700px)'?: NestedCSSProperties;
+
   /** General purpose */
   [selector: string]: CSSValueGeneral | NestedCSSProperties;
 }
