@@ -1,4 +1,6 @@
 .alm
+.vscode
+.idea
 
 # Logs
 logs

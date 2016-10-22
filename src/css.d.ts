@@ -1,7 +1,29 @@
-type CSSDirection = CSSGlobalValues | 'normal' | 'alternate' | 'reverse' | 'alternate-reverse';
-type CSSGlobalValues = 'unset' | 'initial' | 'inherit';
-type CSSTimingFunction = string | CSSGlobalValues | 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear' | 'step-start' | 'step-end';
+/**
+ * CSS properties that cascade also support these
+ * https://drafts.csswg.org/css-cascade/#defaulting-keywords
+ */
+type CSSGlobalValues
+  = 'initial'
+  | 'inherit'
+  | /** combination of `initial` and `inherit` */ 'unset'
+  | 'revert';
+
+/** Supporting by `-timing-function` properties */
+type CSSTimingFunction
+  = /** e.g. steps(int,start|end)|cubic-bezier(n,n,n,n) */ string
+  | CSSGlobalValues
+  | 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear' | 'step-start' | 'step-end'
+
+/**
+ * For general puporse CSS values
+ * NOTE: array is for fallbacks
+ **/
 type CSSValueGeneral = number | string | (number | string)[];
+
+/**
+ * When you are sure that the value must be a string
+ * NOTE: array is for fallbacks
+ **/
 type CSSValueString = string | string[];
 
 
@@ -43,7 +65,7 @@ interface CSSProperties {
   /**
    * Defines whether an animation should run in reverse on some or all cycles.
    */
-  animationDirection?: CSSDirection;
+  animationDirection?: CSSGlobalValues | 'normal' | 'alternate' | 'reverse' | 'alternate-reverse';
 
   /**
    * The animation-duration CSS property specifies the length of time that an animation should take to complete one cycle.
@@ -64,9 +86,9 @@ interface CSSProperties {
 
   /**
    * Sets the pace of an animation
-   */  
-  animationTimingFunction?: CSSTimingFunction; 
-  
+   */
+  animationTimingFunction?: CSSTimingFunction;
+
   /**
    * Defines whether an animation is running or paused.
    */
