@@ -23,6 +23,7 @@ There are quite a few css in js frameworks out there. This one is different:
 * [Server side](#server-side)
 * [Pseudo Classes, Animations, Media Queries](#advanced)
 * [Fallbacks](#fallbacks)
+* [CSS Replacement](#css-replacement)
 * [How](#how)
   * [Really How](#really-how)
 * [Performance](#performance)
@@ -33,7 +34,7 @@ There are quite a few css in js frameworks out there. This one is different:
 Use it like you would use CSS modules or CSS in general with webpack etc, but this time you get to use TypeScript / JavaScript!
 
 **Install**
-`npm install typestyle --save`  
+`npm install typestyle --save`
 
 **Use**
 ```tsx
@@ -181,7 +182,7 @@ const OnlyRedOnHover = ({text}) => <div className={MyStyles.onlyRedOnHoverClass}
 ```
 
 ## Fallbacks
-There are two kinds of fallbacks in CSS and both are supported: 
+There are two kinds of fallbacks in CSS and both are supported:
 
 * Same key multiple values: Just use an *array* for the value e.g. background colors
 
@@ -196,7 +197,7 @@ const fallBackBackground = style({
 });
 ```
 
-* Vendor prefixing: Anything that starts with `-` is not case renamed (i.e. no `fooBar` => `foo-bar`) e.g. for smooth scroll: 
+* Vendor prefixing: Anything that starts with `-` is not case renamed (i.e. no `fooBar` => `foo-bar`) e.g. for smooth scroll:
 
 ```ts
 const scroll = style({
@@ -211,6 +212,39 @@ Note: We don't do *automatic* vendor prefixing for a few reasons:
 
 * Code bloat, runtime performance, you might want more control (we don't make choices that you might need to undo).
 * Vendor prefixing has no future: https://webkit.org/blog/6131/updating-our-prefixing-policy/
+
+## CSS Replacement
+You can even use any raw CSS selector as well using `cssRule` e.g.
+
+* To setup a application style layout:
+
+```ts
+/** Use full window size for application */
+cssRule('html, body', {
+  height: '100%',
+  width: '100%',
+  padding: 0,
+  margin: 0
+});
+```
+* Font faces:
+```ts
+cssRule('@font-face', {
+  fontFamily: '"Bitstream Vera Serif Bold"',
+  src: 'url("https://mdn.mozillademos.org/files/2468/VeraSeBd.ttf")'
+});
+```
+* Page level media queries:
+```ts
+/** Save ink with a white background */
+cssRule('@media print', {
+  body: {
+    background: 'white'
+  }
+});
+```
+
+> Advantage: `cssRule(selector,properties)` works seemlessly in a nodejs enviroment (for testing) whereas `require('./someCss.css')` does not without additional setup.
 
 ## How
 This works very much in the same principle as CSS modules in that it takes a style object and generates a *non conflicting generated* class name.
