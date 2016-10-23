@@ -61,9 +61,67 @@ export function style(...objects: NestedCSSProperties[]) {
  * Takes Keyframes and returns a generated animation name
  */
 export function keyframes(frames: KeyFrames) {
+  // resolve keyframe css property helpers
+  for (const key in frames) {
+    const frame = frames[key];
+    for (const prop in frame) {
+        const val = frame[prop] as CSSType<string>;
+        if (typeof val.dataType === 'string') {
+          frame[prop] = val.toString();
+        }
+    }
+  }
   const animationName = freeStyle.registerKeyframes(frames);
   styleUpdated();
   return animationName;
+}
+
+/**
+ * Helper for the linear-gradient function in CSS
+ * https://drafts.csswg.org/css-images-3/#funcdef-linear-gradient
+ */
+export function hsl(hue: number, saturation: CSSPercentage, lightness: CSSPercentage): CSSType<'color'> {
+  return {
+    dataType: 'color',
+    toString: cssFunction.bind(undefined, 'hsl', hue, saturation, lightness)
+  };
+}
+
+export function hsla(hue: number, saturation: CSSPercentage, lightness: CSSPercentage, opacity: number): CSSType<'color'> {
+  return {
+    dataType: 'color',
+    toString: cssFunction.bind(undefined, 'hsla', hue, saturation, lightness, opacity)
+  };
+}
+
+/**
+ * Helper for the linear-gradient function in CSS
+ * https://drafts.csswg.org/css-images-3/#funcdef-linear-gradient
+ */
+export function linearGradient(position: CSSAngle | CSSSideOrCorner, ...colors: (CSSColor | [CSSColor, CSSPercentage | CSSLength])[]): CSSType<'gradient'> {
+  return {
+    dataType: 'gradient',
+    toString: cssFunction.bind(undefined, 'linear-gradient', position, ...colors)
+  };
+}
+
+/**
+ * Helper for the repeating-linear-gradient function in CSS
+ * https://drafts.csswg.org/css-images-3/#funcdef-repeating-linear-gradient
+ */
+export function repeatingLinearGradient(position: CSSSideOrCorner, ...colors: (CSSColor | [CSSColor, CSSPercentage | CSSLength])[]): CSSType<'gradient'> {
+  return {
+    dataType: 'gradient',
+    toString: cssFunction.bind(undefined, 'repeating-linear-gradient', position, ...colors)
+  };
+}
+
+function cssFunction(functionName: string, arg1: CSSValueGeneral, ...params: (string | number | CSSType<string> | (string | number | CSSType<string>)[])[]): string {
+  // reduce the css function.  Assumption is that most css function fall into this pattern:
+  // Example: function-name(param [, param]) and each param is delimited by spaces
+  // calling toString is really important here since CSSTypes, string, and numbers all have toString(): string
+  const parts = params.reduce((c, n) => c + ',' + (Array.isArray(n) ? n.map(n2 => n2.toString()).join(' ') : n.toString()), arg1.toString());
+  return `${functionName}(${parts})`;
 }
 
 /**
@@ -75,6 +133,7 @@ export function extend(...objects: NestedCSSProperties[]): NestedCSSProperties {
   const result: NestedCSSProperties = {};
   for (const object of objects) {
     for (const key in object) {
+      const val = object[key];
       if (
         // Some psuedo state or media query
         (key.indexOf('&') !== -1 || key.indexOf('@media') === 0)
@@ -84,9 +143,12 @@ export function extend(...objects: NestedCSSProperties[]): NestedCSSProperties {
         // Then extend in the final result
         result[key] = extend(result[key] as any, object);
       }
+      else if (typeof (val as CSSType<string>).dataType === 'string') {
+        result[key] = val.toString();
+      }
       // Otherwise just copy to output
       else {
-        result[key] = object[key];
+        result[key] = val;
       }
     }
   }

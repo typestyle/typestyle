@@ -1,4 +1,63 @@
 /**
+ * an angle; 0' | '0deg' | '0grad' | '0rad' | '0turn' | 'etc.
+ * https://drafts.csswg.org/css-values-3/#angles
+ */
+type CSSAngle = CSSGlobalValues | string | 0 | CSSType<'angle'>;
+
+/**
+ * an length; 0 | '0px' | '0em' etc.
+ * https://drafts.csswg.org/css-values-3/#angles
+ */
+type CSSLength = CSSGlobalValues | string | 0 | CSSType<'length'>;
+
+/**
+ * a percentage; 0 | '0%' etc.
+ * https://drafts.csswg.org/css-values-3/#percentage
+ */
+type CSSPercentage = CSSGlobalValues | string | 0 | CSSType<'percentage'>;
+
+/**
+ * Color can be a named color, transparent, or a color function
+ * https://drafts.csswg.org/css-color-3/#valuea-def-color
+ */
+type CSSColor =
+  CSSGlobalValues  
+  /* color function as a string */  
+  | string
+  | 'transparent'
+  /* basic colors */  
+  | 'aqua' | 'black' | 'blue' | 'fuchsia' | 'gray' | 'green' | 'lime' | 'maroon' | 'navy' | 'olive' | 'purple' | 'red' | 'silver' | 'teal' | 'white' | 'yellow'
+  | CSSType<'color'>;
+
+/**
+ * Starting position for many gradients
+ * https://drafts.csswg.org/css-images-3/#typedef-side-or-corner
+ */
+type CSSSideOrCorner = CSSAngle
+  | 'left' | 'right' | 'top' | 'bottom'
+  | 'to left' | 'to right' | 'to top' | 'to bottom'
+  | 'left top' | 'right top' | 'left bottom' | 'right bottom'
+  | 'top left' | 'top right' | 'bottom left' | 'bottom right'
+  | 'to left top' | 'to right top' | 'to left bottom' | 'to right bottom'
+  | 'to top left' | 'to top right' | 'to bottom left' | 'to bottom right'
+  | CSSType<'side-or-corner'>;  
+
+/**
+ * initial state of an animation.
+ * https://drafts.csswg.org/css-animations/#animation-play-state
+ */
+type CSSAnimationPlayState = CSSGlobalValues | string | 'paused' | 'running' | CSSType<'animation-play-state'>;
+
+/**
+ * Interface for CSS Property Helpers.
+ * Must implement toString and declare the dataType they handle ('color', 'length', etc.)
+ */
+type CSSType<T extends string> = {
+  toString(): string;
+  dataType: T;
+}
+
+/**
  * CSS properties that cascade also support these
  * https://drafts.csswg.org/css-cascade/#defaulting-keywords
  */
@@ -128,7 +187,7 @@ interface CSSProperties {
   /**
    * Sets the background color of an element.
    */
-  backgroundColor?: any;
+  backgroundColor?: CSSColor;
 
   backgroundComposite?: any;
 
@@ -1448,7 +1507,7 @@ interface NestedCSSProperties extends CSSProperties {
   '&:last-child'?: NestedCSSProperties;
 
   /** General purpose */
-  [selector: string]: CSSValueGeneral | NestedCSSProperties;
+  [selector: string]: CSSValueGeneral | CSSType<string> |  NestedCSSProperties;
 }
 
 /**
