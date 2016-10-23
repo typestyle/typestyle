@@ -10,7 +10,7 @@ import * as FreeStyle from "free-style";
  */
 const {afterAllSync} = new class {
   pending: any;
-  afterAllSync = (cb:()=>void) => {
+  afterAllSync = (cb: () => void) => {
     if (this.pending) clearTimeout(this.pending);
     this.pending = setTimeout(cb);
   }
@@ -21,7 +21,7 @@ const {afterAllSync} = new class {
  */
 let freeStyle = FreeStyle.create();
 let lastChangeId = freeStyle.changeId;
-let singletonTag: {innerHTML: string} = typeof window === 'undefined' ? { innerHTML: '' } : document.createElement('style') ;
+let singletonTag: { innerHTML: string } = typeof window === 'undefined' ? { innerHTML: '' } : document.createElement('style');
 if (typeof document !== 'undefined') document.head.appendChild(singletonTag as any);
 
 /** Checks if the style tag needs updating and if so queues up the change */
@@ -75,10 +75,10 @@ export function keyframes(frames: KeyFrames) {
   for (const key in frames) {
     const frame = frames[key];
     for (const prop in frame) {
-        const val = frame[prop] as CSSType<string>;
-        if (typeof val.type === 'string') {
-          frame[prop] = val.toString();
-        }
+      const val = frame[prop] as CSSType<string>;
+      if (typeof val.type === 'string') {
+        frame[prop] = val.toString();
+      }
     }
   }
   const animationName = freeStyle.registerKeyframes(frames);
@@ -93,14 +93,14 @@ export function keyframes(frames: KeyFrames) {
 export function hsl(hue: number, saturation: CSSPercentage, lightness: CSSPercentage): CSSType<'color'> {
   return {
     type: 'color',
-    toString: cssFunction.bind(undefined, 'hsl', hue, saturation, lightness)
+    toString: () => cssFunction('hsl', hue, saturation, lightness)
   };
 }
 
 export function hsla(hue: number, saturation: CSSPercentage, lightness: CSSPercentage, opacity: number): CSSType<'color'> {
   return {
     type: 'color',
-    toString: cssFunction.bind(undefined, 'hsla', hue, saturation, lightness, opacity)
+    toString: () => cssFunction('hsla', hue, saturation, lightness, opacity)
   };
 }
 
@@ -111,7 +111,7 @@ export function hsla(hue: number, saturation: CSSPercentage, lightness: CSSPerce
 export function linearGradient(position: CSSAngle | CSSSideOrCorner, ...colors: (CSSColor | [CSSColor, CSSPercentage | CSSLength])[]): CSSType<'gradient'> {
   return {
     type: 'gradient',
-    toString: cssFunction.bind(undefined, 'linear-gradient', position, ...colors)
+    toString: () => cssFunction('linear-gradient', position, ...colors)
   };
 }
 
@@ -122,13 +122,14 @@ export function linearGradient(position: CSSAngle | CSSSideOrCorner, ...colors: 
 export function repeatingLinearGradient(position: CSSSideOrCorner, ...colors: (CSSColor | [CSSColor, CSSPercentage | CSSLength])[]): CSSType<'gradient'> {
   return {
     type: 'gradient',
-    toString: cssFunction.bind(undefined, 'repeating-linear-gradient', position, ...colors)
+    toString: () => cssFunction('repeating-linear-gradient', position, ...colors)
   };
 }
 
 function cssFunction(functionName: string, arg1: CSSValueGeneral, ...params: (string | number | CSSType<string> | (string | number | CSSType<string>)[])[]): string {
   // reduce the css function.  Assumption is that most css function fall into this pattern:
-  // Example: function-name(param [, param]) and each param is delimited by spaces
+  // Example: function-name(param [, param])
+  // Each param is delimited by spaces
   // calling toString is really important here since CSSTypes, string, and numbers all have toString(): string
   const parts = params.reduce((c, n) => c + ',' + (Array.isArray(n) ? n.map(n2 => n2.toString()).join(' ') : n.toString()), arg1.toString());
   return `${functionName}(${parts})`;

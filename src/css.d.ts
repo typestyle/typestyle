@@ -89,13 +89,13 @@ type CSSTimingFunction
  * For general puporse CSS values
  * NOTE: array is for fallbacks
  **/
-type CSSValueGeneral = number | string | (number | string)[];
+type CSSValueGeneral = number | string | (number | string)[] | CSSType<string>;
 
 /**
  * When you are sure that the value must be a string
  * NOTE: array is for fallbacks
  **/
-type CSSValueString = string | string[];
+type CSSValueString = string | string[] | CSSType<string>;
 
 
 /**
