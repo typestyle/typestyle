@@ -60,7 +60,7 @@ export function style(...objects: NestedCSSProperties[]) {
 /**
  * Takes CSSProperties and registers it to a global selector (body, html, etc.)
  */
-export function rule(selector: string, ...objects: CSSProperties[]): void {
+export function globalRule(selector: string, ...objects: CSSProperties[]): void {
   const object = extend(...objects);
   freeStyle.registerRule(selector, object);
   styleUpdated();
