@@ -17,6 +17,18 @@ type CSSLength = CSSGlobalValues | string | 0 | CSSType<'length'>;
 type CSSPercentage = CSSGlobalValues | string | 0 | CSSType<'percentage'>;
 
 /**
+ * a gradient function like linear-gradient
+ * https://drafts.csswg.org/css-images-3/#gradients
+ */
+type CSSGradient = CSSGlobalValues | string | CSSType<'gradient'>;
+
+/**
+ * a value that serves as an image
+ * https://drafts.csswg.org/css-images-3/#typedef-image
+ */
+type CSSImage = CSSGlobalValues | string | CSSGradient;
+
+/**
  * Color can be a named color, transparent, or a color function
  * https://drafts.csswg.org/css-color-3/#valuea-def-color
  */
@@ -52,7 +64,7 @@ type CSSAnimationPlayState = CSSGlobalValues | string | 'paused' | 'running' | C
  * Interface for CSS Property Helpers.
  * Must implement toString and declare the dataType they handle ('color', 'length', etc.)
  */
-type CSSType<T extends string> = {
+type CSSType<T> = {
   toString(): string;
   dataType: T;
 }
@@ -194,7 +206,7 @@ interface CSSProperties {
   /**
    * Applies one or more background images to an element. These can be any valid CSS image, including url() paths to image files or CSS gradients.
    */
-  backgroundImage?: any;
+  backgroundImage?: CSSImage;
 
   /**
    * Specifies what the background-position property is relative to.
