@@ -1,10 +1,11 @@
-#tests
-/src/tests/**
+# tests
+src/tests
 
-#build tools
+# build tools
 .travis.yml
 
-#editor settings
+# editor settings
 .editorconfig
-.alm/**
+.alm
 alm.json
+book.json
