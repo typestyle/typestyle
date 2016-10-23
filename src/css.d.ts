@@ -33,11 +33,11 @@ type CSSImage = CSSGlobalValues | string | CSSGradient;
  * https://drafts.csswg.org/css-color-3/#valuea-def-color
  */
 type CSSColor =
-  CSSGlobalValues  
-  /* color function as a string */  
+  CSSGlobalValues
+  /* color function as a string */
   | string
   | 'transparent'
-  /* basic colors */  
+  /* basic colors */
   | 'aqua' | 'black' | 'blue' | 'fuchsia' | 'gray' | 'green' | 'lime' | 'maroon' | 'navy' | 'olive' | 'purple' | 'red' | 'silver' | 'teal' | 'white' | 'yellow'
   | CSSType<'color'>;
 
@@ -52,7 +52,7 @@ type CSSSideOrCorner = CSSAngle
   | 'top left' | 'top right' | 'bottom left' | 'bottom right'
   | 'to left top' | 'to right top' | 'to left bottom' | 'to right bottom'
   | 'to top left' | 'to top right' | 'to bottom left' | 'to bottom right'
-  | CSSType<'side-or-corner'>;  
+  | CSSType<'side-or-corner'>;
 
 /**
  * initial state of an animation.
@@ -62,11 +62,11 @@ type CSSAnimationPlayState = CSSGlobalValues | string | 'paused' | 'running' | C
 
 /**
  * Interface for CSS Property Helpers.
- * Must implement toString and declare the dataType they handle ('color', 'length', etc.)
+ * Must implement toString and declare the `type`` they handle ('color', 'length', etc.)
  */
 type CSSType<T> = {
   toString(): string;
-  dataType: T;
+  type: T;
 }
 
 /**

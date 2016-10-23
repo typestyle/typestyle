@@ -76,7 +76,7 @@ export function keyframes(frames: KeyFrames) {
     const frame = frames[key];
     for (const prop in frame) {
         const val = frame[prop] as CSSType<string>;
-        if (typeof val.dataType === 'string') {
+        if (typeof val.type === 'string') {
           frame[prop] = val.toString();
         }
     }
@@ -92,14 +92,14 @@ export function keyframes(frames: KeyFrames) {
  */
 export function hsl(hue: number, saturation: CSSPercentage, lightness: CSSPercentage): CSSType<'color'> {
   return {
-    dataType: 'color',
+    type: 'color',
     toString: cssFunction.bind(undefined, 'hsl', hue, saturation, lightness)
   };
 }
 
 export function hsla(hue: number, saturation: CSSPercentage, lightness: CSSPercentage, opacity: number): CSSType<'color'> {
   return {
-    dataType: 'color',
+    type: 'color',
     toString: cssFunction.bind(undefined, 'hsla', hue, saturation, lightness, opacity)
   };
 }
@@ -110,7 +110,7 @@ export function hsla(hue: number, saturation: CSSPercentage, lightness: CSSPerce
  */
 export function linearGradient(position: CSSAngle | CSSSideOrCorner, ...colors: (CSSColor | [CSSColor, CSSPercentage | CSSLength])[]): CSSType<'gradient'> {
   return {
-    dataType: 'gradient',
+    type: 'gradient',
     toString: cssFunction.bind(undefined, 'linear-gradient', position, ...colors)
   };
 }
@@ -121,7 +121,7 @@ export function linearGradient(position: CSSAngle | CSSSideOrCorner, ...colors: 
  */
 export function repeatingLinearGradient(position: CSSSideOrCorner, ...colors: (CSSColor | [CSSColor, CSSPercentage | CSSLength])[]): CSSType<'gradient'> {
   return {
-    dataType: 'gradient',
+    type: 'gradient',
     toString: cssFunction.bind(undefined, 'repeating-linear-gradient', position, ...colors)
   };
 }
@@ -153,7 +153,7 @@ export function extend(...objects: NestedCSSProperties[]): NestedCSSProperties {
         // Then extend in the final result
         result[key] = extend(result[key] as any, object);
       }
-      else if (typeof (val as CSSType<string>).dataType === 'string') {
+      else if (typeof (val as CSSType<string>).type === 'string') {
         result[key] = val.toString();
       }
       // Otherwise just copy to output
