@@ -58,6 +58,16 @@ export function style(...objects: NestedCSSProperties[]) {
 }
 
 /**
+ * Takes CSSProperties and registers it to a global selector (body, html, etc.)
+ */
+export function rule(selector: string, ...objects: NestedCSSProperties[]): void {
+  const object = extend(...objects);
+  freeStyle.registerRule(selector, object);
+  styleUpdated();
+  return;
+}
+
+/**
  * Takes Keyframes and returns a generated animation name
  */
 export function keyframes(frames: KeyFrames) {
