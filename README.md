@@ -1,5 +1,7 @@
 # TypeStyle
 
+[![Join the chat at  gitter][gitter-image]][gitter-url]
+
 > Making CSS type safe.
 
 [![Build Status][travis-image]][travis-url]
@@ -268,3 +270,5 @@ Same as [FreeStyle][free-style] which is *super simple* and does the *absolute m
 [npm-url]: https://npmjs.org/package/typestyle
 [css.d.ts]: https://github.com/typestyle/typestyle/blob/master/src/css.d.ts
 [csx]:https://github.com/typestyle/csx
+[gitter-image]: https://badges.gitter.im/Join%20Chat.svg
+[gitter-url]: https://gitter.im/typestyle/Lobby
