@@ -1,1 +1,1 @@
-* [Box Model](/box-model.md)
+* [CSS Core Concepts](/css.md)
