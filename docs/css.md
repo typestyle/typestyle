@@ -1,7 +1,7 @@
 # Fundamental concepts
 There is very little fundamental knowledge you need.
 
-## Margin is the enemy
+## Never let margin bleed
 You really only need to know the difference between `margin` (something that's outside) and `padding` (something that is inside). Here's a picture:
 
 ![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/master/images/book/marginpadding.gif)
@@ -17,7 +17,7 @@ Not only that, if an element is unfortunate to be at the border of its parent, i
 
 This makes it very difficult to create a maintainable layout system with margins. [](TODO: We will use them *but never in a container that has padding less than the child's margin*. More on this later.)
 
-## Inline is the enemy
+## Avoid inline
 Having an element as `display: inline` means that it completely ignores its height. Here is a visual difference where an element has been given a height but `inline` ignored it and `inline-block` got it.
 
 ![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/master/images/book/inline.png)
@@ -60,7 +60,7 @@ html {
 }
 ```
 
-## Root
+# Root
 Combine all that we've talked about and we have the following page setup.
 
 ```html
