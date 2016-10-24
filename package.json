@@ -1,6 +1,6 @@
 {
   "name": "typestyle",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "TypeSafe CSS",
   "main": "./src/index.js",
   "typings": "./src/index",
