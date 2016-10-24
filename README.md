@@ -27,6 +27,7 @@ There are quite a few css in js frameworks out there. This one is different:
 * [Fallbacks](#fallbacks)
 * [CSS Replacement](#css-replacement)
 * [CSX](#csx)
+* [Book](#book)
 * [How](#how)
   * [Really How](#really-how)
 * [Performance](#performance)
@@ -288,6 +289,11 @@ const Demo = () =>
     <div>Three</div>
   </div>;
 ```
+
+## Book
+We really really want to make CSS maintainable and simple. So we even wrote a Free and OSS book for how to use the utility styles in `csx`.
+
+[![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/master/images/book/cover.png)](https://basarat.gitbooks.io/typestyle/content/)
 
 ## How
 This works very much in the same principle as CSS modules in that it takes a style object and generates a *non conflicting generated* class name.
