@@ -114,7 +114,7 @@ const className = style({
   },
   '&:first-child': {
     marginTop: '0px',
-  }
+  },
   '&:last-child': {
     marginBottom: '0px',
   }
