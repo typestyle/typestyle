@@ -6,7 +6,7 @@ type CSSAngle = CSSGlobalValues | string | 0 | CSSType<'angle'>;
 
 /**
  * an length; 0 | '0px' | '0em' etc.
- * https://drafts.csswg.org/css-values-3/#angles
+ * https://drafts.csswg.org/css-values-3/#lengths
  */
 type CSSLength = CSSGlobalValues | string | 0 | CSSType<'length'>;
 
