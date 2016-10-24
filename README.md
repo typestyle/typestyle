@@ -26,6 +26,7 @@ There are quite a few css in js frameworks out there. This one is different:
 * [Pseudo Classes, Animations, Media Queries](#advanced)
 * [Fallbacks](#fallbacks)
 * [CSS Replacement](#css-replacement)
+* [CSX](#csx)
 * [How](#how)
   * [Really How](#really-how)
 * [Performance](#performance)
@@ -247,6 +248,46 @@ cssRule('@media print', {
 ```
 
 > Advantage: `cssRule(selector,properties)` works seemlessly in a nodejs enviroment (for testing) whereas `require('./someCss.css')` does not without additional setup.
+
+## CSX
+
+We understand that its difficult to get started with CSS in JS without additional guidance. So we also provide *a lot* of utility style objects in `typestyle/csx` to decrease you rampup. e.g. flexbox:
+
+```js
+import * as csx from 'typestyle/csx';
+import {style} from 'typestyle';
+
+const horizontal = style(csx.horizontal);
+
+/** Sample usage with React */
+var Demo = () =>
+  <div className={horizontal}>
+    <div>One</div>
+    <div>Two</div>
+    <div>Three</div>
+  </div>;
+```
+
+Ofcourse you can compose styles easily:
+
+```js
+import * as csx from 'typestyle/csx';
+import {style} from 'typestyle';
+
+const flexHorizontalGreen = style(
+  csx.flex,
+  csx.horizontal,
+  { backgroundColor: 'green' }
+);
+
+/** Sample usage with React */
+const Demo = () =>
+  <div className={flexHorizontalGreen}>
+    <div>One</div>
+    <div>Two</div>
+    <div>Three</div>
+  </div>;
+```
 
 ## How
 This works very much in the same principle as CSS modules in that it takes a style object and generates a *non conflicting generated* class name.
