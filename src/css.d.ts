@@ -1,32 +1,62 @@
 /**
+ * Value of a CSS Property.  Could be a single value or a list of fallbacks
+ * NOTE: array is for fallbacks
+ */
+type CSSValue<T> = T | T[];
+
+/**
+ * Interface for CSS Property Helpers.
+ * Must implement toString and declare the `type`` they handle ('color', 'length', etc.)
+ */
+type CSSType<T> = {
+  toString(): string;
+  type: T;
+}
+
+/**
+ * For general purpose CSS values
+ **/
+type CSSValueGeneral = CSSValue<number | string | CSSType<string>>;
+
+/**
+ * When you are sure that the value must be a string
+ **/
+type CSSValueString = CSSValue<string | CSSType<string>>;
+
+/**
+ * CSS properties that cascade also support these
+ * https://drafts.csswg.org/css-cascade/#defaulting-keywords
+ */
+type CSSGlobalValues
+  = 'initial'
+  | 'inherit'
+  | /** combination of `initial` and `inherit` */ 'unset'
+  | 'revert';
+
+/**
+ * Absolute size keywords
+ * https://drafts.csswg.org/css-fonts-3/#absolute-size-value
+ */
+type CSSAbsoluteSize = 'xx-small' | 'x-small' | 'small' | 'medium' | 'large'
+  | 'x-large' | 'xx-large' | CSSType<'absolute-size'>;
+
+/**
  * an angle; 0' | '0deg' | '0grad' | '0rad' | '0turn' | 'etc.
  * https://drafts.csswg.org/css-values-3/#angles
  */
 type CSSAngle = CSSGlobalValues | string | 0 | CSSType<'angle'>;
 
 /**
- * an length; 0 | '0px' | '0em' etc.
- * https://drafts.csswg.org/css-values-3/#lengths
+ * initial state of an animation.
+ * https://drafts.csswg.org/css-animations/#animation-play-state
  */
-type CSSLength = CSSGlobalValues | string | 0 | CSSType<'length'>;
+type CSSAnimationPlayState = CSSGlobalValues | string | 'paused' | 'running' | CSSType<'animation-play-state'>;
 
 /**
- * a percentage; 0 | '0%' etc.
- * https://drafts.csswg.org/css-values-3/#percentage
+ * Determines the area within which the background is painted.
+ * https://drafts.csswg.org/css-backgrounds/#box
  */
-type CSSPercentage = CSSGlobalValues | string | 0 | CSSType<'percentage'>;
-
-/**
- * a gradient function like linear-gradient
- * https://drafts.csswg.org/css-images-3/#gradients
- */
-type CSSGradient = CSSGlobalValues | string | CSSType<'gradient'>;
-
-/**
- * a value that serves as an image
- * https://drafts.csswg.org/css-images-3/#typedef-image
- */
-type CSSImage = CSSGlobalValues | string | CSSGradient;
+type CSSBox = CSSGlobalValues | string | 'border-box' | 'padding-box' | 'content-box' | CSSType<'box'>;
 
 /**
  * Color can be a named color, transparent, or a color function
@@ -41,8 +71,76 @@ type CSSColor =
   | 'aqua' | 'black' | 'blue' | 'fuchsia' | 'gray' | 'green' | 'lime' | 'maroon' | 'navy' | 'olive' | 'purple' | 'red' | 'silver' | 'teal' | 'white' | 'yellow'
   | CSSType<'color'>;
 
+/**
+ * Special type for border-color which can use 1 or 4 colors
+ * https://drafts.csswg.org/css-backgrounds-3/#border-color
+ */
+type CSSColorSet = string | CSSColor | CSSType<'color-set'>
+
 /** For gradients etc */
 type CSSColorStop = [CSSColor, CSSPercentage | CSSLength];
+
+/**
+ * a gradient function like linear-gradient
+ * https://drafts.csswg.org/css-images-3/#gradients
+ */
+type CSSGradient = CSSGlobalValues | string | CSSType<'gradient'>;
+
+/**
+ * complex type that describes the size of fonts
+ * https://drafts.csswg.org/css-fonts-3/#propdef-font-size
+ */
+type CSSFontSize = CSSGlobalValues | CSSLength | CSSPercentage | CSSAbsoluteSize | CSSRelativeSize;
+
+/**
+ * a value that serves as an image
+ * https://drafts.csswg.org/css-images-3/#typedef-image
+ */
+type CSSImage = CSSGlobalValues | string | CSSGradient | CSSUrl | CSSType<'image'>;
+
+/**
+ * an length; 0 | '0px' | '0em' etc.
+ * https://drafts.csswg.org/css-values-3/#lengths
+ */
+type CSSLength = CSSGlobalValues | string | number | CSSType<'length'>;
+
+/**
+ * Style of a line (e.g. border-style)
+ * https://drafts.csswg.org/css-backgrounds-3/#line-style
+ */
+type CSSLineStyle = string | 'none' | 'hidden' | 'dotted'
+  | 'dashed' | 'solid' | 'double' | 'groove' | 'ridge' | 'inset'
+  | 'outset' | CSSType<'line-style'>;
+
+/**
+ * Special type for border-style which can use 1 or 4 line-style
+ * https://drafts.csswg.org/css-backgrounds-3/#border-style
+ */
+type CSSLineStyleSet = string | CSSLineStyle | CSSType<'line-style-set'>
+
+/**
+ * a percentage; 0 | '0%' etc.
+ * https://drafts.csswg.org/css-values-3/#percentage
+ */
+type CSSPercentage = CSSGlobalValues | string | 0 | CSSType<'percentage'>;
+
+/**
+ * Defines a position (e.g. background-position)
+ * https://drafts.csswg.org/css-backgrounds-3/#position
+ */
+type CSSPosition = CSSAngle | string | CSSType<'position'>;
+
+/**
+ * Relative size keywords
+ * https://drafts.csswg.org/css-fonts-3/#relative-size-value
+ */
+type CSSRelativeSize = 'larger' | 'smaller' | CSSType<'relative-size'>;
+
+/**
+ * Specifies how background images are tiled after they have been sized and positioned
+ * https://drafts.csswg.org/css-backgrounds/#repeat-style
+ */
+type CSSRepeatStyle = string | 'repeat-x' | 'repeat-y' | 'repeat' | 'space' | 'round' | 'no-repeat' | CSSType<'repeat-style'>;
 
 /**
  * Starting position for many gradients
@@ -57,49 +155,17 @@ type CSSSideOrCorner = CSSAngle
   | 'to top left' | 'to top right' | 'to bottom left' | 'to bottom right'
   | CSSType<'side-or-corner'>;
 
-/**
- * initial state of an animation.
- * https://drafts.csswg.org/css-animations/#animation-play-state
- */
-type CSSAnimationPlayState = CSSGlobalValues | string | 'paused' | 'running' | CSSType<'animation-play-state'>;
-
-/**
- * Interface for CSS Property Helpers.
- * Must implement toString and declare the `type`` they handle ('color', 'length', etc.)
- */
-type CSSType<T> = {
-  toString(): string;
-  type: T;
-}
-
-/**
- * CSS properties that cascade also support these
- * https://drafts.csswg.org/css-cascade/#defaulting-keywords
- */
-type CSSGlobalValues
-  = 'initial'
-  | 'inherit'
-  | /** combination of `initial` and `inherit` */ 'unset'
-  | 'revert';
-
 /** Supporting by `-timing-function` properties */
 type CSSTimingFunction
   = /** e.g. steps(int,start|end)|cubic-bezier(n,n,n,n) */ string
   | CSSGlobalValues
-  | 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear' | 'step-start' | 'step-end'
+  | 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear' | 'step-start' | 'step-end' | CSSType<'timing-function'>;
 
 /**
- * For general puporse CSS values
- * NOTE: array is for fallbacks
- **/
-type CSSValueGeneral = number | string | (number | string)[] | CSSType<string>;
-
-/**
- * When you are sure that the value must be a string
- * NOTE: array is for fallbacks
- **/
-type CSSValueString = string | string[] | CSSType<string>;
-
+ * Expressed as url('protocol://')
+ * https://drafts.csswg.org/css-values-3/#urls
+ */
+type CSSUrl = string | CSSType<'url'>;
 
 /**
  * This interface documents key CSS properties for autocomplete
@@ -145,7 +211,7 @@ interface CSSProperties {
    * The animation-duration CSS property specifies the length of time that an animation should take to complete one cycle.
    * A value of '0s', which is the default value, indicates that no animation should occur.
    */
-  animationDuration?: CSSValueString;
+  animationDuration?: CSSValue<string>;
 
   /**
    * Specifies how many times an animation cycle should play.
@@ -156,7 +222,7 @@ interface CSSProperties {
    * Defines the list of animations that apply to the element.
    * Note: You probably want animationDuration as well
    */
-  animationName?: any;
+  animationName?: CSSValue<string>;
 
   /**
    * Sets the pace of an animation
@@ -202,29 +268,29 @@ interface CSSProperties {
   /**
    * Sets the background color of an element.
    */
-  backgroundColor?: CSSColor;
+  backgroundColor?: CSSValue<CSSColor>;
 
   backgroundComposite?: any;
 
   /**
    * Applies one or more background images to an element. These can be any valid CSS image, including url() paths to image files or CSS gradients.
    */
-  backgroundImage?: CSSImage;
+  backgroundImage?: CSSValue<CSSImage>;
 
   /**
    * Specifies what the background-position property is relative to.
    */
-  backgroundOrigin?: any;
+  backgroundOrigin?: CSSValue<CSSBox>;
 
   /**
    * Sets the position of a background image.
    */
-  backgroundPosition?: any;
+  backgroundPosition?: CSSValue<CSSPosition>;
 
   /**
    * Background-repeat defines if and how background images will be repeated after they have been sized and positioned
    */
-  backgroundRepeat?: any;
+  backgroundRepeat?: CSSValue<CSSRepeatStyle>;
 
   /**
    * Obsolete - spec retired, not implemented.
@@ -250,7 +316,7 @@ interface CSSProperties {
   /**
    * Sets the color of the bottom border of an element.
    */
-  borderBottomColor?: any;
+  borderBottomColor?: CSSValue<CSSColor>;
 
   /**
    * Defines the shape of the border of the bottom-left corner.
@@ -265,12 +331,12 @@ interface CSSProperties {
   /**
    * Sets the line style of the bottom border of a box.
    */
-  borderBottomStyle?: any;
+  borderBottomStyle?: CSSValue<CSSLineStyle>;
 
   /**
    * Sets the width of an element's bottom border. To set all four borders, use the border-width shorthand property which sets the values simultaneously for border-top-width, border-right-width, border-bottom-width, and border-left-width.
    */
-  borderBottomWidth?: any;
+  borderBottomWidth?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * Border-collapse can be used for collapsing the borders between table cells
@@ -284,7 +350,7 @@ interface CSSProperties {
    *      •       border-left-color The default color is the currentColor of each of these values.
    * If you provide one value, it sets the color for the element. Two values set the horizontal and vertical values, respectively. Providing three values sets the top, vertical, and bottom values, in that order. Four values set all for sides: top, right, bottom, and left, in that order.
    */
-  borderColor?: any;
+  borderColor?: CSSValue<CSSColorSet>;
 
   /**
    * Specifies different corner clipping effects, such as scoop (inner curves), bevel (straight cuts) or notch (cut-off rectangles). Works along with border-radius to specify the size of each corner effect.
@@ -294,12 +360,12 @@ interface CSSProperties {
   /**
    * The property border-image-source is used to set the image to be used instead of the border style. If this is set to none the border-style is used instead.
    */
-  borderImageSource?: any;
+  borderImageSource?: CSSValue<CSSImage>;
 
   /**
    * The border-image-width CSS property defines the offset to use for dividing the border image in nine parts, the top-left corner, central top edge, top-right-corner, central right edge, bottom-right corner, central bottom edge, bottom-left corner, and central right edge. They represent inward distance from the top, right, bottom, and left edges.
    */
-  borderImageWidth?: any;
+  borderImageWidth?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * Shorthand property that defines the border-width, border-style and border-color of an element's left border in a single declaration. Note that you can use the corresponding longhand properties to set specific individual properties of the left border — border-left-width, border-left-style and border-left-color.
@@ -310,17 +376,17 @@ interface CSSProperties {
    * The CSS border-left-color property sets the color of an element's left border. This page explains the border-left-color value, but often you will find it more convenient to fix the border's left color as part of a shorthand set, either border-left or border-color.
    * Colors can be defined several ways. For more information, see Usage.
    */
-  borderLeftColor?: any;
+  borderLeftColor?: CSSValue<CSSColor>;
 
   /**
    * Sets the style of an element's left border. To set all four borders, use the shorthand property, border-style. Otherwise, you can set the borders individually with border-top-style, border-right-style, border-bottom-style, border-left-style.
    */
-  borderLeftStyle?: any;
+  borderLeftStyle?: CSSValue<CSSLineStyle>;
 
   /**
    * Sets the width of an element's left border. To set all four borders, use the border-width shorthand property which sets the values simultaneously for border-top-width, border-right-width, border-bottom-width, and border-left-width.
    */
-  borderLeftWidth?: any;
+  borderLeftWidth?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * Shorthand property that defines the border-width, border-style and border-color of an element's right border in a single declaration. Note that you can use the corresponding longhand properties to set specific individual properties of the right border — border-right-width, border-right-style and border-right-color.
@@ -331,17 +397,17 @@ interface CSSProperties {
    * Sets the color of an element's right border. This page explains the border-right-color value, but often you will find it more convenient to fix the border's right color as part of a shorthand set, either border-right or border-color.
    * Colors can be defined several ways. For more information, see Usage.
    */
-  borderRightColor?: any;
+  borderRightColor?: CSSValue<CSSColor>;
 
   /**
    * Sets the style of an element's right border. To set all four borders, use the shorthand property, border-style. Otherwise, you can set the borders individually with border-top-style, border-right-style, border-bottom-style, border-left-style.
    */
-  borderRightStyle?: any;
+  borderRightStyle?: CSSValue<CSSLineStyle>;
 
   /**
    * Sets the width of an element's right border. To set all four borders, use the border-width shorthand property which sets the values simultaneously for border-top-width, border-right-width, border-bottom-width, and border-left-width.
    */
-  borderRightWidth?: any;
+  borderRightWidth?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * Specifies the distance between the borders of adjacent cells.
@@ -351,7 +417,7 @@ interface CSSProperties {
   /**
    * Sets the style of an element's four borders. This property can have from one to four values. With only one value, the value will be applied to all four borders; otherwise, this works as a shorthand property for each of border-top-style, border-right-style, border-bottom-style, border-left-style, where each border style may be assigned a separate value.
    */
-  borderStyle?: any;
+  borderStyle?: CSSValue<CSSLineStyleSet>;
 
   /**
    * Shorthand property that defines the border-width, border-style and border-color of an element's top border in a single declaration. Note that you can use the corresponding longhand properties to set specific individual properties of the top border — border-top-width, border-top-style and border-top-color.
@@ -362,7 +428,7 @@ interface CSSProperties {
    * Sets the color of an element's top border. This page explains the border-top-color value, but often you will find it more convenient to fix the border's top color as part of a shorthand set, either border-top or border-color.
    * Colors can be defined several ways. For more information, see Usage.
    */
-  borderTopColor?: any;
+  borderTopColor?: CSSValue<CSSColor>;
 
   /**
    * Sets the rounding of the top-left corner of the element.
@@ -377,17 +443,17 @@ interface CSSProperties {
   /**
    * Sets the style of an element's top border. To set all four borders, use the shorthand property, border-style. Otherwise, you can set the borders individually with border-top-style, border-right-style, border-bottom-style, border-left-style.
    */
-  borderTopStyle?: any;
+  borderTopStyle?: CSSValue<CSSLineStyle>;
 
   /**
    * Sets the width of an element's top border. To set all four borders, use the border-width shorthand property which sets the values simultaneously for border-top-width, border-right-width, border-bottom-width, and border-left-width.
    */
-  borderTopWidth?: any;
+  borderTopWidth?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * Sets the width of an element's four borders. This property can have from one to four values. This is a shorthand property for setting values simultaneously for border-top-width, border-right-width, border-bottom-width, and border-left-width.
    */
-  borderWidth?: any;
+  borderWidth?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * This property specifies how far an absolutely positioned box's bottom margin edge is offset above the bottom edge of the box's containing block. For relatively positioned boxes, the offset is with respect to the bottom edges of the box itself (i.e., the box is given a position in the normal flow, then offset from that position according to these properties).
@@ -471,7 +537,7 @@ interface CSSProperties {
   /**
    * The color property sets the color of an element's foreground content (usually text), accepting any standard CSS color from keywords and hex values to RGB(a) and HSL(a).
    */
-  color?: CSSValueGeneral;
+  color?: CSSValue<CSSColor>;
 
   /**
    * Describes the number of columns of the element.
@@ -496,12 +562,12 @@ interface CSSProperties {
   /**
    * Specifies the color of the rule between columns.
    */
-  columnRuleColor?: any;
+  columnRuleColor?: CSSValue<CSSColor>;
 
   /**
    * Specifies the width of the rule between columns.
    */
-  columnRuleWidth?: any;
+  columnRuleWidth?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * The column-span CSS property makes it possible for an element to span across all columns when its value is set to all. An element that spans more than one column is called a spanning element.
@@ -511,7 +577,7 @@ interface CSSProperties {
   /**
    * Specifies the width of columns in multi-column elements.
    */
-  columnWidth?: any;
+  columnWidth?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * This property is a shorthand property for setting column-width and/or column-count.
@@ -655,7 +721,7 @@ interface CSSProperties {
   /**
    * Specifies the size of the font. Used to compute em and ex units.
    */
-  fontSize?: number | string;
+  fontSize?: CSSValue<CSSFontSize>;
 
   /**
    * The font-size-adjust property adjusts the font-size of the fallback fonts defined with font-family, so that the x-height is the same no matter what font is used. This preserves the readability of the text when fallback happens.
@@ -748,7 +814,7 @@ interface CSSProperties {
   /**
    * Sets the height of an element. The content area of the element height does not include the padding, border, and margin of the element.
    */
-  height?: any;
+  height?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * Specifies the minimum number of characters in a hyphenated word
@@ -808,7 +874,7 @@ interface CSSProperties {
   /**
    * Specifies the height of an inline block level element.
    */
-  lineHeight?: number | string;
+  lineHeight?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * Shorthand property that sets the list-style-type, list-style-position and list-style-image properties in one declaration.
@@ -893,7 +959,7 @@ interface CSSProperties {
   /**
    * This property sets the width of the mask box image, similar to the CSS border-image-width property.
    */
-  maskBorderWidth?: any;
+  maskBorderWidth?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * Determines the mask painting area, which defines the area that is affected by the mask. The painted content of an element may be restricted to this area.
@@ -913,22 +979,22 @@ interface CSSProperties {
   /**
    * Sets the maximum height for an element. It prevents the height of the element to exceed the specified value. If min-height is specified and is greater than max-height, max-height is overridden.
    */
-  maxHeight?: any;
+  maxHeight?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * Sets the maximum width for an element. It limits the width property to be larger than the value specified in max-width.
    */
-  maxWidth?: any;
+  maxWidth?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * Sets the minimum height for an element. It prevents the height of the element to be smaller than the specified value. The value of min-height overrides both max-height and height.
    */
-  minHeight?: any;
+  minHeight?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * Sets the minimum width of an element. It limits the width property to be not smaller than the value specified in min-width.
    */
-  minWidth?: any;
+  minWidth?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * Specifies the transparency of an element.
@@ -957,7 +1023,7 @@ interface CSSProperties {
   /**
    * The outline-color property sets the color of the outline of an element. An outline is a line that is drawn around elements, outside the border edge, to make the element stand out.
    */
-  outlineColor?: any;
+  outlineColor?: CSSValue<CSSColor>;
 
   /**
    * The outline-offset property offsets the outline and draw it beyond the border edge.
@@ -993,22 +1059,22 @@ interface CSSProperties {
   /**
    * The padding-bottom CSS property of an element sets the padding space required on the bottom of an element. The padding area is the space between the content of the element and its border. Contrary to margin-bottom values, negative values of padding-bottom are invalid.
    */
-  paddingBottom?: any;
+  paddingBottom?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * The padding-left CSS property of an element sets the padding space required on the left side of an element. The padding area is the space between the content of the element and its border. Contrary to margin-left values, negative values of padding-left are invalid.
    */
-  paddingLeft?: any;
+  paddingLeft?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * The padding-right CSS property of an element sets the padding space required on the right side of an element. The padding area is the space between the content of the element and its border. Contrary to margin-right values, negative values of padding-right are invalid.
    */
-  paddingRight?: any;
+  paddingRight?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * The padding-top CSS property of an element sets the padding space required on the top of an element. The padding area is the space between the content of the element and its border. Contrary to margin-top values, negative values of padding-top are invalid.
    */
-  paddingTop?: CSSValueGeneral;
+  paddingTop?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * The page-break-after property is supported in all major browsers. With CSS3, page-break-* properties are only aliases of the break-* properties. The CSS3 Fragmentation spec defines breaks for all CSS box fragmentation.
@@ -1137,7 +1203,7 @@ interface CSSProperties {
   /**
    * SVG: Specifies the width of the outline on the current object.
    */
-  strokeWidth?: number;
+  strokeWidth?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * The tab-size CSS property is used to customise the width of a tab (U+0009) character.
@@ -1168,7 +1234,7 @@ interface CSSProperties {
   /**
    * Sets the color of any text decoration, such as underlines, overlines, and strike throughs.
    */
-  textDecorationColor?: any;
+  textDecorationColor?: CSSValue<CSSColor>;
 
   /**
    * Sets what kind of line decorations are added to an element, such as underlines, overlines, etc.
@@ -1201,7 +1267,7 @@ interface CSSProperties {
   /**
    * The text-emphasis-color property specifies the foreground color of the emphasis marks.
    */
-  textEmphasisColor?: any;
+  textEmphasisColor?: CSSValue<CSSColor>;
 
   /**
    * The text-emphasis-style property applies special emphasis marks to an element's text.
@@ -1211,7 +1277,7 @@ interface CSSProperties {
   /**
    * This property helps determine an inline box's block-progression dimension, derived from the text-height and font-size properties for non-replaced elements, the height or the width for replaced elements, and the stacked block-progression dimension for inline-block elements. The block-progression dimension determines the position of the padding, border and margin for the element.
    */
-  textHeight?: any;
+  textHeight?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * Specifies the amount of space horizontally that should be left on the first line of the text of an element. This horizontal spacing is at the beginning of the first line and is in respect to the left edge of the containing block box.
@@ -1231,7 +1297,7 @@ interface CSSProperties {
    * Specifies the line colors for the line-through text decoration.
    * (Considered obsolete; use text-decoration-color instead.)
    */
-  textLineThroughColor?: any;
+  textLineThroughColor?: CSSValue<CSSColor>;
 
   /**
    * Sets the mode for the line-through text decoration, determining whether the text decoration affects the space characters or not.
@@ -1248,7 +1314,7 @@ interface CSSProperties {
   /**
    * Specifies the line width for the line-through text decoration.
    */
-  textLineThroughWidth?: any;
+  textLineThroughWidth?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * The text-overflow shorthand CSS property determines how overflowed content that is not displayed is signaled to the users. It can be clipped, display an ellipsis ('…', U+2026 HORIZONTAL ELLIPSIS) or a Web author-defined string. It covers the two long-hand properties text-overflow-mode and text-overflow-ellipsis
@@ -1263,7 +1329,7 @@ interface CSSProperties {
   /**
    * Specifies the line color for the overline text decoration.
    */
-  textOverlineColor?: any;
+  textOverlineColor?: CSSValue<CSSColor>;
 
   /**
    * Sets the mode for the overline text decoration, determining whether the text decoration affects the space characters or not.
@@ -1278,7 +1344,7 @@ interface CSSProperties {
   /**
    * Specifies the line width for the overline text decoration.
    */
-  textOverlineWidth?: any;
+  textOverlineWidth?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * The text-rendering CSS property provides information to the browser about how to optimize when rendering text. Options are: legibility, speed or geometric precision.
@@ -1456,7 +1522,7 @@ interface CSSProperties {
   /**
    * Specifies the width of the content area of an element. The content area of the element width does not include the padding, border, and margin of the element.
    */
-  width?: any;
+  width?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
    * The word-break property is often used when there is long generated content that is strung together without and spaces or hyphens to beak apart. A common case of this is when there is a long URL that does not have any hyphens. This case could potentially cause the breaking of the layout as it could extend past the parent element.
