@@ -291,9 +291,9 @@ const Demo = () =>
 ```
 
 ## Book
-We really really want to make CSS maintainable and simple. So we even wrote a Free and OSS book for how to use the utility styles in `csx`.
+We really really want to make CSS maintainable and simple. So we even wrote a Free and OSS book for how to use the utility styles in `csx` [Jump to the book][book]).
 
-[![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/master/images/book/cover.png)](https://basarat.gitbooks.io/typestyle/content/)
+[![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/master/images/book/cover.png)][book]
 
 ## How
 This works very much in the same principle as CSS modules in that it takes a style object and generates a *non conflicting generated* class name.
@@ -317,3 +317,4 @@ Same as [FreeStyle][free-style] which is *super simple* and does the *absolute m
 [npm-url]: https://npmjs.org/package/typestyle
 [css.d.ts]: https://github.com/typestyle/typestyle/blob/master/src/css.d.ts
 [csx]:https://github.com/typestyle/csx
+[book]:https://basarat.gitbooks.io/typestyle/content/
