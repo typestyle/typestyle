@@ -108,10 +108,10 @@ export function hsla(hue: number, saturation: CSSPercentage, lightness: CSSPerce
  * Helper for the linear-gradient function in CSS
  * https://drafts.csswg.org/css-images-3/#funcdef-linear-gradient
  */
-export function linearGradient(position: CSSAngle | CSSSideOrCorner, ...colors: (CSSColor | [CSSColor, CSSPercentage | CSSLength])[]): CSSType<'gradient'> {
+export function linearGradient(position: CSSAngle | CSSSideOrCorner, ...colors: (CSSColor | CSSColorStop)[]): CSSType<'gradient'> {
   return {
     type: 'gradient',
-    toString: () => cssFunction('linear-gradient', position, ...colors)
+    toString: () => cssFunction('linear-gradient', position, ...colors.map(flattenColorStops))
   };
 }
 
@@ -119,20 +119,30 @@ export function linearGradient(position: CSSAngle | CSSSideOrCorner, ...colors: 
  * Helper for the repeating-linear-gradient function in CSS
  * https://drafts.csswg.org/css-images-3/#funcdef-repeating-linear-gradient
  */
-export function repeatingLinearGradient(position: CSSSideOrCorner, ...colors: (CSSColor | [CSSColor, CSSPercentage | CSSLength])[]): CSSType<'gradient'> {
+export function repeatingLinearGradient(position: CSSSideOrCorner, ...colors: (CSSColor | CSSColorStop)[]): CSSType<'gradient'> {
   return {
     type: 'gradient',
-    toString: () => cssFunction('repeating-linear-gradient', position, ...colors)
+    toString: () => cssFunction('repeating-linear-gradient', position, ...colors.map(flattenColorStops))
   };
 }
 
-function cssFunction(functionName: string, arg1: CSSValueGeneral, ...params: (string | number | CSSType<string> | (string | number | CSSType<string>)[])[]): string {
+function cssFunction(functionName: string, ...params: CSSValueGeneral[]): string {
   // reduce the css function.  Assumption is that most css function fall into this pattern:
   // Example: function-name(param [, param])
   // Each param is delimited by spaces
   // calling toString is really important here since CSSTypes, string, and numbers all have toString(): string
-  const parts = params.reduce((c, n) => c + ',' + (Array.isArray(n) ? n.map(n2 => n2.toString()).join(' ') : n.toString()), arg1.toString());
+  const parts = params.map(p => p.toString()).join(',');
   return `${functionName}(${parts})`;
+}
+
+/**
+ * Single CSSColorStop => string conversion is like:
+ * 'x'=>'x'
+ * ['x', '50%'] => 'x 50%'
+ **/
+function flattenColorStops(c: (CSSColor | CSSColorStop)): string {
+  // calling toString is really important here since CSSTypes, string, and numbers all have toString(): string
+  return Array.isArray(c) ? c.map(c => c.toString()).join(' ') : c.toString();
 }
 
 /**

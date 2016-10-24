@@ -41,6 +41,9 @@ type CSSColor =
   | 'aqua' | 'black' | 'blue' | 'fuchsia' | 'gray' | 'green' | 'lime' | 'maroon' | 'navy' | 'olive' | 'purple' | 'red' | 'silver' | 'teal' | 'white' | 'yellow'
   | CSSType<'color'>;
 
+/** For gradients etc */
+type CSSColorStop = [CSSColor, CSSPercentage | CSSLength];
+
 /**
  * Starting position for many gradients
  * https://drafts.csswg.org/css-images-3/#typedef-side-or-corner
