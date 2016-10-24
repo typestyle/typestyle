@@ -10,10 +10,20 @@ import * as FreeStyle from "free-style";
  */
 const {afterAllSync} = new class {
   pending: any;
-  afterAllSync = (cb:()=>void) => {
+  afterAllSync = (cb: () => void) => {
     if (this.pending) clearTimeout(this.pending);
     this.pending = setTimeout(cb);
   }
+}
+
+/**
+ * Before we send styles to freeStyle we should convert any CSSType<T> to string
+ * Call this whenever something might be a CSSType.
+ */
+export function ensureString(x: any): string {
+  return typeof x.type === 'string'
+    ? x.toString()
+    : x;
 }
 
 /**
@@ -21,7 +31,7 @@ const {afterAllSync} = new class {
  */
 let freeStyle = FreeStyle.create();
 let lastChangeId = freeStyle.changeId;
-let singletonTag: {innerHTML: string} = typeof window === 'undefined' ? { innerHTML: '' } : document.createElement('style') ;
+let singletonTag: { innerHTML: string } = typeof window === 'undefined' ? { innerHTML: '' } : document.createElement('style');
 if (typeof document !== 'undefined') document.head.appendChild(singletonTag as any);
 
 /** Checks if the style tag needs updating and if so queues up the change */
@@ -75,10 +85,7 @@ export function keyframes(frames: KeyFrames) {
   for (const key in frames) {
     const frame = frames[key];
     for (const prop in frame) {
-        const val = frame[prop] as CSSType<string>;
-        if (typeof val.type === 'string') {
-          frame[prop] = val.toString();
-        }
+      frame[prop] = ensureString(frame[prop]);
     }
   }
   const animationName = freeStyle.registerKeyframes(frames);
@@ -87,50 +94,13 @@ export function keyframes(frames: KeyFrames) {
 }
 
 /**
- * Helper for the linear-gradient function in CSS
- * https://drafts.csswg.org/css-images-3/#funcdef-linear-gradient
+ * Helper for you to create a CSSFunction
+ * Assumption is that most css function fall into this pattern:
+ * `function-name(param [, param])`
  */
-export function hsl(hue: number, saturation: CSSPercentage, lightness: CSSPercentage): CSSType<'color'> {
-  return {
-    type: 'color',
-    toString: cssFunction.bind(undefined, 'hsl', hue, saturation, lightness)
-  };
-}
+export function cssFunction(functionName: string, ...params: CSSValueGeneral[]): string {
 
-export function hsla(hue: number, saturation: CSSPercentage, lightness: CSSPercentage, opacity: number): CSSType<'color'> {
-  return {
-    type: 'color',
-    toString: cssFunction.bind(undefined, 'hsla', hue, saturation, lightness, opacity)
-  };
-}
-
-/**
- * Helper for the linear-gradient function in CSS
- * https://drafts.csswg.org/css-images-3/#funcdef-linear-gradient
- */
-export function linearGradient(position: CSSAngle | CSSSideOrCorner, ...colors: (CSSColor | [CSSColor, CSSPercentage | CSSLength])[]): CSSType<'gradient'> {
-  return {
-    type: 'gradient',
-    toString: cssFunction.bind(undefined, 'linear-gradient', position, ...colors)
-  };
-}
-
-/**
- * Helper for the repeating-linear-gradient function in CSS
- * https://drafts.csswg.org/css-images-3/#funcdef-repeating-linear-gradient
- */
-export function repeatingLinearGradient(position: CSSSideOrCorner, ...colors: (CSSColor | [CSSColor, CSSPercentage | CSSLength])[]): CSSType<'gradient'> {
-  return {
-    type: 'gradient',
-    toString: cssFunction.bind(undefined, 'repeating-linear-gradient', position, ...colors)
-  };
-}
-
-function cssFunction(functionName: string, arg1: CSSValueGeneral, ...params: (string | number | CSSType<string> | (string | number | CSSType<string>)[])[]): string {
-  // reduce the css function.  Assumption is that most css function fall into this pattern:
-  // Example: function-name(param [, param]) and each param is delimited by spaces
-  // calling toString is really important here since CSSTypes, string, and numbers all have toString(): string
-  const parts = params.reduce((c, n) => c + ',' + (Array.isArray(n) ? n.map(n2 => n2.toString()).join(' ') : n.toString()), arg1.toString());
+  const parts = params.map(ensureString).join(',');
   return `${functionName}(${parts})`;
 }
 
@@ -153,12 +123,9 @@ export function extend(...objects: NestedCSSProperties[]): NestedCSSProperties {
         // Then extend in the final result
         result[key] = extend(result[key] as any, object);
       }
-      else if (typeof (val as CSSType<string>).type === 'string') {
-        result[key] = val.toString();
-      }
       // Otherwise just copy to output
       else {
-        result[key] = val;
+        result[key] = ensureString(val);
       }
     }
   }

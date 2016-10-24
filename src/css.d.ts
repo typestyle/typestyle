@@ -6,7 +6,7 @@ type CSSAngle = CSSGlobalValues | string | 0 | CSSType<'angle'>;
 
 /**
  * an length; 0 | '0px' | '0em' etc.
- * https://drafts.csswg.org/css-values-3/#angles
+ * https://drafts.csswg.org/css-values-3/#lengths
  */
 type CSSLength = CSSGlobalValues | string | 0 | CSSType<'length'>;
 
@@ -40,6 +40,9 @@ type CSSColor =
   /* basic colors */
   | 'aqua' | 'black' | 'blue' | 'fuchsia' | 'gray' | 'green' | 'lime' | 'maroon' | 'navy' | 'olive' | 'purple' | 'red' | 'silver' | 'teal' | 'white' | 'yellow'
   | CSSType<'color'>;
+
+/** For gradients etc */
+type CSSColorStop = [CSSColor, CSSPercentage | CSSLength];
 
 /**
  * Starting position for many gradients
@@ -89,13 +92,13 @@ type CSSTimingFunction
  * For general puporse CSS values
  * NOTE: array is for fallbacks
  **/
-type CSSValueGeneral = number | string | (number | string)[];
+type CSSValueGeneral = number | string | (number | string)[] | CSSType<string>;
 
 /**
  * When you are sure that the value must be a string
  * NOTE: array is for fallbacks
  **/
-type CSSValueString = string | string[];
+type CSSValueString = string | string[] | CSSType<string>;
 
 
 /**

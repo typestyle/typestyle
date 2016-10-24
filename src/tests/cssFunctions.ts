@@ -1,4 +1,5 @@
-import { style, css, hsl, hsla, keyframes, linearGradient, repeatingLinearGradient, reinit } from '../index';
+import { css, style, keyframes, reinit } from '../index';
+import { hsl, hsla, linearGradient, repeatingLinearGradient } from '../../csx';
 import * as assert from 'assert';
 
 describe("cssFunctions", () => {
