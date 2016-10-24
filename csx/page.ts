@@ -5,7 +5,7 @@ import { cssRule } from '../src';
  * - Sets up the body to be full size
  * - Sets up box sizing to be border box
  **/
-export function setupPage() {
+export function setupPage(rootSelector: string) {
   /** Use full window size for application */
   cssRule('html, body', {
     height: '100%',
@@ -20,5 +20,11 @@ export function setupPage() {
   });
   cssRule('*,*:before,*:after', {
     boxSizing: 'inherit',
+  });
+
+  /** Also use fullSize for root */
+  cssRule(rootSelector, {
+    height: '100%',
+    width: '100%',
   });
 }

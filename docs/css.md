@@ -74,5 +74,5 @@ Combine all that we've talked about and we have the following page setup.
 
 ```ts
 import {setupPage} from "typestyle/csx";
-setupPage();
+setupPage('#root');
 ```
