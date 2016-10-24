@@ -65,35 +65,14 @@ Combine all that we've talked about and we have the following page setup.
 
 ```html
 <html>
-<style>
-    html,
-    body {
-        height: 100%;
-        width: 100%;
-        padding: 0px;
-        margin: 0px;
-    }
-
-    html {
-        box-sizing: border-box;
-    }
-
-    *,
-    *:before,
-    *:after {
-        box-sizing: inherit;
-    }
-
-    #root {
-        /* Take up all the space from the parent */
-        height: 100%;
-        width: 100%;
-    }
-</style>
-
 <body>
     <div id="root"></div>
     <script src="./demo/bundle.js"></script>
 </body>
 </html>
+```
+
+```ts
+import {setupPage} from "typestyle/csx";
+setupPage();
 ```

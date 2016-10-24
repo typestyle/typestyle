@@ -7,3 +7,4 @@ export * from './box';
 export * from './scroll';
 export * from './display';
 export * from './color';
+export * from './page';
