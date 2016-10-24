@@ -20,7 +20,7 @@ const {afterAllSync} = new class {
  * Before we send styles to freeStyle we should convert any CSSType<T> to string
  * Call this whenever something might be a CSSType.
  */
-function ensureString(x: any): string {
+export function ensureString(x: any): string {
   return typeof x.type === 'string'
     ? x.toString()
     : x;
@@ -94,60 +94,14 @@ export function keyframes(frames: KeyFrames) {
 }
 
 /**
- * Helper for the linear-gradient function in CSS
- * https://drafts.csswg.org/css-images-3/#funcdef-linear-gradient
+ * Helper for you to create a CSSFunction
+ * Assumption is that most css function fall into this pattern:
+ * `function-name(param [, param])`
  */
-export function hsl(hue: number, saturation: CSSPercentage, lightness: CSSPercentage): CSSType<'color'> {
-  return {
-    type: 'color',
-    toString: () => cssFunction('hsl', hue, saturation, lightness)
-  };
-}
+export function cssFunction(functionName: string, ...params: CSSValueGeneral[]): string {
 
-export function hsla(hue: number, saturation: CSSPercentage, lightness: CSSPercentage, opacity: number): CSSType<'color'> {
-  return {
-    type: 'color',
-    toString: () => cssFunction('hsla', hue, saturation, lightness, opacity)
-  };
-}
-
-/**
- * Helper for the linear-gradient function in CSS
- * https://drafts.csswg.org/css-images-3/#funcdef-linear-gradient
- */
-export function linearGradient(position: CSSAngle | CSSSideOrCorner, ...colors: (CSSColor | CSSColorStop)[]): CSSType<'gradient'> {
-  return {
-    type: 'gradient',
-    toString: () => cssFunction('linear-gradient', position, ...colors.map(flattenColorStops))
-  };
-}
-
-/**
- * Helper for the repeating-linear-gradient function in CSS
- * https://drafts.csswg.org/css-images-3/#funcdef-repeating-linear-gradient
- */
-export function repeatingLinearGradient(position: CSSSideOrCorner, ...colors: (CSSColor | CSSColorStop)[]): CSSType<'gradient'> {
-  return {
-    type: 'gradient',
-    toString: () => cssFunction('repeating-linear-gradient', position, ...colors.map(flattenColorStops))
-  };
-}
-
-function cssFunction(functionName: string, ...params: CSSValueGeneral[]): string {
-  // reduce the css function.  Assumption is that most css function fall into this pattern:
-  // Example: function-name(param [, param])
-  // Each param is delimited by spaces
   const parts = params.map(ensureString).join(',');
   return `${functionName}(${parts})`;
-}
-
-/**
- * Single CSSColorStop => string conversion is like:
- * 'x'=>'x'
- * ['x', '50%'] => 'x 50%'
- **/
-function flattenColorStops(c: (CSSColor | CSSColorStop)): string {
-  return Array.isArray(c) ? c.map(ensureString).join(' ') : ensureString(c);
 }
 
 /**

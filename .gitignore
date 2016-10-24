@@ -2,6 +2,10 @@
 .vscode
 .idea
 
+# Content generated on build
+src/**/*.js
+csx/**/*.js
+
 # Logs
 logs
 *.log
@@ -39,5 +43,3 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
-
-src/**/*.js
