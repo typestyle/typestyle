@@ -111,6 +111,12 @@ const className = style({
   '&>*': {
     marginTop: spacing,
     marginBottom: spacing
+  },
+  '&>*:first-child': {
+    marginTop: '0px',
+  },
+  '&>*:last-child': {
+    marginBottom: '0px',
   }
 });
 ```
