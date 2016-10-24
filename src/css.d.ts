@@ -1599,7 +1599,7 @@ interface NestedCSSProperties extends CSSProperties {
   '@media screen and (max-width: 700px)'?: NestedCSSProperties;
 
   /** General purpose */
-  [selector: string]: CSSValueGeneral | CSSType<string> |  NestedCSSProperties;
+  [selector: string]: CSSValueGeneral | CSSType<string> |  NestedCSSProperties | undefined;
 }
 
 /**

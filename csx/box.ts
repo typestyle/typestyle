@@ -55,9 +55,9 @@
 
       let box = {
         top: boxUnitToString(a),
-        right: boxUnitToString(b),
-        bottom: boxUnitToString(c),
-        left: boxUnitToString(d)
+        right: boxUnitToString(b!),
+        bottom: boxUnitToString(c!),
+        left: boxUnitToString(d!)
       };
 
       return mapFromBox(box);
