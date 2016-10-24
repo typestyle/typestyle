@@ -21,7 +21,7 @@ const {afterAllSync} = new class {
  * Call this whenever something might be a CSSType.
  */
 export function ensureString(x: any): string {
-  return typeof x.type === 'string'
+  return typeof (x as CSSType<any>).type === 'string'
     ? x.toString()
     : x;
 }
