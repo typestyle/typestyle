@@ -17,6 +17,16 @@ const {afterAllSync} = new class {
 }
 
 /**
+ * Before we send styles to freeStyle we should convert any CSSType<T> to string
+ * Call this whenever something might be a CSSType.
+ */
+function ensureString(x: any): string {
+  return typeof x.type === 'string'
+    ? x.toString()
+    : x;
+}
+
+/**
  * We have a single stylesheet that we update as components register themselves
  */
 let freeStyle = FreeStyle.create();
@@ -75,10 +85,7 @@ export function keyframes(frames: KeyFrames) {
   for (const key in frames) {
     const frame = frames[key];
     for (const prop in frame) {
-      const val = frame[prop] as CSSType<string>;
-      if (typeof val.type === 'string') {
-        frame[prop] = val.toString();
-      }
+      frame[prop] = ensureString(frame[prop]);
     }
   }
   const animationName = freeStyle.registerKeyframes(frames);
@@ -130,8 +137,7 @@ function cssFunction(functionName: string, ...params: CSSValueGeneral[]): string
   // reduce the css function.  Assumption is that most css function fall into this pattern:
   // Example: function-name(param [, param])
   // Each param is delimited by spaces
-  // calling toString is really important here since CSSTypes, string, and numbers all have toString(): string
-  const parts = params.map(p => p.toString()).join(',');
+  const parts = params.map(ensureString).join(',');
   return `${functionName}(${parts})`;
 }
 
@@ -141,8 +147,7 @@ function cssFunction(functionName: string, ...params: CSSValueGeneral[]): string
  * ['x', '50%'] => 'x 50%'
  **/
 function flattenColorStops(c: (CSSColor | CSSColorStop)): string {
-  // calling toString is really important here since CSSTypes, string, and numbers all have toString(): string
-  return Array.isArray(c) ? c.map(c => c.toString()).join(' ') : c.toString();
+  return Array.isArray(c) ? c.map(ensureString).join(' ') : ensureString(c);
 }
 
 /**
@@ -164,12 +169,9 @@ export function extend(...objects: NestedCSSProperties[]): NestedCSSProperties {
         // Then extend in the final result
         result[key] = extend(result[key] as any, object);
       }
-      else if (typeof (val as CSSType<string>).type === 'string') {
-        result[key] = val.toString();
-      }
       // Otherwise just copy to output
       else {
-        result[key] = val;
+        result[key] = ensureString(val);
       }
     }
   }
