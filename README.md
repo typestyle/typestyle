@@ -291,7 +291,7 @@ const Demo = () =>
 ```
 
 ## Book
-We really really want to make CSS maintainable and simple. So we even wrote a Free and OSS book for how to use the utility styles in `csx` [Jump to the book][book]).
+We really really want to make CSS maintainable and simple. So we even wrote a Free and OSS book for how to use the utility styles in `csx`. *[Jump to the book 🌹][book]*.
 
 [![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/master/images/book/cover.png)][book]
 
