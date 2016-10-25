@@ -5,14 +5,23 @@
  */
 import * as FreeStyle from "free-style";
 
+
+/** Raf for node + browser */
+const raf = typeof requestAnimationFrame === 'undefined' ? setTimeout : requestAnimationFrame;
+
 /**
  * Only calls cb all sync operations settle
  */
 const {afterAllSync} = new class {
-  pending: any;
+
+  pending = 0;
   afterAllSync = (cb: () => void) => {
-    if (this.pending) clearTimeout(this.pending);
-    this.pending = setTimeout(cb);
+    this.pending++;
+    const pending = this.pending;
+    raf(() => {
+      if (pending !== this.pending) return;
+      cb();
+    })
   }
 }
 
@@ -38,10 +47,15 @@ if (typeof document !== 'undefined') document.head.appendChild(singletonTag as a
 const styleUpdated = () => {
   if (freeStyle.changeId === lastChangeId) return;
   lastChangeId = freeStyle.changeId;
-  afterAllSync(() => {
-    singletonTag.innerHTML = freeStyle.getStyles();
-  })
+  afterAllSync(flush);
 };
+
+/**
+ * Flushes styles to the singleton tag
+ **/
+function flush() {
+  singletonTag.innerHTML = css();
+}
 
 /**
  * Helps with testing. Reinitializes FreeStyle
