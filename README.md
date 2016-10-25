@@ -109,11 +109,7 @@ const spacing = '5px';
 /** style -> className :) */
 const className = style({
   '&>*': {
-    marginTop: spacing,
-    marginBottom: spacing
-  },
-  '&>*:first-child': {
-    marginTop: '0px',
+    marginBottom: spacing,
   },
   '&>*:last-child': {
     marginBottom: '0px',
