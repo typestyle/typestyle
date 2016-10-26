@@ -68,6 +68,8 @@ const MyButton =
 export class MyComponent {}
 ```
 
+[Play with it](https://runkit.com/5811173e83ec7b0014453d7a/5811173e83ec7b0014453d7b)
+
 ## Server Side
 
 Just get the styles as CSS at any point and render it in a style tag yourself. e.g.
