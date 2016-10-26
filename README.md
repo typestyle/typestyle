@@ -13,11 +13,16 @@ Writing CSS with TypeStyle will be just as fluent as writing JavaScript with Typ
 
 There are quite a few css in js frameworks out there. This one is different:
 
-- Provides great TypeScript developer experience ([rad idea!](https://twitter.com/iammerrick/status/788784672314576897)).
+- Provides great TypeScript developer experience.
 - No custom AST transform or module loader support needed.
 - Works with any framework (react, angular2, [cyclejs](https://twitter.com/waynemaurer/status/788483714196078593), whatever, doesn't matter).
 - Zero config. Just use.
 - *super* **small** (~1k)
+
+> This project is powered by github 🌟s ^ go ahead and [star it please](https://github.com/typestyle/typestyle/stargazers).
+
+* [I haven't been this giggly-happy about a library in a long time!!!](https://twitter.com/andrestaltz/status/788665551325454337)
+* [Rad idea!](https://twitter.com/iammerrick/status/788784672314576897)
 
 ## Overview
 
