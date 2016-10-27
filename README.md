@@ -294,7 +294,7 @@ const Demo = () =>
 ```
 
 ## Book
-We really really want to make CSS maintainable and simple. So we even wrote a Free and OSS book for how to use the utility styles in `csx`  🌹. *[Jump to the book][book]*
+We really really want to make CSS maintainable and simple. So we even wrote a Free and OSS book for how to use the utility styles in `typestyle/csx`  🌹. *[Jump to the book][book]*
 
 [![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/master/images/book/cover.png)][book]
 
@@ -314,10 +314,10 @@ Really apprecate as many PRs for [`css.d.ts`][css.d.ts] `CSSProperties` as you c
 Same as [FreeStyle][free-style] which is *super simple* and does the *absolute minimum but necessary*, so faster than other CSS in JS frameworks for sure. We'd love to be told otherwise.
 
 [free-style]:https://github.com/blakeembrey/free-style
-[travis-image]: https://travis-ci.org/typestyle/typestyle.svg?branch=master
+[travis-image]:https://travis-ci.org/typestyle/typestyle.svg?branch=master
 [travis-url]:https://travis-ci.org/typestyle/typestyle
-[npm-image]: https://img.shields.io/npm/v/typestyle.svg?style=flat
-[npm-url]: https://npmjs.org/package/typestyle
-[css.d.ts]: https://github.com/typestyle/typestyle/blob/master/src/css.d.ts
-[csx]:https://github.com/typestyle/csx
+[npm-image]:https://img.shields.io/npm/v/typestyle.svg?style=flat
+[npm-url]:https://npmjs.org/package/typestyle
+[css.d.ts]:https://github.com/typestyle/typestyle/blob/master/src/css.d.ts
+[csx]:https://github.com/typestyle/typestyle#csx
 [book]:https://basarat.gitbooks.io/typestyle/content/

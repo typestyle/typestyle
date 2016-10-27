@@ -61,13 +61,27 @@ html {
 ```
 
 # Root
+Finally with modern web frameworks you normally render to some container div. e.g. `root` in the following example:
+
+```html
+<html>
+<body>
+    <div id="root"></div>
+    <script src="./build/bundle.js"></script>
+</body>
+</html>
+```
+
+You probably want `#root` to be the same size as the body. Easily done by making its width / height `100%`.
+
+# `setupPage`
 Combine all that we've talked about and we have the following page setup.
 
 ```html
 <html>
 <body>
     <div id="root"></div>
-    <script src="./demo/bundle.js"></script>
+    <script src="./build/bundle.js"></script>
 </body>
 </html>
 ```
@@ -76,3 +90,43 @@ Combine all that we've talked about and we have the following page setup.
 import {setupPage} from "typestyle/csx";
 setupPage('#root');
 ```
+
+* sets up box model
+* sets up `html/body` size
+* sets up root component size
+
+Easy as :)
+
+# `normalize`
+Browsers have different default styles for a few a the native tags e.g. the `template` tag *does not have `display: none` in IE but has it in all other browers. The list of such quirks is small but not something that you should bother with. This is why [normalize.css] exists. It is used by all the popular css frameworks including bootstrap. So a good idea to include in your own designs as well. Super simple with `csx/normalize` ;)
+
+```ts
+import {normalize} from "typestyle/csx";
+normalize();
+
+// Yay. Browser quirks ironed out
+```
+
+# Recommended page setup
+
+Hence the recommended page setup
+
+```html
+<html>
+<body>
+    <div id="root"></div>
+    <script src="./build/bundle.js"></script>
+</body>
+</html>
+```
+
+```ts
+import {normalize, setupPage} from "typestyle/csx";
+
+normalize();
+setupPage('#root');
+
+// All your designs will now be more consistent across browsers
+```
+
+[normalize.css]:https://github.com/necolas/normalize.css
