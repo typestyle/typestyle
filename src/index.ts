@@ -40,16 +40,37 @@ export function ensureString(x: any): string {
  * We have a single stylesheet that we update as components register themselves
  */
 let freeStyle = FreeStyle.create();
-let lastChangeId = freeStyle.changeId;
+let lastFreeStyleChangeId = freeStyle.changeId;
 let singletonTag: { innerHTML: string } = typeof window === 'undefined' ? { innerHTML: '' } : document.createElement('style');
 if (typeof document !== 'undefined') document.head.appendChild(singletonTag as any);
 
 /** Checks if the style tag needs updating and if so queues up the change */
 const styleUpdated = () => {
-  if (freeStyle.changeId === lastChangeId) return;
-  lastChangeId = freeStyle.changeId;
+  if (
+    freeStyle.changeId === lastFreeStyleChangeId
+    && !pendingRawChange
+  ) return;
+
+  lastFreeStyleChangeId = freeStyle.changeId;
+  pendingRawChange = false;
   afterAllSync(flush);
 };
+
+let pendingRawChange = false;
+let raw = '';
+
+/**
+ * Insert `raw` CSS as a string. This is useful for e.g.
+ * - third party CSS that you are customizing with template strings
+ * - generating raw CSS in JavaScript
+ * - reset libraries like normalize.css that you can use without loaders
+ */
+export function cssRaw(mustBeValidCSS: string) {
+  if (!mustBeValidCSS) return;
+  raw = raw + mustBeValidCSS + ';';
+  pendingRawChange = true;
+  styleUpdated();
+}
 
 /**
  * Flushes styles to the singleton tag
@@ -59,18 +80,25 @@ function flush() {
 }
 
 /**
- * Helps with testing. Reinitializes FreeStyle
+ * Helps with testing. Reinitializes FreeStyle + raw
  */
 export function reinit() {
+  /** reinit freestyle */
   freeStyle = FreeStyle.create();
-  lastChangeId = freeStyle.changeId;
+  lastFreeStyleChangeId = freeStyle.changeId;
+
+  /** reinit raw */
+  raw = '';
+  pendingRawChange = false;
+
+  /** Clear any styles that were flushed */
   singletonTag.innerHTML = '';
 }
 
 /**
  * Allows use to use the stylesheet in a node.js environment
  */
-export const css = () => freeStyle.getStyles();
+export const css = () => raw ? raw + freeStyle.getStyles() : freeStyle.getStyles();
 
 /**
  * Takes CSSProperties and return a generated className you can use on your component

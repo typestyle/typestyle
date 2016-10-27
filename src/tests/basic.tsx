@@ -1,5 +1,6 @@
 import { style, css, reinit, classes } from '../index';
 import * as assert from 'assert';
+
 describe("initial test", () => {
   it("should pass", () => {
     assert(css() === '');
