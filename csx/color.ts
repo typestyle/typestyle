@@ -1,4 +1,5 @@
-import { cssFunction, ensureString } from '../src';
+import { cssFunction } from '../src';
+import { ensurePercent, formatPercent } from '../src/formatting'
 
 type Color3 = [number, number, number];
 type Color4 = [number, number, number, number];
@@ -21,62 +22,79 @@ const converters = {
   [ColorFormat.HSL - ColorFormat.RGB]: HSLtoRGB
 };
 
-const namedColors: { [key: string]: Color3 } = {
-  black: [0, 0, 0],
-  silver: [192, 192, 192],
-  gray: [128, 128, 128],
-  white: [255, 255, 255],
-  maroon: [128, 0, 0],
-  red: [255, 0, 0],
-  purple: [128, 0, 128],
-  fuchsia: [255, 0, 255],
-  green: [0, 128, 0],
-  lime: [0, 255, 0],
-  olive: [128, 128, 0],
-  yellow: [255, 255, 0],
-  navy: [0, 0, 128],
-  blue: [0, 0, 255],
-  teal: [0, 128, 128],
-  aqua: [0, 255, 255]
+/**
+ * Named colors in the CSS spec.
+ * transparent is not technically a named color, but it fits into this pattern
+ */
+const namedColors: { [key: string]: Color4 } = {
+  transparent: [0, 0, 0, 0],
+  black: [0, 0, 0, 1],
+  silver: [192, 192, 192, 1],
+  gray: [128, 128, 128, 1],
+  white: [255, 255, 255, 1],
+  maroon: [128, 0, 0, 1],
+  red: [255, 0, 0, 1],
+  purple: [128, 0, 128, 1],
+  fuchsia: [255, 0, 255, 1],
+  green: [0, 128, 0, 1],
+  lime: [0, 255, 0, 1],
+  olive: [128, 128, 0, 1],
+  yellow: [255, 255, 0, 1],
+  navy: [0, 0, 128, 1],
+  blue: [0, 0, 255, 1],
+  teal: [0, 128, 128, 1],
+  aqua: [0, 255, 255, 1]
 };
 
+/**
+ * Converts from one format to another format
+ */
 function convert(fromFormat: ColorFormat, toFormat: ColorFormat, values: Color3 | Color4): Color3 | Color4 {
-  const converter = converters[fromFormat - toFormat];
-  return converter(values);
+  return fromFormat === toFormat
+    ? values.slice(0) as Color3 | Color4
+    : converters[fromFormat - toFormat](values);
 }
 
-export function color(value: string): CSSType<'color'> {
-  const namedColor = namedColors[value];
-  if (namedColor) {
-    return new ColorHelper(ColorFormat.RGB, namedColor[0], namedColor[1], namedColor[2], 1, false);
-  }
-  const hexColor = parseHexCode(value);
-  if (hexColor) {
-    return new ColorHelper(ColorFormat.RGB, hexColor[0], hexColor[1], hexColor[2], 1, false);
-  }
-
-  // todo: css function parsing hsl, hsla, rgb, rgba
-
-  throw new Error('invalid color');
+/**
+ * Creates a color from a hex color code or named color.
+ * e.g. color('red') or color('#FF0000') or color('#F00'))
+ */
+export function color(value: string): ColorHelper {
+  const [c0, c1, c2, c3] = namedColors[value] || parseHexCode(value) || namedColors['red'];
+  return new ColorHelper(ColorFormat.RGB, c0, c1, c2, c3, (c3 < 1));
 }
 
-export function hsl(hue: number, saturation: CSSPercentage, lightness: CSSPercentage): CSSType<'color'> {
-  return new ColorHelper(ColorFormat.HSL, hue, percent(saturation), percent(lightness), 1, false);
+/**
+ * Creates a color from hue, saturation, and lightness.  Alpha is automatically set to 100%
+ */
+export function hsl(hue: number, saturation: CSSPercentage | number, lightness: CSSPercentage | number): ColorHelper {
+  return new ColorHelper(ColorFormat.HSL, hue, ensurePercent(saturation), ensurePercent(lightness), 1, false);
 }
 
-export function hsla(hue: number, saturation: CSSPercentage, lightness: CSSPercentage, opacity: number): CSSType<'color'> {
-  return new ColorHelper(ColorFormat.HSL, hue, percent(saturation), percent(lightness), opacity, true);
+/**
+ * Creates a color from hue, saturation, lightness, and alpha
+ */
+export function hsla(hue: number, saturation: CSSPercentage | number, lightness: CSSPercentage | number, opacity: CSSPercentage | number): ColorHelper {
+  return new ColorHelper(ColorFormat.HSL, hue, ensurePercent(saturation), ensurePercent(lightness), ensurePercent(opacity), true);
 }
 
-export function rgb(red: number, blue: number, green: number): CSSType<'color'> {
+/**
+ * Creates a color form the red, blue, and green color space.  Alpha is automatically set to 100%
+ */
+export function rgb(red: number, blue: number, green: number): ColorHelper {
   return new ColorHelper(ColorFormat.RGB, red, blue, green, 1, false);
 }
 
-export function rgba(red: number, blue: number, green: number, alpha: number): CSSType<'color'> {
-  return new ColorHelper(ColorFormat.RGB, red, blue, green, alpha, true);
+/**
+ * Creates a color form the red, blue, green, and alpha in the color space
+ */
+export function rgba(red: number, blue: number, green: number, alpha: CSSPercentage | number): ColorHelper {
+  return new ColorHelper(ColorFormat.RGB, red, blue, green, ensurePercent(alpha), true);
 }
 
-
+/**
+ * A CSS Color.  Includes utilities for converting between color types
+ */
 export class ColorHelper {
   public type: 'color' = 'color';
   private _hasAlpha: boolean;
@@ -89,48 +107,59 @@ export class ColorHelper {
     this._hasAlpha = hasAlpha;
   }
 
-  public toHSL() {
-    const values = convert(this._format, ColorFormat.HSL, this._values);
-    return new ColorHelper(ColorFormat.HSL, values[0], values[1], values[2], 1, false);
+  /**
+   * Converts to the Hue, Saturation, Lightness color space
+   */
+  public toHSL(): ColorHelper {
+    const [v0, v1, v2] = convert(this._format, ColorFormat.HSL, this._values);
+    return new ColorHelper(ColorFormat.HSL, v0, v1, v2, 1, false);
   }
 
-  public toHSLA() {
-    const values = convert(this._format, ColorFormat.HSL, this._values);
-    return new ColorHelper(ColorFormat.HSL, values[0], values[1], values[2], values[3], true);
+  /**
+   * Converts to the Hue, Saturation, Lightness color space and adds an alpha channel
+   */
+  public toHSLA(): ColorHelper {
+    const [v0, v1, v2] = convert(this._format, ColorFormat.HSL, this._values);
+    return new ColorHelper(ColorFormat.HSL, v0, v1, v2, this._values[3], true);
   }
 
-  public toRGB() {
-    const values = convert(this._format, ColorFormat.RGB, this._values);
-    return new ColorHelper(ColorFormat.RGB, values[0], values[1], values[2], 1, false);
+  /**
+   * Converts to the Red, Green, Blue color space
+   */
+  public toRGB(): ColorHelper {
+    const [v0, v1, v2] = convert(this._format, ColorFormat.RGB, this._values);
+    return new ColorHelper(ColorFormat.RGB, v0, v1, v2, 1, false);
   }
 
-  public toRGBA() {
-    const values = convert(this._format, ColorFormat.RGB, this._values);
-    return new ColorHelper(ColorFormat.RGB, values[0], values[1], values[2], values[3], true);
+  /**
+   * Converts to the Red, Green, Blue color space and adds an alpha channel
+   */
+  public toRGBA(): ColorHelper {
+    const [v0, v1, v2] = convert(this._format, ColorFormat.RGB, this._values);
+    return new ColorHelper(ColorFormat.RGB, v0, v1, v2, this._values[3], true);
   }
 
+  /**
+   * Converts the stored color into string form (which is used by Free Style)
+   */
   public toString(): string {
-    const values = this._values;
+    const [c1, c2, c3, c4] = this._values;
     const format = this._format;
-    const c1 = values[0];
-    const c2 = values[1];
-    const c3 = values[2];
-    const c4 = values[3];
     const hasAlpha = this._hasAlpha;
 
     switch (format) {
-      case ColorFormat.HSL: return hasAlpha ? cssFunction('hsla', c1, c2, c3, c4) : cssFunction('hsl', c1, c2, c3);
-      case ColorFormat.RGB: return hasAlpha ? cssFunction('rgba', c1, c2, c3, c4) : cssFunction('rgb', c1, c2, c3);
+      case ColorFormat.HSL:
+        return hasAlpha
+          ? cssFunction('hsla', c1, formatPercent(c2), formatPercent(c3), c4)
+          : cssFunction('hsl', c1, formatPercent(c2), formatPercent(c3));
+      case ColorFormat.RGB:
+        return hasAlpha
+          ? cssFunction('rgba', c1, c2, c3, c4)
+          : cssFunction('rgb', c1, c2, c3);
     }
     // throw an error?
     throw new Error('Invalid color format');
   }
-}
-
-function percent(value: CSSPercentage): number {
-  return typeof value === 'number'
-    ? value as number
-    : parseFloat(ensureString(value)) * .01;
 }
 
 function RGBtoHSL(rgb: Color3): Color3 {
@@ -171,14 +200,14 @@ function RGBtoHSL(rgb: Color3): Color3 {
     s = delta / (2 - max - min);
   }
 
-  return [h, s * 100, l * 100];
+  return [h, s, l];
 };
 
 
 function HSLtoRGB(hsl: Color3): Color3 {
   const h = hsl[0] / 360;
-  const s = hsl[1] / 100;
-  const l = hsl[2] / 100;
+  const s = hsl[1];
+  const l = hsl[2];
 
   if (s === 0) {
     const val = l * 255;
@@ -215,16 +244,19 @@ function HSLtoRGB(hsl: Color3): Color3 {
   return rgb as Color3;
 };
 
-function parseHexCode (value: string) {
-	const match = value.match(/#[a-f0-9]{6}/i);
-	if (!match) {
-		return [0, 0, 0];
-	}
+function parseHexCode(stringValue: string): Color4 | undefined {
+  const match = stringValue.match(/#(([a-f0-9]{6})|([a-f0-9]{3}))$/i);
+  if (!match) {
+    return undefined;
+  }
 
-	const integer = parseInt(match[0], 16);
-	const r = (integer >> 16) & 0xFF;
-	const g = (integer >> 8) & 0xFF;
-	const b = integer & 0xFF;
+  const hex = match[1];
+  const hexColor = parseInt(
+    hex.length === 3
+      ? hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2]
+      : hex,
+    16
+  );
 
-	return [r, g, b];
+  return [(hexColor >> 16) & 0xFF, (hexColor >> 8) & 0xFF, hexColor & 0xFF, 1];
 };
