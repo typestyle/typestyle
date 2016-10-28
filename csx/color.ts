@@ -1,8 +1,7 @@
 import { cssFunction } from '../src';
 import { ensurePercent, formatPercent } from '../src/formatting'
 
-type Color3 = [number, number, number];
-type Color4 = [number, number, number, number];
+const isTypeArraySupported = typeof Float32Array === 'undefined';
 
 /**
  * Color format as bit flags (might just be able to use regular numbers for this)
@@ -26,7 +25,7 @@ const converters = {
  * Named colors in the CSS spec.
  * transparent is not technically a named color, but it fits into this pattern
  */
-const namedColors: { [key: string]: Color4 } = {
+const namedColors: { [key: string]: number[] } = {
   transparent: [0, 0, 0, 0],
   black: [0, 0, 0, 1],
   silver: [192, 192, 192, 1],
@@ -49,10 +48,19 @@ const namedColors: { [key: string]: Color4 } = {
 /**
  * Converts from one format to another format
  */
-function convert(fromFormat: ColorFormat, toFormat: ColorFormat, values: Color3 | Color4): Color3 | Color4 {
+function convert(fromFormat: ColorFormat, toFormat: ColorFormat, c0: number, c1: number, c2: number, c3: number, hasAlpha: boolean): ColorHelper {
   return fromFormat === toFormat
-    ? values.slice(0) as Color3 | Color4
-    : converters[fromFormat - toFormat](values);
+    ? new ColorHelper(fromFormat, c0, c1, c2, c3, hasAlpha)
+    : converters[fromFormat - toFormat](c0, c1, c2, c3, hasAlpha);
+}
+
+function colorArray(c0: number, c1: number, c2: number, c3: number): number[] {
+    if (!isTypeArraySupported) {
+      return [c0 || 0, c1|| 0, c2|| 0, c3|| 0];
+    }
+    const a = new Float32Array(4);
+    a[0] = c0|| 0; a[1] = c1|| 0; a[2] = c2|| 0; a[3] = c3|| 0;
+    return a as any as number[];
 }
 
 /**
@@ -60,8 +68,7 @@ function convert(fromFormat: ColorFormat, toFormat: ColorFormat, values: Color3 
  * e.g. color('red') or color('#FF0000') or color('#F00'))
  */
 export function color(value: string): ColorHelper {
-  const [c0, c1, c2, c3] = namedColors[value] || parseHexCode(value) || namedColors['red'];
-  return new ColorHelper(ColorFormat.RGB, c0, c1, c2, c3, (c3 < 1));
+  return parseNamedColor(value) || parseHexCode(value) || parseNamedColor('red')!;
 }
 
 /**
@@ -98,12 +105,12 @@ export function rgba(red: number, blue: number, green: number, alpha: CSSPercent
 export class ColorHelper {
   public type: 'color' = 'color';
   private _hasAlpha: boolean;
-  private _values: Color4;
+  private _values: number[];
   private _format: ColorFormat;
 
-  constructor(colorFormat: ColorFormat, c1: number, c2: number, c3: number, c4: number, hasAlpha: boolean) {
+  constructor(colorFormat: ColorFormat, c0: number, c1: number, c2: number, c3: number, hasAlpha: boolean) {
     this._format = colorFormat;
-    this._values = [c1, c2, c3, c4];
+    this._values =  colorArray(c0, c1, c2, c3);
     this._hasAlpha = hasAlpha;
   }
 
@@ -111,32 +118,32 @@ export class ColorHelper {
    * Converts to the Hue, Saturation, Lightness color space
    */
   public toHSL(): ColorHelper {
-    const [v0, v1, v2] = convert(this._format, ColorFormat.HSL, this._values);
-    return new ColorHelper(ColorFormat.HSL, v0, v1, v2, 1, false);
+    const v = this._values;
+    return convert(this._format, ColorFormat.HSL, v[0], v[1], v[2], v[3], false);
   }
 
   /**
    * Converts to the Hue, Saturation, Lightness color space and adds an alpha channel
    */
   public toHSLA(): ColorHelper {
-    const [v0, v1, v2] = convert(this._format, ColorFormat.HSL, this._values);
-    return new ColorHelper(ColorFormat.HSL, v0, v1, v2, this._values[3], true);
+    const v = this._values;
+    return convert(this._format, ColorFormat.HSL, v[0], v[1], v[2], v[3], true);
   }
 
   /**
    * Converts to the Red, Green, Blue color space
    */
   public toRGB(): ColorHelper {
-    const [v0, v1, v2] = convert(this._format, ColorFormat.RGB, this._values);
-    return new ColorHelper(ColorFormat.RGB, v0, v1, v2, 1, false);
+    const v = this._values;
+    return convert(this._format, ColorFormat.RGB, v[0], v[1], v[2], v[3], false);
   }
 
   /**
    * Converts to the Red, Green, Blue color space and adds an alpha channel
    */
   public toRGBA(): ColorHelper {
-    const [v0, v1, v2] = convert(this._format, ColorFormat.RGB, this._values);
-    return new ColorHelper(ColorFormat.RGB, v0, v1, v2, this._values[3], true);
+    const v = this._values;
+    return convert(this._format, ColorFormat.RGB, v[0], v[1], v[2], v[3], true);
   }
 
   /**
@@ -162,10 +169,10 @@ export class ColorHelper {
   }
 }
 
-function RGBtoHSL(rgb: Color3): Color3 {
-  const r = rgb[0] / 255;
-  const g = rgb[1] / 255;
-  const b = rgb[2] / 255;
+function RGBtoHSL(c0: number, c1: number, c2: number, c3: number, hasAlpha: boolean): ColorHelper {
+  const r = c0 / 255;
+  const g = c1 / 255;
+  const b = c2 / 255;
   const min = Math.min(r, g, b);
   const max = Math.max(r, g, b);
   const delta = max - min;
@@ -200,24 +207,24 @@ function RGBtoHSL(rgb: Color3): Color3 {
     s = delta / (2 - max - min);
   }
 
-  return [h, s, l];
+  return new ColorHelper(ColorFormat.HSL, h, s, l, c3, hasAlpha);
 };
 
 
-function HSLtoRGB(hsl: Color3): Color3 {
-  const h = hsl[0] / 360;
-  const s = hsl[1];
-  const l = hsl[2];
+function HSLtoRGB(c0: number, c1: number, c2: number, c3: number, hasAlpha: boolean): ColorHelper {
+  const h = c0 / 360;
+  const s = c1;
+  const l = c2;
 
   if (s === 0) {
     const val = l * 255;
-    return [val, val, val];
+    return new ColorHelper(ColorFormat.RGB, val, val, val, c3, hasAlpha);
   }
 
   const t2 = l < .5 ? l * (1 + s) : l + s - l * s;
   const t1 = 2 * l - t2;
 
-  const rgb = [0, 0, 0];
+  let r = 0, g = 0, b = 0;
   for (let i = 0; i < 3; i++) {
     let t3 = h + 1 / 3 * -(i - 1);
     if (t3 < 0) {
@@ -237,14 +244,30 @@ function HSLtoRGB(hsl: Color3): Color3 {
     } else {
       val = t1;
     }
+    val *= 255;
 
-    rgb[i] = val * 255;
+    // manually set variables instead of using an array
+    if (i === 0) {
+      r = val;
+    } else if (i === 1) {
+      g = val;
+    } else {
+      b = val;
+    }
   }
 
-  return rgb as Color3;
+  return new ColorHelper(ColorFormat.RGB, r, g, b, c3, hasAlpha);
 };
 
-function parseHexCode(stringValue: string): Color4 | undefined {
+function parseNamedColor(stringValue: string): ColorHelper | undefined {
+  const v = namedColors[stringValue];
+  if (!v) {
+    return undefined;
+  }
+  return new ColorHelper(ColorFormat.RGB, v[0], v[1], v[2], v[3], v[3] < 1);
+}
+
+function parseHexCode(stringValue: string): ColorHelper | undefined {
   const match = stringValue.match(/#(([a-f0-9]{6})|([a-f0-9]{3}))$/i);
   if (!match) {
     return undefined;
@@ -258,5 +281,5 @@ function parseHexCode(stringValue: string): Color4 | undefined {
     16
   );
 
-  return [(hexColor >> 16) & 0xFF, (hexColor >> 8) & 0xFF, hexColor & 0xFF, 1];
+  return new ColorHelper(ColorFormat.RGB, (hexColor >> 16) & 0xFF, (hexColor >> 8) & 0xFF, hexColor & 0xFF, 1, false);
 };
