@@ -16,6 +16,8 @@ export function setupPage(rootSelector: string) {
 
   /** Use border box */
   cssRule('html', {
+    '-moz-box-sizing': 'border-box',
+    '-webkit-box-sizing': 'border-box',
     boxSizing: 'border-box'
   });
   cssRule('*,*:before,*:after', {
