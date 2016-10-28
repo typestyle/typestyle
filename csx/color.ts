@@ -55,12 +55,12 @@ function convert(fromFormat: ColorFormat, toFormat: ColorFormat, c0: number, c1:
 }
 
 function colorArray(c0: number, c1: number, c2: number, c3: number): number[] {
-    if (!isTypeArraySupported) {
-      return [c0 || 0, c1|| 0, c2|| 0, c3|| 0];
-    }
-    const a = new Float32Array(4);
-    a[0] = c0|| 0; a[1] = c1|| 0; a[2] = c2|| 0; a[3] = c3|| 0;
-    return a as any as number[];
+  if (!isTypeArraySupported) {
+    return [c0 || 0, c1 || 0, c2 || 0, c3 || 0];
+  }
+  const a = new Float32Array(4);
+  a[0] = c0 || 0; a[1] = c1 || 0; a[2] = c2 || 0; a[3] = c3 || 0;
+  return a as any as number[];
 }
 
 /**
@@ -68,7 +68,7 @@ function colorArray(c0: number, c1: number, c2: number, c3: number): number[] {
  * e.g. color('red') or color('#FF0000') or color('#F00'))
  */
 export function color(value: string): ColorHelper {
-  return parseNamedColor(value) || parseHexCode(value) || parseNamedColor('red')!;
+  return parseNamedColor(value) || parseHexCode(value) || parseNamedColor('red') !;
 }
 
 /**
@@ -110,8 +110,30 @@ export class ColorHelper {
 
   constructor(colorFormat: ColorFormat, c0: number, c1: number, c2: number, c3: number, hasAlpha: boolean) {
     this._format = colorFormat;
-    this._values =  colorArray(c0, c1, c2, c3);
+    this._values = colorArray(c0, c1, c2, c3);
     this._hasAlpha = hasAlpha;
+  }
+
+  /**
+   * Converts the stored color into string form (which is used by Free Style)
+   */
+  public toString(): string {
+    const [c1, c2, c3, c4] = this._values;
+    const format = this._format;
+    const hasAlpha = this._hasAlpha;
+
+    switch (format) {
+      case ColorFormat.HSL:
+        return hasAlpha
+          ? cssFunction('hsla', c1, formatPercent(c2), formatPercent(c3), c4)
+          : cssFunction('hsl', c1, formatPercent(c2), formatPercent(c3));
+      case ColorFormat.RGB:
+        return hasAlpha
+          ? cssFunction('rgba', c1, c2, c3, c4)
+          : cssFunction('rgb', c1, c2, c3);
+    }
+    // throw an error?
+    throw new Error('Invalid color format');
   }
 
   /**
@@ -146,27 +168,119 @@ export class ColorHelper {
     return convert(this._format, ColorFormat.RGB, v[0], v[1], v[2], v[3], true);
   }
 
-  /**
-   * Converts the stored color into string form (which is used by Free Style)
-   */
-  public toString(): string {
-    const [c1, c2, c3, c4] = this._values;
-    const format = this._format;
-    const hasAlpha = this._hasAlpha;
-
-    switch (format) {
-      case ColorFormat.HSL:
-        return hasAlpha
-          ? cssFunction('hsla', c1, formatPercent(c2), formatPercent(c3), c4)
-          : cssFunction('hsl', c1, formatPercent(c2), formatPercent(c3));
-      case ColorFormat.RGB:
-        return hasAlpha
-          ? cssFunction('rgba', c1, c2, c3, c4)
-          : cssFunction('rgb', c1, c2, c3);
-    }
-    // throw an error?
-    throw new Error('Invalid color format');
+  public red(): number {
+    return (this._format === ColorFormat.RGB ? this : this.toRGB())._values[0];
   }
+
+  public green(): number {
+    return (this._format === ColorFormat.RGB ? this : this.toRGB())._values[1];
+  }
+
+  public blue(): number {
+    return (this._format === ColorFormat.RGB ? this : this.toRGB())._values[2];
+  }
+
+  public hue(): number {
+    return (this._format === ColorFormat.HSL ? this : this.toHSL())._values[0];
+  }
+
+  public saturation(): number {
+    return (this._format === ColorFormat.HSL ? this : this.toHSL())._values[1];
+  }
+
+  public lightness(): number {
+    return (this._format === ColorFormat.HSL ? this : this.toHSL())._values[2];
+  }
+
+  public alpha(): number {
+    return this._values[3];
+  }
+
+  public opacity(): number {
+    return this._values[3];
+  }
+
+  public invert(): ColorHelper {
+    const v = (this._format === ColorFormat.RGB ? this : this.toRGB())._values;
+    return new ColorHelper(ColorFormat.RGB, 255 - v[0], 255 - v[1], 255 - v[2], v[3], this._hasAlpha);
+  }
+
+  public lighten(ratio: number): ColorHelper {
+    const v = (this._format === ColorFormat.HSL ? this : this.toHSL())._values;
+    const l = v[2] + (v[2] * ratio);
+    return new ColorHelper(ColorFormat.HSL, v[0], v[1], l, v[3], this._hasAlpha);
+  }
+
+  public darken(ratio: number): ColorHelper {
+    const v = (this._format === ColorFormat.HSL ? this : this.toHSL())._values;
+    const l = v[2] - (v[2] * ratio);
+    return new ColorHelper(ColorFormat.HSL, v[0], v[1], l, v[3], this._hasAlpha);
+  }
+
+  public saturate(ratio: number): ColorHelper {
+    const v = (this._format === ColorFormat.HSL ? this : this.toHSL())._values;
+    const s = v[1] + (v[1] * ratio);
+    return new ColorHelper(ColorFormat.HSL, v[0], s, v[2], v[3], this._hasAlpha);
+  }
+
+  public desaturate(ratio: number): ColorHelper {
+    const v = (this._format === ColorFormat.HSL ? this : this.toHSL())._values;
+    const s = v[1] - (v[1] * ratio);
+    return new ColorHelper(ColorFormat.HSL, v[0], s, v[2], v[3], this._hasAlpha);
+  }
+
+  public grayscale() {
+    if (this._format === ColorFormat.HSL) {
+      return this.desaturate(1);
+    }
+    const v = this._values;
+    var val = v[0] * 0.3 + v[1] * 0.59 + v[2] * 0.11;
+    return new ColorHelper(ColorFormat.RGB, val, val, val, v[3], this._hasAlpha);
+  }
+
+  public fade(): ColorHelper {
+    const v = this._values;
+    return new ColorHelper(this._format, v[0], v[1], v[2], v[3], true);
+  }
+
+  public fadeOut(ratio: number): ColorHelper {
+    const v = this._values;
+    const alpha = v[3] - (v[3] * ratio);
+    return new ColorHelper(this._format, v[0], v[1], v[2], alpha, true);
+
+  }
+
+  public fadeIn(ratio: number): ColorHelper {
+    const v = this._values;
+    const alpha = v[3] + (v[3] * ratio);
+    return new ColorHelper(this._format, v[0], v[1], v[2], alpha, true);
+  }
+
+  mix(mixin: CSSColor, weight: number): ColorHelper {
+    const mixinColor = ensureColor(mixin);
+		const c1 = (this._format === ColorFormat.RGB ? this : this.toRGB())._values;
+    const c2 = (this._format === ColorFormat.RGB ? mixinColor : mixinColor.toRGB())._values;
+		const p = weight === undefined ? 0.5 : weight;
+		const w = 2 * p - 1;
+		const a = c1[3] - c2[3];
+		const w1 = (((w * a === -1) ? w : (w + a) / (1 + w * a)) + 1) / 2.0;
+		const w2 = 1 - w1;
+
+    return new ColorHelper(
+      ColorFormat.RGB,
+      c1[0] + w2 + c2[0],
+      c1[1] + w2 + c2[1],
+      c1[2] + w2 + c2[2],
+      c1[3] * p + c1[3] * (1 - p),
+      true
+    );
+	}
+
+  // todo  
+  //complement($color)
+  //fade($color, $alpha)
+  //scale-color($color, [$red], [$green], [$blue], [$saturation], [$lightness], [$alpha])
+  //ie-hex-str($color)
 }
 
 function RGBtoHSL(c0: number, c1: number, c2: number, c3: number, hasAlpha: boolean): ColorHelper {
@@ -258,6 +372,10 @@ function HSLtoRGB(c0: number, c1: number, c2: number, c3: number, hasAlpha: bool
 
   return new ColorHelper(ColorFormat.RGB, r, g, b, c3, hasAlpha);
 };
+
+function ensureColor(c: CSSColor): ColorHelper {
+  return color instanceof ColorHelper ? c as ColorHelper : color(c as string);
+}
 
 function parseNamedColor(stringValue: string): ColorHelper | undefined {
   const v = namedColors[stringValue];

@@ -156,4 +156,47 @@ it('converts from a hex color (3 digit) to rgb', () => {
     const color2 = rgba(255, 0, 0, .5).toString();
     assert.equal(color1, color2)
   });
+
+  it('returns the red channel from rgb', () => {
+    const color1 = rgb(255, 0, 0);
+    assert.equal(255, color1.red())
+  });
+
+  it('returns the green channel from rgb', () => {
+    const color1 = rgb(0, 255, 0);
+    assert.equal(255, color1.green())
+  });
+
+  it('returns the blue channel from rgb', () => {
+    const color1 = rgb(0, 0, 255);
+    assert.equal(255, color1.blue())
+  });
+
+  it('returns the alpha channel from rgb', () => {
+    const color1 = rgb(0, 0, 0);
+    assert.equal(1, color1.alpha())
+    assert.equal(1, color1.opacity())
+  });
+
+ it('returns the red channel from rgba', () => {
+    const color1 = rgba(255, 0, 0, .5);
+    assert.equal(255, color1.red())
+  });
+
+  it('returns the green channel from rgba', () => {
+    const color1 = rgba(0, 255, 0, .5);
+    assert.equal(255, color1.green())
+  });
+
+  it('returns the blue channel from rgba', () => {
+    const color1 = rgba(0, 0, 255, .5);
+    assert.equal(255, color1.blue())
+  });
+
+  it('returns the alpha channel from rgba', () => {
+    const color1 = rgba(0, 0, 0, .5);
+    assert.equal(.5, color1.alpha())
+    assert.equal(.5, color1.opacity())
+  });
+
 })
