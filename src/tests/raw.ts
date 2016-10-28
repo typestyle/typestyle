@@ -10,7 +10,7 @@ describe("raw css support", () => {
     }
 `;
     cssRaw(rawCSS);
-    assert.equal(css(), rawCSS + ';');
+    assert.equal(css(), rawCSS);
   })
   it('should insert raw CSS followed by style', () => {
     reinit();
@@ -23,6 +23,6 @@ describe("raw css support", () => {
       color: 'red'
     })
     cssRaw(rawCSS);
-    assert.equal(css(), rawCSS + ';' + '.f1jvcvsh{color:red}');
+    assert.equal(css(), rawCSS + '.f1jvcvsh{color:red}');
   })
 });

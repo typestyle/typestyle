@@ -67,7 +67,7 @@ let raw = '';
  */
 export function cssRaw(mustBeValidCSS: string) {
   if (!mustBeValidCSS) return;
-  raw = raw + mustBeValidCSS + ';';
+  raw = raw + mustBeValidCSS;
   pendingRawChange = true;
   styleUpdated();
 }
