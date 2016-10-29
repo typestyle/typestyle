@@ -255,6 +255,7 @@ cssRule('@media print', {
 
 ## CSX
 
+
 We understand that its difficult to get started with CSS in JS without additional guidance. So we also provide *a lot* of utility style objects in `typestyle/csx` to decrease you rampup. e.g. flexbox:
 
 ```js
@@ -272,7 +273,7 @@ var Demo = () =>
   </div>;
 ```
 
-Ofcourse you can compose styles easily:
+Of course you can compose styles easily:
 
 ```js
 import * as csx from 'typestyle/csx';
@@ -291,6 +292,38 @@ const Demo = () =>
     <div>Two</div>
     <div>Three</div>
   </div>;
+```
+
+### Type-safe colors and more
+
+To make it easier to work with colors, TypeStyle has a lot of the same color functions as SASS or LESS built-in with type definitions.  This means that writing CSS in JS is even easier than ever!
+
+Here is an example of some of the ways colors can be used together.
+
+```js
+import { rgb, darken, black } from 'typestyle/csx';
+
+const primaryColor = rgb(0, 0, 255);
+const primaryBgColor = primaryColor.darken('30%').desaturate('10%');
+const primaryBoldColor = primaryColor.mix(black);
+const invertedColor = black.lighten('20%');
+const invertedBgColor = primaryBgColor.invert();
+
+const buttonStyles = style({
+  color: primaryColor,
+  backgroundColor: primaryBgColor
+});
+
+const invertedButtonStyles = style({
+  color: invertedColor,
+  backgroundColor: invertedBgColor
+});
+```
+
+If you need to do testing with these colors, you can even print them to console by calling the .toString() method.
+
+```js
+console.log(red.toString()); // prints 'rgb(255,0,0)'
 ```
 
 ## Book
