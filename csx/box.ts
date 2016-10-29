@@ -100,10 +100,10 @@ export const verticallySpaced = (margin: BoxUnit) => {
   return (
     {
       '&>*': {
-        marginBottom: spacing
+        marginBottom: spacing + ' !important'
       },
       '&>*:last-child': {
-        marginBottom: '0px',
+        marginBottom: '0px !important',
       }
     }
   );
@@ -117,10 +117,10 @@ export const horizontallySpaced = (margin: BoxUnit) => {
   return (
     {
       '&>*': {
-        marginRight: spacing
+        marginRight: spacing + ' !important'
       },
       '&>*:last-child': {
-        marginRight: '0px',
+        marginRight: '0px !important',
       }
     }
   );
