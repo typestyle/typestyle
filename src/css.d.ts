@@ -1,3 +1,5 @@
+
+
 /**
  * Value of a CSS Property.  Could be a single value or a list of fallbacks
  * NOTE: array is for fallbacks
@@ -62,14 +64,23 @@ type CSSBox = CSSGlobalValues | string | 'border-box' | 'padding-box' | 'content
  * Color can be a named color, transparent, or a color function
  * https://drafts.csswg.org/css-color-3/#valuea-def-color
  */
-type CSSColor =
-  CSSGlobalValues
-  /* color function as a string */
-  | string
-  | 'transparent'
-  /* basic colors */
-  | 'aqua' | 'black' | 'blue' | 'fuchsia' | 'gray' | 'green' | 'lime' | 'maroon' | 'navy' | 'olive' | 'purple' | 'red' | 'silver' | 'teal' | 'white' | 'yellow'
-  | CSSType<'color'>;
+type CSSColor = CSSNamedColor | CSSGlobalValues | string | CSSType<'color'>;
+
+type CSSNamedColor =
+  'aliceblue' | 'antiquewhite' | 'aqua' | 'aquamarine' | 'azure' | 'beige' | 'bisque' | 'black' | 'blanchedalmond' | 'blue'
+  | 'blueviolet' | 'brown' | 'burlywood' | 'cadetblue' | 'chartreuse' | 'chocolate' | 'coral' | 'cornflowerblue' | 'cornsilk'
+  | 'crimson' | 'cyan' | 'darkblue' | 'darkcyan' | 'darkgoldenrod' | 'darkgray' | 'darkgreen' | 'darkgrey' | 'darkkhaki'
+  | 'darkmagenta' | 'darkolivegreen' | 'darkorange' | 'darkorchid' | 'darkred' | 'darksalmon' | 'darkseagreen'
+  | 'darkslateblue' | 'darkslategray' | 'darkslategrey' | 'darkturquoise' | 'darkviolet' | 'deeppink' | 'deepskyblue'
+  | 'dimgray' | 'dimgrey' | 'dodgerblue' | 'firebrick' | 'floralwhite' | 'forestgreen' | 'fuchsia' | 'gainsboro'
+  | 'ghostwhite' | 'gold' | 'goldenrod' | 'gray' | 'green' | 'greenyellow' | 'grey' | 'honeydew' | 'hotpink' | 'indianred'
+  | 'indigo' | 'ivory' | 'khaki' | 'lavender' | 'lavenderblush' | 'lawngreen' | 'lemonchiffon' | 'lightblue' | 'lightcoral'
+  | 'lightcyan' | 'lightgoldenrodyellow' | 'lightgray' | 'lightgreen' | 'lightgrey' | 'lightpink' | 'lightsalmon'
+  | 'lightseagreen' | 'lightskyblue' | 'lightslategray' | 'lightslategrey' | 'lightsteelblue' | 'lightyellow' | 'lime'
+  | 'limegreen' | 'linen' | 'maroon' | 'mediumaquamarine' | 'mediumblue' | 'mediumorchid' | 'mediumpurple' | 'mediumseagreen'
+  | 'mediumslateblue' | 'mediumspringgreen' | 'mediumturquoise' | 'mediumvioletred' | 'midnightblue' | 'mintcream'
+  | 'mistyrose' | 'moccasin' | 'navajowhite' | 'navy' | 'oldlace' | 'olive' | 'olivedrab' | 'orange' | 'purple'
+  | 'rebeccapurple' | 'red' | 'silver' | 'teal' | 'transparent' | 'white' | 'yellow';
 
 /**
  * Special type for border-color which can use 1 or 4 colors
