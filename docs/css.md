@@ -4,16 +4,16 @@ There is very little fundamental knowledge you need.
 ## Never let margin bleed
 You really only need to know the difference between `margin` (something that's outside) and `padding` (something that is inside). Here's a picture:
 
-![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/master/images/book/marginpadding.gif)
+![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/source/images/book/marginpadding.gif)
 
 
 One more thing about margin : *it collapses*. This means that if two items are next to each other with a margin of `30px` and `20px`, instead of of being separated by `50px` they will be separated by `30px`. This shown below:
 
-![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/master/images/book/marginsibling.png)
+![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/source/images/book/marginsibling.png)
 
 Not only that, if an element is unfortunate to be at the border of its parent, its margin will collapse with its parent. These facts are shown below:
 
-![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/master/images/book/marginchild.png)
+![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/source/images/book/marginchild.png)
 
 This makes it very difficult to create a maintainable layout system if your components have external margins
 
@@ -23,9 +23,9 @@ This makes it very difficult to create a maintainable layout system if your comp
 ## Avoid inline
 Having an element as `display: inline` means that it completely ignores its height. Here is a visual difference where an element has been given a height but `inline` ignored it and `inline-block` got it.
 
-![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/master/images/book/inline.png)
+![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/source/images/book/inline.png)
 
-![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/master/images/book/inlineBlock.png)
+![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/source/images/book/inlineBlock.png)
 
 Also you cannot CSS3 transform inline elements. So use a `span` but if there is anything fancy you need the `span` to do, be sure to `inline-block` it.
 
@@ -50,7 +50,7 @@ html, body {
 ## Box Model
 You really want the `width`/`height` of an element to represent the `border+padding+content`. This is shown below:
 
-![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/master/images/book/borderbox.png)
+![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/source/images/book/borderbox.png)
 
 It sounds something basic but the first HTML spec got wrong. Its easy to fix though:
 
