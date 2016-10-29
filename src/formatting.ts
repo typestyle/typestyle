@@ -1,6 +1,6 @@
 import { ensureString } from './index';
 
-export function ensurePercent(value: CSSPercentage | number): number {
+export function ensurePercent(value: string | number): number {
   return typeof value === 'number'
     ? value as number
     : parseFloat(ensureString(value)) * .01;
