@@ -8,5 +8,6 @@ export * from './scroll';
 export * from './display';
 export * from './color';
 export * from './page';
+export * from './font';
 export * from './gradient';
 export * from './normalize';
