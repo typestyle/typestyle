@@ -301,7 +301,7 @@ To make it easier to work with colors, TypeStyle has a lot of the same color fun
 Here is an example of some of the ways colors can be used together.
 
 ```js
-import { rgb, darken, black } from 'typestyle/csx';
+import { rgb, black } from 'typestyle/csx';
 
 const primaryColor = rgb(0, 0, 255);
 const primaryBgColor = primaryColor.darken('30%').desaturate('10%');
