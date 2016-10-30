@@ -23,6 +23,7 @@ There are quite a few css in js frameworks out there. This one is different:
 
 * [I haven't been this giggly-happy about a library in a long time!!!](https://twitter.com/andrestaltz/status/788665551325454337)
 * [Rad idea!](https://twitter.com/iammerrick/status/788784672314576897)
+* [What a fantastic #css resource](https://twitter.com/zbrianw/status/792177209490313217)
 
 ## Overview
 
