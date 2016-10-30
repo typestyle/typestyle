@@ -1,4 +1,4 @@
-import { style, css, reinit, classes } from '../index';
+import { style, css, reinit, classes, cssRule } from '../index';
 import * as assert from 'assert';
 
 describe("initial test", () => {
@@ -45,5 +45,12 @@ describe("initial test", () => {
     assert.equal(classes("a", "b"), "a b");
     assert.equal(classes("a", false && "b"), "a");
     assert.equal(classes("a", false && "b", "c"), "a c");
+  });
+
+  it("transparent string should render transparent in color property", () => {
+    reinit();
+    cssRule('.transparent', { color: 'transparent' });
+    style({ color: 'transparent' });
+    assert.equal(css(), '.transparent{color:transparent}.fwarpl0{color:transparent}');
   });
 })
