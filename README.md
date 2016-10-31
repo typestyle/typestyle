@@ -328,7 +328,7 @@ console.log(red.toString()); // prints 'rgb(255,0,0)'
 ```
 
 ## Book
-We really really want to make CSS maintainable and simple. So we even wrote a Free and OSS book for how to use the utility styles in `typestyle/csx`  🌹. *[Jump to the book][book]*
+We really really want to make CSS maintainable and simple. So we even wrote a free and open source book for how to use the utility styles in `typestyle/csx`  🌹. *[Jump to the book][book]*
 
 [![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/source/images/book/cover.png)][book]
 
@@ -354,4 +354,4 @@ Same as [FreeStyle][free-style] which is *super simple* and does the *absolute m
 [npm-url]:https://npmjs.org/package/typestyle
 [css.d.ts]:https://github.com/typestyle/typestyle/blob/master/src/css.d.ts
 [csx]:https://github.com/typestyle/typestyle#csx
-[book]:https://basarat.gitbooks.io/typestyle/content/
+[book]:https://typestyle.github.io
