@@ -125,3 +125,31 @@ export const horizontallySpaced = (margin: BoxUnit) => {
     }
   );
 };
+
+/**
+ * Gives this element the same size as the nearest offsetParent
+ */
+export const fillParent = {
+  width: '100%',
+  height: '100%',
+}
+
+/** mixin: maxWidth */
+export const maxWidth = (value: BoxUnit) => {
+  const maxWidth = boxUnitToString(value);
+  return { maxWidth };
+}
+
+/** mixin: maxHeight */
+export const maxHeight = (value: BoxUnit) => {
+  const maxHeight = boxUnitToString(value);
+  return { maxHeight };
+}
+
+/**
+ * Commonly used in layouts for quick and easy centering using margins
+ */
+export const marginCenterHorizontal = {
+  marginLeft: 'auto',
+  marginRight: 'auto',
+}

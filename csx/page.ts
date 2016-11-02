@@ -1,4 +1,5 @@
 import { cssRule } from '../src';
+import { fillParent } from './box';
 
 /**
  * Recommended Page setup
@@ -24,9 +25,6 @@ export function setupPage(rootSelector: string) {
     boxSizing: 'inherit',
   });
 
-  /** Also use fullSize for root */
-  cssRule(rootSelector, {
-    height: '100%',
-    width: '100%',
-  });
+  /** Also root should fill parent */
+  cssRule(rootSelector, fillParent);
 }
