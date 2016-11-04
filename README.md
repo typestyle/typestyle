@@ -9,7 +9,7 @@
 
 Writing CSS with TypeStyle will be just as fluent as writing JavaScript with TypeScript.
 
-![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/source/images/autocomplete.gif)
+![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/source/public/images/autocomplete.gif)
 
 There are quite a few css in js frameworks out there. This one is different:
 
@@ -330,7 +330,7 @@ console.log(red.toString()); // prints 'rgb(255,0,0)'
 ## Book
 We really really want to make CSS maintainable and simple. So we even wrote a free and open source book for how to use the utility styles in `typestyle/csx`  🌹. *[Jump to the book][book]*
 
-[![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/source/images/book/cover.png)][book]
+[![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/source/public/images/book/cover.png)][book]
 
 ## How
 This works very much in the same principle as CSS modules in that it takes a style object and generates a *non conflicting generated* class name.
