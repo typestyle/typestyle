@@ -1030,7 +1030,7 @@ interface CSSProperties {
    * The blend mode defines the formula that must be used to mix the colors with the backdrop
    * https://drafts.fxtf.org/compositing-1/#mix-blend-mode
    */  
-  mixBlendMode: CSSValue<CSSBlendMode>;
+  mixBlendMode?: CSSValue<CSSBlendMode>;
 
   /**
    * Specifies the transparency of an element.
