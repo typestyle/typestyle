@@ -48,11 +48,19 @@ type CSSAbsoluteSize = 'xx-small' | 'x-small' | 'small' | 'medium' | 'large'
  */
 type CSSAngle = CSSGlobalValues | string | 0 | CSSType<'angle'>;
 
+
 /**
  * initial state of an animation.
  * https://drafts.csswg.org/css-animations/#animation-play-state
  */
 type CSSAnimationPlayState = CSSGlobalValues | string | 'paused' | 'running' | CSSType<'animation-play-state'>;
+
+/**
+ * blend mode
+ * https://drafts.fxtf.org/compositing-1/#ltblendmodegt
+ */
+type CSSBlendMode = 'normal' | 'multiply' | 'screen' | 'overlay' | 'darken' | 'lighten' | 'color-dodge' | 'color-burn'
+  | 'hard-light' | 'soft-light' | 'difference' | 'exclusion' | 'hue' | 'saturation' | 'color' | 'luminosity' | CSSType<'blend-mode'>;
 
 /**
  * Determines the area within which the background is painted.
@@ -92,6 +100,11 @@ type CSSColorSet = string | CSSColor | CSSType<'color-set'>
 type CSSColorStop = [CSSColor, CSSPercentage | CSSLength];
 
 /**
+ * Type for align-items and align-self in flex
+ */
+type CSSFlexAlign = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch' | CSSType<'flex-align'>;
+
+/**
  * a gradient function like linear-gradient
  * https://drafts.csswg.org/css-images-3/#gradients
  */
@@ -128,6 +141,12 @@ type CSSLineStyle = string | 'none' | 'hidden' | 'dotted'
  * https://drafts.csswg.org/css-backgrounds-3/#border-style
  */
 type CSSLineStyleSet = string | CSSLineStyle | CSSType<'line-style-set'>
+
+/**
+ * Overlow modes
+ * https://drafts.csswg.org/css-overflow-3/#propdef-overflow
+ */
+type CSSOverflow = 'visible' | 'hidden' | 'scroll' | 'clip' | 'auto';
 
 /**
  * a percentage; 0 | '0%' etc.
@@ -191,12 +210,12 @@ interface CSSProperties {
   /**
    * Sets the default alignment in the cross axis for all of the flex container's items, including anonymous flex items, similarly to how justify-content aligns items along the main axis.
    */
-  alignItems?: any;
+  alignItems?: CSSValue<CSSFlexAlign>;
 
   /**
    * Allows the default alignment to be overridden for individual flex items.
    */
-  alignSelf?: any;
+  alignSelf?: CSSValue<'auto' | CSSFlexAlign>;
 
   /**
    * This property allows precise alignment of elements, such as graphics, that do not have a baseline-table or lack the desired baseline in their baseline-table. With the alignment-adjust property, the position of the baseline identified by the alignment-baseline can be explicitly determined. It also determines precisely the alignment point for each glyph within a textual element.
@@ -227,7 +246,7 @@ interface CSSProperties {
   /**
    * Specifies how many times an animation cycle should play.
    */
-  animationIterationCount?: any;
+  animationIterationCount?: CSSValue<number | string>;
 
   /**
    * Defines the list of animations that apply to the element.
@@ -238,17 +257,17 @@ interface CSSProperties {
   /**
    * Sets the pace of an animation
    */
-  animationTimingFunction?: CSSTimingFunction;
+  animationTimingFunction?: CSSValue<CSSTimingFunction>;
 
   /**
    * Defines whether an animation is running or paused.
    */
-  animationPlayState?: any;
+  animationPlayState?: CSSValue<CSSAnimationPlayState>;
 
   /**
    * Allows changing the style of any element to platform-based interface elements or vice versa.
    */
-  appearance?: any;
+  appearance?: CSSValue<'auto' | 'none'>;
 
   /**
    * Determines whether or not the “back” side of a transformed element is visible when facing the viewer.
@@ -274,7 +293,7 @@ interface CSSProperties {
    * This property describes how the element's background images should blend with each other and the element's background color.
    * The value is a list of blend modes that corresponds to each background image. Each element in the list will apply to the corresponding element of background-image. If a property doesn’t have enough comma-separated values to match the number of layers, the UA must calculate its used value by repeating the list of values until there are enough.
    */
-  backgroundBlendMode?: any;
+  backgroundBlendMode?: CSSValue<CSSBlendMode>;
 
   /**
    * Sets the background color of an element.
@@ -469,7 +488,7 @@ interface CSSProperties {
   /**
    * This property specifies how far an absolutely positioned box's bottom margin edge is offset above the bottom edge of the box's containing block. For relatively positioned boxes, the offset is with respect to the bottom edges of the box itself (i.e., the box is given a position in the normal flow, then offset from that position according to these properties).
    */
-  bottom?: any;
+  bottom?: CSSValue<CSSLength | CSSPercentage | CSSGlobalValues>;
 
   /**
    * Obsolete.
@@ -868,7 +887,7 @@ interface CSSProperties {
   /**
    * Sets the left edge of an element
    */
-  left?: CSSValueGeneral;
+  left?: CSSValue<CSSLength | CSSPercentage | CSSGlobalValues>;
 
   /**
    * The letter-spacing CSS property specifies the spacing behavior between text characters.
@@ -1008,6 +1027,12 @@ interface CSSProperties {
   minWidth?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
+   * The blend mode defines the formula that must be used to mix the colors with the backdrop
+   * https://drafts.fxtf.org/compositing-1/#mix-blend-mode
+   */  
+  mixBlendMode: CSSValue<CSSBlendMode>;
+
+  /**
    * Specifies the transparency of an element.
    */
   opacity?: number;
@@ -1044,7 +1069,7 @@ interface CSSProperties {
   /**
    * The overflow property controls how extra content exceeding the bounding box of an element is rendered. It can be used in conjunction with an element that has a fixed width and height, to eliminate text-induced page distortion.
    */
-  overflow?: any;
+  overflow?: CSSValue<CSSOverflow>;
 
   /**
    * Specifies the preferred scrolling methods for elements that overflow.
@@ -1054,12 +1079,12 @@ interface CSSProperties {
   /**
    * Controls how extra content exceeding the x-axis of the bounding box of an element is rendered.
    */
-  overflowX?: any;
+  overflowX?: CSSValue<CSSOverflow>;
 
   /**
    * Controls how extra content exceeding the y-axis of the bounding box of an element is rendered.
    */
-  overflowY?: any;
+  overflowY?: CSSValue<CSSOverflow>;
 
   /**
    * The padding optional CSS property sets the required padding space on one to four sides of an element. The padding area is the space between an element and its border. Negative values are not allowed but decimal values are permitted. The element size is treated as fixed, and the content of the element shifts toward the center as padding is increased.
@@ -1170,7 +1195,7 @@ interface CSSProperties {
   /**
    * Specifies the position an element in relation to the right side of the containing element.
    */
-  right?: any;
+  right?: CSSValue<CSSLength | CSSPercentage | CSSGlobalValues>;
 
   rubyAlign?: any;
 
@@ -1392,7 +1417,7 @@ interface CSSProperties {
   /**
    * This property specifies how far an absolutely positioned box's top margin edge is offset below the top edge of the box's containing block. For relatively positioned boxes, the offset is with respect to the top edges of the box itself (i.e., the box is given a position in the normal flow, then offset from that position according to these properties).
    */
-  top?: any;
+  top?: CSSValue<CSSLength | CSSPercentage | CSSGlobalValues>;
 
   /**
    * Determines whether touch input may trigger default behavior supplied by the user agent, such as panning or zooming.
