@@ -230,18 +230,26 @@ export class ColorHelper {
     const c2 = (color2._format === RGB ? color2 : color2.toRGB())._values;
     const p = weight === undefined ? .5 : weight;
     const w = 2 * p - 1;
-    const a = c2[A] - c1[A];
+    const a = Math.abs(c1[A] - c2[A]);
     const w1 = (((w * a === -1) ? w : (w + a) / (1 + w * a)) + 1) / 2.0;
     const w2 = 1 - w1;
 
     return new ColorHelper(
       RGB,
-      Math.round((c1[R] + c2[R]) * w2),
-      Math.round((c1[G] + c2[G]) * w2),
-      Math.round((c1[B] + c2[B]) * w2),
+      Math.round((c1[R] * w1 + c2[R] * w2)),
+      Math.round((c1[G] * w1 + c2[G] * w2)),
+      Math.round((c1[B] * w1 + c2[B] * w2)),
       c1[A] * p + c2[A] * (1 - p),
       color1._hasAlpha || color2._hasAlpha
     );
+  }
+
+  public tint(weight: number): ColorHelper {
+    return white.mix(this, weight);
+  }
+
+  public shade(weight: number): ColorHelper {
+    return black.mix(this, weight);
   }
 
   // TODO

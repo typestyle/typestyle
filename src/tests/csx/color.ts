@@ -490,4 +490,22 @@ describe('color', () => {
       assert.equal(color1, color2);
     });
   });
+
+  describe('tint()', () => {
+    it('changed red to a lighter red', () => {
+      const color1 = red.tint(.3).toString();
+      // color2 was tested on the SASS compiler with mix(white, red, 30%)
+      const color2 = rgb(255, 77, 77).toString();
+      assert.equal(color1, color2);
+    });
+  });
+
+  describe('shade()', () => {
+    it('changed red to a darker red', () => {
+      const color1 = red.shade(.3).toString();
+      // color2 was tested on the SASS compiler with mix(black, red, 30%)
+      const color2 = rgb(179, 0, 0).toString();
+      assert.equal(color1, color2);
+    });
+  });
 });
