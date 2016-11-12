@@ -3,7 +3,7 @@ import { css, style, keyframes, reinit } from '../../index';
 import {
   color, hsl, hsla, rgb, rgba, cyan, red, white,
   black, green, blue, purple, transparent, maroon
-} from '../../../csx';
+} from '../../csx';
 
 describe('color', () => {
   describe('toString()', () => {

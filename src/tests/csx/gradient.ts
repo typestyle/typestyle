@@ -1,5 +1,5 @@
 import { css, style, reinit } from '../../index';
-import { hsl, linearGradient, repeatingLinearGradient } from '../../../csx';
+import { hsl, linearGradient, repeatingLinearGradient } from '../../csx';
 import * as assert from 'assert';
 
 describe("csx/gradient", () => {

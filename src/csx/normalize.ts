@@ -1,4 +1,4 @@
-import { cssRaw } from '../src';
+import { cssRaw } from '../';
 
 /**
  * Adds normalize.css to the registerd outputs

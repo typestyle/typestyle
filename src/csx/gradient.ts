@@ -1,4 +1,4 @@
-import { cssFunction, ensureString } from '../src';
+import { cssFunction, ensureString } from '../';
 
 /**
  * Helper for the linear-gradient function in CSS
