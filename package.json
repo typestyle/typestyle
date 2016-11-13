@@ -2,8 +2,8 @@
   "name": "typestyle",
   "version": "0.6.5",
   "description": "TypeSafe CSS",
-  "main": "./src/index.js",
-  "typings": "./src/index",
+  "main": "./lib/index.js",
+  "typings": "./lib/index",
   "scripts": {
     "build": "tsc -p .",
     "test": "npm run build",

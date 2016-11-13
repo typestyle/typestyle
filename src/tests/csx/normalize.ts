@@ -1,5 +1,5 @@
 import { css, reinit } from '../../index';
-import { normalize } from '../../../csx';
+import { normalize } from '../../csx';
 import * as assert from 'assert';
 
 describe("csx/normalize", () => {

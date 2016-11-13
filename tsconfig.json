@@ -5,9 +5,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strictNullChecks": true,
-    "declaration": true
+    "declaration": true,
+    "outDir": "./lib"
   },
   "include": [
-    "./**/*"
+    "src/**/*"
   ]
 }

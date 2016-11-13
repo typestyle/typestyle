@@ -1,5 +1,5 @@
-import { cssFunction } from '../src';
-import { ensurePercent, formatPercent } from '../src/formatting'
+import { cssFunction } from '../';
+import { ensurePercent, formatPercent } from '../formatting'
 
 const isTypeArraySupported = typeof Float32Array === 'undefined';
 

@@ -4,7 +4,7 @@
  * -webkit- is needed for mobile safari (iPhone / iPad)
  * -ms- is needed for IE
  */
-import { extend } from '../src';
+import { extend } from '../';
 
 /**
  * If you have more than one child prefer horizontal,vertical

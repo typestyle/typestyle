@@ -3,8 +3,8 @@
 .idea
 
 # Content generated on build
-src/**/*.js
-csx/**/*.js
+lib/**/*.js
+lib/**/*.d.ts
 
 # Logs
 logs

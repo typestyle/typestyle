@@ -260,7 +260,7 @@ cssRule('@media print', {
 We understand that its difficult to get started with CSS in JS without additional guidance. So we also provide *a lot* of utility style objects in `typestyle/csx` to decrease you rampup. e.g. flexbox:
 
 ```js
-import * as csx from 'typestyle/csx';
+import * as csx from 'typestyle/lib/csx';
 import {style} from 'typestyle';
 
 const horizontal = style(csx.horizontal);
@@ -277,7 +277,7 @@ var Demo = () =>
 Of course you can compose styles easily:
 
 ```js
-import * as csx from 'typestyle/csx';
+import * as csx from 'typestyle/lib/csx';
 import {style} from 'typestyle';
 
 const flexHorizontalGreen = style(
@@ -302,7 +302,7 @@ To make it easier to work with colors, TypeStyle has a lot of the same color fun
 Here is an example of some of the ways colors can be used together.
 
 ```js
-import { rgb, black } from 'typestyle/csx';
+import { rgb, black } from 'typestyle/lib/csx';
 
 const primaryColor = rgb(0, 0, 255);
 const primaryBgColor = primaryColor.darken('30%').desaturate('10%');
@@ -328,7 +328,7 @@ console.log(red.toString()); // prints 'rgb(255,0,0)'
 ```
 
 ## Book
-We really really want to make CSS maintainable and simple. So we even wrote a free and open source book for how to use the utility styles in `typestyle/csx`  🌹. *[Jump to the book][book]*
+We really really want to make CSS maintainable and simple. So we even wrote a free and open source book for how to use the utility styles in `typestyle/lib/csx`  🌹. *[Jump to the book][book]*
 
 [![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/source/public/images/book/cover.png)][book]
 

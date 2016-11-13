@@ -1,7 +1,7 @@
 /**
  * @module Layers essentially allow you to create a new surface for layouts
  */
-import { extend } from '../src';
+import { extend } from '../';
 
 /**
  * New layer parent

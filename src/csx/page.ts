@@ -1,4 +1,4 @@
-import { cssRule } from '../src';
+import { cssRule } from '../';
 import { fillParent } from './box';
 
 /**
