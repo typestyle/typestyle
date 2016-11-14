@@ -105,6 +105,14 @@ export class ColorHelper {
   }
 
   /**
+   * Converts to hex rgb(255, 255, 255) to #FFFFFF
+   */
+  public toHexString(): string {
+    const v = (this._format === RGB ? this : this.toRGB())._values;
+    return '#' + (toHex(v[R]) + toHex(v[G]) + toHex(v[B])).toUpperCase();
+  }
+
+  /**
    * Converts to the Hue, Saturation, Lightness color space
    */
   public toHSL(): ColorHelper {
@@ -392,6 +400,10 @@ export const {aliceblue, antiquewhite, aqua, aquamarine, azure, beige, bisque, b
   mediumslateblue, mediumspringgreen, mediumturquoise, mediumvioletred, midnightblue, mintcream,
   mistyrose, moccasin, navajowhite, navy, oldlace, olive, olivedrab, orange, purple,
   rebeccapurple, red, silver, teal, transparent, white, yellow } = namedColors;
+
+function toHex(n: number): string {
+  return (n < 16 ? '0' : '') +  Math.round(n).toString(16);
+}
 
 function RGBtoHSL(c0: number, c1: number, c2: number, c3: number, hasAlpha: boolean): ColorHelper {
   const r = c0 / 255;

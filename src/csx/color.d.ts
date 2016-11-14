@@ -33,6 +33,10 @@ export declare class ColorHelper {
      */
     toString(): string;
     /**
+     * Converts to hex rgb(255, 255, 255) to #FFFFFF
+     */  
+    public toHexString(): string;
+    /**
      * Converts to the Hue, Saturation, Lightness color space
      */
     toHSL(): ColorHelper;
@@ -66,5 +70,7 @@ export declare class ColorHelper {
     fadeOut(percent: string | number): ColorHelper;
     fadeIn(percent: string | number): ColorHelper;
     mix(mixin: CSSColor, weight?: number): ColorHelper;
+    tint(weight: number): ColorHelper;
+    shade(weight: number): ColorHelper;
 }
 export declare const aliceblue: ColorHelper, antiquewhite: ColorHelper, aqua: ColorHelper, aquamarine: ColorHelper, azure: ColorHelper, beige: ColorHelper, bisque: ColorHelper, black: ColorHelper, blanchedalmond: ColorHelper, blue: ColorHelper, blueviolet: ColorHelper, brown: ColorHelper, burlywood: ColorHelper, cadetblue: ColorHelper, chartreuse: ColorHelper, chocolate: ColorHelper, coral: ColorHelper, cornflowerblue: ColorHelper, cornsilk: ColorHelper, crimson: ColorHelper, cyan: ColorHelper, darkblue: ColorHelper, darkcyan: ColorHelper, darkgoldenrod: ColorHelper, darkgray: ColorHelper, darkgreen: ColorHelper, darkgrey: ColorHelper, darkkhaki: ColorHelper, darkmagenta: ColorHelper, darkolivegreen: ColorHelper, darkorange: ColorHelper, darkorchid: ColorHelper, darkred: ColorHelper, darksalmon: ColorHelper, darkseagreen: ColorHelper, darkslateblue: ColorHelper, darkslategray: ColorHelper, darkslategrey: ColorHelper, darkturquoise: ColorHelper, darkviolet: ColorHelper, deeppink: ColorHelper, deepskyblue: ColorHelper, dimgray: ColorHelper, dimgrey: ColorHelper, dodgerblue: ColorHelper, firebrick: ColorHelper, floralwhite: ColorHelper, forestgreen: ColorHelper, fuchsia: ColorHelper, gainsboro: ColorHelper, ghostwhite: ColorHelper, gold: ColorHelper, goldenrod: ColorHelper, gray: ColorHelper, green: ColorHelper, greenyellow: ColorHelper, grey: ColorHelper, honeydew: ColorHelper, hotpink: ColorHelper, indianred: ColorHelper, indigo: ColorHelper, ivory: ColorHelper, khaki: ColorHelper, lavender: ColorHelper, lavenderblush: ColorHelper, lawngreen: ColorHelper, lemonchiffon: ColorHelper, lightblue: ColorHelper, lightcoral: ColorHelper, lightcyan: ColorHelper, lightgoldenrodyellow: ColorHelper, lightgray: ColorHelper, lightgreen: ColorHelper, lightgrey: ColorHelper, lightpink: ColorHelper, lightsalmon: ColorHelper, lightseagreen: ColorHelper, lightskyblue: ColorHelper, lightslategray: ColorHelper, lightslategrey: ColorHelper, lightsteelblue: ColorHelper, lightyellow: ColorHelper, lime: ColorHelper, limegreen: ColorHelper, linen: ColorHelper, maroon: ColorHelper, mediumaquamarine: ColorHelper, mediumblue: ColorHelper, mediumorchid: ColorHelper, mediumpurple: ColorHelper, mediumseagreen: ColorHelper, mediumslateblue: ColorHelper, mediumspringgreen: ColorHelper, mediumturquoise: ColorHelper, mediumvioletred: ColorHelper, midnightblue: ColorHelper, mintcream: ColorHelper, mistyrose: ColorHelper, moccasin: ColorHelper, navajowhite: ColorHelper, navy: ColorHelper, oldlace: ColorHelper, olive: ColorHelper, olivedrab: ColorHelper, orange: ColorHelper, purple: ColorHelper, rebeccapurple: ColorHelper, red: ColorHelper, silver: ColorHelper, teal: ColorHelper, transparent: ColorHelper, white: ColorHelper, yellow: ColorHelper;
