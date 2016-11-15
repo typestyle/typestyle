@@ -153,3 +153,15 @@ export const marginCenterHorizontal = {
   marginLeft: 'auto',
   marginRight: 'auto',
 }
+
+/** mixin: height */
+export const height = (value: BoxUnit) => {
+  const height = boxUnitToString(value);
+  return { height };
+}
+
+/** mixin: width */
+export const width = (value: BoxUnit) => {
+  const width = boxUnitToString(value);
+  return { width };
+}
