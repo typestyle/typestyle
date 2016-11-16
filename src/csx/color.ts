@@ -38,14 +38,14 @@ export function color(value: CSSNamedColor | string): ColorHelper {
  * Creates a color from hue, saturation, and lightness.  Alpha is automatically set to 100%
  */
 export function hsl(hue: number, saturation: string | number, lightness: string | number): ColorHelper {
-  return new ColorHelper(HSL, hue, ensurePercent(saturation), ensurePercent(lightness), 1, false);
+  return new ColorHelper(HSL, modDegrees(hue), ensurePercent(saturation), ensurePercent(lightness), 1, false);
 }
 
 /**
  * Creates a color from hue, saturation, lightness, and alpha
  */
 export function hsla(hue: number, saturation: string | number, lightness: string | number, opacity: string | number): ColorHelper {
-  return new ColorHelper(HSL, hue, ensurePercent(saturation), ensurePercent(lightness), ensurePercent(opacity), true);
+  return new ColorHelper(HSL, modDegrees(hue), ensurePercent(saturation), ensurePercent(lightness), ensurePercent(opacity), true);
 }
 
 /**
@@ -403,6 +403,10 @@ export const {aliceblue, antiquewhite, aqua, aquamarine, azure, beige, bisque, b
 
 function toHex(n: number): string {
   return (n < 16 ? '0' : '') +  Math.round(n).toString(16);
+}
+
+function modDegrees(n: number): number {
+  return  (n < 0 ? 360 : 0) + (n % 360);
 }
 
 function RGBtoHSL(c0: number, c1: number, c2: number, c3: number, hasAlpha: boolean): ColorHelper {
