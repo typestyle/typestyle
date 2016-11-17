@@ -70,6 +70,16 @@ describe('color', () => {
       assert.equal(css(), '.f1ri67gz{background-color:hsl(0,100%,50%)}');
     });
 
+    it('handles hsl in style with & interpolation', () => {
+      reinit();
+      style({
+        '&:hover': {
+          backgroundColor: hsl(0, '100%', '50%'),
+        }
+      })
+      assert.equal(css(), '.f5pxp3d:hover{background-color:hsl(0,100%,50%)}');
+    });
+
     it('adds hsl into keyframes', () => {
       reinit();
       const colorAnimation = keyframes({

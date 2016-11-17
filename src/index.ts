@@ -35,6 +35,18 @@ export function ensureString(x: any): string {
     : x;
 }
 
+/**
+ * Ensures string for all values of an object
+ */
+export function ensureStringObj(object: any): any {
+  const result: NestedCSSProperties = {};
+  for (const key in object) {
+    const val = object[key];
+    result[key] = ensureString(val);
+  }
+  return result;
+}
+
 
 /**
  * We have a single stylesheet that we update as components register themselves
@@ -160,11 +172,16 @@ export function extend(...objects: NestedCSSProperties[]): NestedCSSProperties {
       if (
         // Some psuedo state or media query
         (key.indexOf('&') !== -1 || key.indexOf('@media') === 0)
-        // And we already have something for this key
-        && result[key]
       ) {
-        // Then extend in the final result
-        result[key] = extend(result[key] as any, object);
+        // And we already have something for this key
+        if (result[key]) {
+          // Then extend in the final result
+          result[key] = extend(result[key] as any, object);
+        }
+        // Otherwise still ensure string for all values
+        else {
+          result[key] = ensureStringObj(val);
+        }
       }
       // Otherwise just copy to output
       else {

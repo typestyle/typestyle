@@ -6,9 +6,11 @@
   "typings": "./lib/index",
   "scripts": {
     "build": "tsc -p .",
-    "test": "npm run build",
+    "unittest": "mocha ./lib/tests/**/*.js",
+    "test": "npm run build && npm run unittest",
     "preversion": "npm run build",
-    "postversion": "git push --follow-tags && npm publish"
+    "postversion": "git push --follow-tags && npm publish",
+    "start": "npm run build -- -w & npm run unittest -- --watch"
   },
   "repository": {
     "type": "git",
