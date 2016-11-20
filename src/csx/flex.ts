@@ -65,11 +65,13 @@ export var wrap: NestedCSSProperties = {
 /**
  * If you want items to be sized automatically by their children use this
  * This is because of a bug in various flexbox implementations: http://philipwalton.com/articles/normalizing-cross-browser-flexbox-bugs/
+ * Specifically bug 1 : https://github.com/philipwalton/flexbugs#1-minimum-content-sizing-of-flex-items-not-honored
  */
 export var content: NestedCSSProperties = {
   '-ms-flex-negative': 0,
   '-webkit-flex-shrink': 0,
-  flexShrink: 0
+  flexShrink: 0,
+  flexBasis: 'auto',
 };
 
 export var flex: NestedCSSProperties = {
