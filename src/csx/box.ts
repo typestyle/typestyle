@@ -147,17 +147,17 @@ export const maxHeight = (value: BoxUnit) => {
 }
 
 /**
- * Commonly used in layouts for quick and easy centering using margins
+ * Block elements: Centering *self* using margins
  */
-export const marginCenterHorizontal = {
+export const horizontallyCenterSelf = {
   marginLeft: 'auto',
   marginRight: 'auto',
 }
 
 /**
- * Commonly used in layout for centering using textAlign on a block element
+ * Block elements: Centering *child* elements using textAlign
  */
-export const textAlignCenter = {
+export const horizontallyCenterChildren = {
   textAlign: 'center'
 }
 
