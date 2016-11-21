@@ -154,6 +154,13 @@ export const marginCenterHorizontal = {
   marginRight: 'auto',
 }
 
+/**
+ * Commonly used in layout for centering using textAlign on a block element
+ */
+export const textAlignCenter = {
+  textAlign: 'center'
+}
+
 /** mixin: height */
 export const height = (value: BoxUnit) => {
   const height = boxUnitToString(value);
