@@ -71,7 +71,6 @@ export var content: NestedCSSProperties = {
   '-ms-flex-negative': 0,
   '-webkit-flex-shrink': 0,
   flexShrink: 0,
-  flexBasis: 'auto',
 };
 
 export var flex: NestedCSSProperties = {
