@@ -1,7 +1,7 @@
 import { cssFunction } from '../';
 import { ensurePercent, formatPercent } from '../formatting'
 
-const isTypeArraySupported = typeof Float32Array === 'undefined';
+const isTypeArraySupported = typeof Float32Array !== 'undefined';
 
 const RGB = 0, HSL = 1,
   R = 0, G = 1, B = 2,
@@ -24,7 +24,6 @@ const maxChannelValues = {
   [RGB]: colorArray(255, 255, 255, 1),
   [HSL]: colorArray(360, 1, 1, 1)
 };
-
 
 /**
  * Creates a color from a hex color code or named color.
@@ -86,7 +85,11 @@ export class ColorHelper {
    * Converts the stored color into string form (which is used by Free Style)
    */
   public toString(): string {
-    const [c1, c2, c3, c4] = this._values;
+    const v = this._values;
+    const c1 = roundFloat(v[R], 2);
+    const c2 = roundFloat(v[G], 2);
+    const c3 = roundFloat(v[2], 2);
+    const c4 = roundFloat(v[3], 5);
     const format = this._format;
     const hasAlpha = this._hasAlpha;
 
@@ -407,6 +410,10 @@ function toHex(n: number): string {
 
 function modDegrees(n: number): number {
   return  (n < 0 ? 360 : 0) + (n % 360);
+}
+
+function roundFloat(n: number, places: number): number {
+  return Math.round(10 ** places * n) * (10 ** -places);
 }
 
 function RGBtoHSL(c0: number, c1: number, c2: number, c3: number, hasAlpha: boolean): ColorHelper {

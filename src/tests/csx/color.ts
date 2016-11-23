@@ -20,19 +20,19 @@ describe('color', () => {
 
   describe('rgba()', () => {
     it('handles rgb with numbers', () => {
-      const color = rgb(255, 0, 0);
+      const color = rgb(255, 0, 0).toString();
       assert.equal(color, 'rgb(255,0,0)');
     });
   });
 
   describe('rgba()', () => {
     it('handles rgba with numbers', () => {
-      const color = rgba(255, 0, 0, 1);
+      const color = rgba(255, 0, 0, 1).toString();
       assert.equal(color, 'rgba(255,0,0,1)');
     });
 
     it('handles rgba with percent string', () => {
-      const color = rgba(255, 0, 0, '80%');
+      const color = rgba(255, 0, 0, '80%').toString();
       assert.equal(color, 'rgba(255,0,0,0.8)');
     });
   });
@@ -76,7 +76,7 @@ describe('color', () => {
         '&:hover': {
           backgroundColor: hsl(0, '100%', '50%'),
         }
-      })
+      });
       assert.equal(css(), '.f5pxp3d:hover{background-color:hsl(0,100%,50%)}');
     });
 
