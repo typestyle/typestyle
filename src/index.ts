@@ -208,7 +208,7 @@ export type MediaQuery = {
 /**
  * Helps customize styles with media queries
  */
-export const mediaQuery = (mediaQuery: MediaQuery, ...objects: NestedCSSProperties[]): NestedCSSProperties => {
+export const media = (mediaQuery: MediaQuery, ...objects: NestedCSSProperties[]): NestedCSSProperties => {
   const mediaQuerySections: string[] = [];
   if (mediaQuery.type) mediaQuerySections.push(mediaQuery.type);
   if (mediaQuery.orientation) mediaQuerySections.push(mediaQuery.orientation);
