@@ -3,6 +3,7 @@ import * as assert from 'assert';
 
 describe("initial test", () => {
   it("should pass", () => {
+    reinit();
     assert(css() === '');
 
     style({ color: 'red' });

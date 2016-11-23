@@ -198,3 +198,25 @@ export function extend(...objects: NestedCSSProperties[]): NestedCSSProperties {
 export function classes(...classes: (string | boolean | undefined | null)[]): string {
   return classes.filter(c => !!c).join(' ');
 }
+
+export type MediaQuery = {
+  type?: 'screen' | 'print' | 'all';
+  orientation?: 'landscape' | 'portrait';
+  minWidth?: number;
+  maxWidth?: number;
+}
+/**
+ * Helps customize styles with media queries
+ */
+export const mediaQuery = (mediaQuery: MediaQuery, ...objects: NestedCSSProperties[]): NestedCSSProperties => {
+  const mediaQuerySections: string[] = [];
+  if (mediaQuery.type) mediaQuerySections.push(mediaQuery.type);
+  if (mediaQuery.orientation) mediaQuerySections.push(mediaQuery.orientation);
+  if (mediaQuery.minWidth) mediaQuerySections.push(`(min-width: ${mediaQuery.minWidth}px)`);
+  if (mediaQuery.maxWidth) mediaQuerySections.push(`(max-width: ${mediaQuery.maxWidth}px)`);
+
+  const stringMediaQuery = `@media ${mediaQuerySections.join(' and ')}`;
+
+  const object = { [stringMediaQuery]: extend(...objects) };
+  return object;
+}
