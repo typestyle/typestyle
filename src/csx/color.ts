@@ -263,6 +263,11 @@ export class ColorHelper {
     return black.mix(this, weight);
   }
 
+  public spin(degrees: number): ColorHelper {
+    const v = (this._format === HSL ? this : this.toHSL())._values;
+    return new ColorHelper(HSL, modDegrees(v[H] + degrees), v[S], v[L], v[A], this._hasAlpha);
+  }
+
   // TODO
   //complement($color)
   //scale-color($color, [$red], [$green], [$blue], [$saturation], [$lightness], [$alpha])
@@ -409,7 +414,8 @@ function toHex(n: number): string {
 }
 
 function modDegrees(n: number): number {
-  return  (n < 0 ? 360 : 0) + (n % 360);
+  // note: maybe there is a way to simplify this
+  return  ((n < 0 ? 360 : 0) + (n % 360)) % 360;
 }
 
 function roundFloat(n: number, places: number): number {
