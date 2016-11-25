@@ -9,3 +9,6 @@ src/tests
 .alm
 alm.json
 book.json
+
+# npm 
+npm-debug.log*
