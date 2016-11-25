@@ -53,8 +53,28 @@ export function ensureStringObj(object: any): any {
  */
 let freeStyle = FreeStyle.create();
 let lastFreeStyleChangeId = freeStyle.changeId;
-let singletonTag: { innerHTML: string } = typeof window === 'undefined' ? { innerHTML: '' } : document.createElement('style');
-if (typeof document !== 'undefined') document.head.appendChild(singletonTag as any);
+
+/**
+ * We create a tag on first request or return the one that was hydrated
+ */
+const {setTag, getTag} = new class {
+  singletonTag?: { innerHTML: string } = undefined;
+  getTag = () => {
+    if (!this.singletonTag) {
+      this.singletonTag = typeof window === 'undefined' ? { innerHTML: '' } : document.createElement('style');
+      if (typeof document !== 'undefined') document.head.appendChild(this.singletonTag as any);
+    }
+    return this.singletonTag;
+  }
+  setTag = (tag: {innerHTML: string}) => {
+    this.singletonTag = tag;
+    /** This special time buffer immediately */
+    forceFlush();
+  }
+};
+
+/** Sets the tag where we write the CSS on style updates */
+export const setTarget = setTag;
 
 /** Checks if the style tag needs updating and if so queues up the change */
 const styleUpdated = () => {
@@ -65,7 +85,7 @@ const styleUpdated = () => {
 
   lastFreeStyleChangeId = freeStyle.changeId;
   pendingRawChange = false;
-  afterAllSync(flush);
+  afterAllSync(forceFlush);
 };
 
 let pendingRawChange = false;
@@ -87,8 +107,8 @@ export function cssRaw(mustBeValidCSS: string) {
 /**
  * Flushes styles to the singleton tag
  **/
-function flush() {
-  singletonTag.innerHTML = css();
+export function forceFlush() {
+  getTag().innerHTML = css();
 }
 
 /**
@@ -104,7 +124,7 @@ export function reinit() {
   pendingRawChange = false;
 
   /** Clear any styles that were flushed */
-  singletonTag.innerHTML = '';
+  getTag().innerHTML = '';
 }
 
 /**
