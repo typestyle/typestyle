@@ -27,6 +27,7 @@ There are quite a few css in js frameworks out there. This one is different:
 * [This is the CSS framework I have wanted to exist for the past 5 years.](https://twitter.com/jeffwhelpley/status/802275885353054208)
 * [Relief! CSS w/ Type Safety!](https://twitter.com/wwwalkerrun/status/802329604471959552)
 * [This is seriously cool stuff.](https://twitter.com/jonbrennecke/status/802351164247265280)
+* [YES! That's freaking awesome!](https://twitter.com/brechtbilliet/status/802385818295746560)
 
 ## Overview
 
