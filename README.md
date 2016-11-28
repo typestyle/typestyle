@@ -29,6 +29,7 @@ There are quite a few css in js frameworks out there. This one is different:
 * [This is seriously cool stuff.](https://twitter.com/jonbrennecke/status/802351164247265280)
 * [YES! That's freaking awesome!](https://twitter.com/brechtbilliet/status/802385818295746560)
 * [This is an example of both types and linting being enforced by the same systems as the rest of your code](https://twitter.com/rauchg/status/802706919823581185)
+* [Nice approach to have your #css in order and using #typescript](https://twitter.com/chris_noring/status/802824657401475073)
 
 ## Overview
 
