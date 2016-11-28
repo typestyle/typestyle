@@ -30,6 +30,7 @@ There are quite a few css in js frameworks out there. This one is different:
 * [YES! That's freaking awesome!](https://twitter.com/brechtbilliet/status/802385818295746560)
 * [This is an example of both types and linting being enforced by the same systems as the rest of your code](https://twitter.com/rauchg/status/802706919823581185)
 * [Nice approach to have your #css in order and using #typescript](https://twitter.com/chris_noring/status/802824657401475073)
+* [Try out #TypeStyle which uses #Typescript to generate your styles!](https://twitter.com/designpuddle/status/802658082924937216)
 
 ## Overview
 
