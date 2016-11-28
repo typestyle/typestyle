@@ -21,16 +21,7 @@ There are quite a few css in js frameworks out there. This one is different:
 
 > This project is powered by github 🌟s ^ go ahead and [star it please](https://github.com/typestyle/typestyle/stargazers).
 
-* [I haven't been this giggly-happy about a library in a long time!!!](https://twitter.com/andrestaltz/status/788665551325454337)
-* [Rad idea!](https://twitter.com/iammerrick/status/788784672314576897)
-* [What a fantastic #css resource](https://twitter.com/zbrianw/status/792177209490313217)
-* [This is the CSS framework I have wanted to exist for the past 5 years.](https://twitter.com/jeffwhelpley/status/802275885353054208)
-* [Relief! CSS w/ Type Safety!](https://twitter.com/wwwalkerrun/status/802329604471959552)
-* [This is seriously cool stuff.](https://twitter.com/jonbrennecke/status/802351164247265280)
-* [YES! That's freaking awesome!](https://twitter.com/brechtbilliet/status/802385818295746560)
-* [This is an example of both types and linting being enforced by the same systems as the rest of your code](https://twitter.com/rauchg/status/802706919823581185)
-* [Nice approach to have your #css in order and using #typescript](https://twitter.com/chris_noring/status/802824657401475073)
-* [Try out #TypeStyle which uses #Typescript to generate your styles!](https://twitter.com/designpuddle/status/802658082924937216)
+Checkout [the awesome list of reviews 🌹](http://typestyle.io/#/reviews).
 
 ## Overview
 
