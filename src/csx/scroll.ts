@@ -1,17 +1,17 @@
 /**
  * @module scroll helpers
  */
-export const scroll: NestedCSSProperties = {
+export const scroll: CSSProperties = {
   '-webkit-overflow-scrolling': 'touch',
   overflow: 'auto'
 };
 
-export const scrollX: NestedCSSProperties = {
+export const scrollX: CSSProperties = {
   '-webkit-overflow-scrolling': 'touch',
   overflowX: 'auto'
 };
 
-export const scrollY: NestedCSSProperties = {
+export const scrollY: CSSProperties = {
   '-webkit-overflow-scrolling': 'touch',
   overflowY: 'auto'
 };
