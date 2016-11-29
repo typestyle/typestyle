@@ -9,7 +9,6 @@ import * as FreeStyle from "free-style";
 /** Raf for node + browser */
 const raf = typeof requestAnimationFrame === 'undefined' ? setTimeout : requestAnimationFrame;
 
-const startsWith = (target: string, val: string): boolean =>  target.indexOf(val) === 0;
 /**
  * Only calls cb all sync operations settle
  */
@@ -203,11 +202,7 @@ export function extend(...objects: CSSProperties[]): CSSProperties {
         continue;
       }
 
-      // if pseudo selector
-      if (startsWith(key, '&:')) {
-        result[key] = result[key] ? extend(result[key] as any, val) : ensureStringObj(val);
-      }
-      // if media
+      // if media or pseudo selector
       else if (key === 'nested' && val) {
         const nested = object.nested!;
         for (let selector in nested) {

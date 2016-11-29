@@ -1645,6 +1645,28 @@ type CSSPropertyMap = {
 }
 
 type NestedCSSProperties = {
+  nested?: NestedCSSSelectors;
+}
+
+type FontFace = {
+  fontFamily?: string;
+  src?: string;
+  unicodeRange?: any;
+  fontVariant?: 'common-ligatures' | 'small-caps' | CSSGlobalValues;
+  fontFeatureSettings?: string;
+  fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter' | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | CSSGlobalValues;
+  fontSize?: 'normal' | 'italic' | 'oblique' | CSSGlobalValues;
+}
+
+type MediaQuery = {
+  type?: 'screen' | 'print' | 'all';
+  orientation?: 'landscape' | 'portrait';
+  minWidth?: number;
+  maxWidth?: number;
+}
+
+type NestedCSSSelectors = {
+  /** State selector */
   '&:active'?: CSSProperties;
   '&:any'?: CSSProperties;
   '&:checked'?: CSSProperties;
@@ -1678,40 +1700,22 @@ type NestedCSSProperties = {
   '&:target'?: CSSProperties;
   '&:valid'?: CSSProperties;
   '&:visited'?: CSSProperties;
-  nested?: NestedCSSSelectors;
-}
 
-type FontFace = {
-  fontFamily?: string;
-  src?: string;
-  unicodeRange?: any;
-  fontVariant?: 'common-ligatures' | 'small-caps' | CSSGlobalValues;
-  fontFeatureSettings?: string;
-  fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter' | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | CSSGlobalValues;
-  fontSize?: 'normal' | 'italic' | 'oblique' | CSSGlobalValues;
-}
-
-type MediaQuery = {
-  type?: 'screen' | 'print' | 'all';
-  orientation?: 'landscape' | 'portrait';
-  minWidth?: number;
-  maxWidth?: number;
-}
-
-type NestedCSSSelectors = {
   /** Children */
   '&>*'?: CSSProperties;
 
   /**
    * Mobile first media query example
-   * e.g. style({ mobile, '@media' : notMobile });
    **/
   '@media screen and (min-width: 700px)'?: CSSProperties;
   /**
    * Desktop first media query example
-   * e.g. style({ desktop, '@media' : notDesktop });
    **/
   '@media screen and (max-width: 700px)'?: CSSProperties;
+
+  /**
+   * Also cater for any other nested query you want
+   */
   [selector: string]: CSSProperties | undefined;
 };
 
