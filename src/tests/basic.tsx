@@ -32,7 +32,12 @@ describe("initial test", () => {
 
   it("media same", () => {
     reinit();
-    style({ color: 'red', nested: { '@media (min-width: 400px)': { color: 'red' } } });
+    style({
+      color: 'red',
+      nested: {
+        '@media (min-width: 400px)': { color: 'red' }
+      }
+    });
     assert.equal(css(), '.f12z113b{color:red}@media (min-width: 400px){.f12z113b{color:red}}');
   });
 

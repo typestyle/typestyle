@@ -1645,21 +1645,62 @@ type CSSPropertyMap = {
 }
 
 type NestedCSSProperties = {
-  selector?: string;
-  nested?: NestedCSSProperties | FontFace;
+  '&:active'?: CSSProperties;
+  '&:any'?: CSSProperties;
+  '&:checked'?: CSSProperties;
+  '&:default'?: CSSProperties;
+  '&:disabled'?: CSSProperties;
+  '&:empty'?: CSSProperties;
+  '&:enabled'?: CSSProperties;
+  '&:first'?: CSSProperties;
+  '&:first-child'?: CSSProperties;
+  '&:first-of-type'?: CSSProperties;
+  '&:fullscreen'?: CSSProperties;
+  '&:focus'?: CSSProperties;
+  '&:hover'?: CSSProperties;
+  '&:indeterminate'?: CSSProperties;
+  '&:in-range'?: CSSProperties;
+  '&:invalid'?: CSSProperties;
+  '&:last-child'?: CSSProperties;
+  '&:last-of-type'?: CSSProperties;
+  '&:left'?: CSSProperties;
+  '&:link'?: CSSProperties;
+  '&:only-child'?: CSSProperties;
+  '&:only-of-type'?: CSSProperties;
+  '&:optional'?: CSSProperties;
+  '&:out-of-range'?: CSSProperties;
+  '&:read-only'?: CSSProperties;
+  '&:read-write'?: CSSProperties;
+  '&:required'?: CSSProperties;
+  '&:right'?: CSSProperties;
+  '&:root'?: CSSProperties;
+  '&:scope'?: CSSProperties;
+  '&:target'?: CSSProperties;
+  '&:valid'?: CSSProperties;
+  '&:visited'?: CSSProperties;
+  nested?: NestedCSSSelectors;
+}
+
+type FontFace = {
+  fontFamily?: string;
+  src?: string;
+  unicodeRange?: any;
+  fontVariant?: 'common-ligatures' | 'small-caps' | CSSGlobalValues;
+  fontFeatureSettings?: string;
+  fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter' | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | CSSGlobalValues;
+  fontSize?: 'normal' | 'italic' | 'oblique' | CSSGlobalValues;
+}
+
+type MediaQuery = {
+  type?: 'screen' | 'print' | 'all';
+  orientation?: 'landscape' | 'portrait';
+  minWidth?: number;
+  maxWidth?: number;
 }
 
 type NestedCSSSelectors = {
-  /** States */
-  '&:hover'?: CSSProperties;
-  '&:active'?: CSSProperties;
-  '&:disabled'?: CSSProperties;
-  '&:focus'?: CSSProperties;
-
   /** Children */
   '&>*'?: CSSProperties;
-  '&:first-child'?: CSSProperties;
-  '&:last-child'?: CSSProperties;
 
   /**
    * Mobile first media query example
@@ -1671,21 +1712,10 @@ type NestedCSSSelectors = {
    * e.g. style({ desktop, '@media' : notDesktop });
    **/
   '@media screen and (max-width: 700px)'?: CSSProperties;
-  '@font-face'?: FontFace;
-  [selector: string]: CSSProperties | FontFace | undefined;
+  [selector: string]: CSSProperties | undefined;
 };
 
 type CSSProperties = CSSPropertyMap & NestedCSSProperties;
-
-type FontFace = {
-  fontFamily?: string;
-  src?: string;
-  unicodeRange?: any;
-  fontVariant?: 'common-ligatures' | 'small-caps' | CSSGlobalValues;
-  fontFeatureSettings?: string;
-  fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter' | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | CSSGlobalValues;
-  fontSize?: 'normal' | 'italic' | 'oblique' | CSSGlobalValues;
-}
 
 /**
  * For animation keyframe definition

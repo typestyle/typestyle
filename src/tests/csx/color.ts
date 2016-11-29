@@ -73,11 +73,9 @@ describe('color', () => {
     it('handles hsl in style with & interpolation', () => {
       reinit();
       style({
-        nested: {
-          '&:hover': {
+        '&:hover': {
             backgroundColor: hsl(0, '100%', '50%'),
           }
-        }
       });
       assert.equal(css(), '.f5pxp3d:hover{background-color:hsl(0,100%,50%)}');
     });

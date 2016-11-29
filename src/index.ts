@@ -9,6 +9,7 @@ import * as FreeStyle from "free-style";
 /** Raf for node + browser */
 const raf = typeof requestAnimationFrame === 'undefined' ? setTimeout : requestAnimationFrame;
 
+const startsWith = (target: string, val: string): boolean =>  target.indexOf(val) === 0;
 /**
  * Only calls cb all sync operations settle
  */
@@ -184,7 +185,6 @@ export function keyframes(frames: KeyFrames) {
  * `function-name(param [, param])`
  */
 export function cssFunction(functionName: string, ...params: CSSValueGeneral[]): string {
-
   const parts = params.map(ensureString).join(',');
   return `${functionName}(${parts})`;
 }
@@ -193,31 +193,31 @@ export function cssFunction(functionName: string, ...params: CSSValueGeneral[]):
  * Merges various styles into a single style object.
  * Note: if two objects have the same property the last one wins
  */
-export function extend(...objects: FontFace[]): FontFace;
-export function extend(...objects: CSSProperties[]): CSSProperties;
-export function extend(...objects: (FontFace | CSSProperties)[]): FontFace | CSSProperties {
+export function extend(...objects: CSSProperties[]): CSSProperties {
   /** The final result we will return */
-  const result: (FontFace | CSSProperties) & Dictionary = {};
-  for (const object of objects as Dictionary[]) {
+  const result: CSSProperties & Dictionary = {};
+  for (const object of objects as (CSSProperties & Dictionary)[]) {
     for (const key in object) {
       const val = object[key];
-      if (
-        // Some psuedo state or media query
-        (key.indexOf('&') !== -1 || key.indexOf('@media') === 0)
-      ) {
-        // And we already have something for this key
-        if (result[key]) {
-          // Then extend in the final result
-          result[key] = extend(result[key] as any, object);
-        }
-        // Otherwise still ensure string for all values
-        else {
-          result[key] = ensureStringObj(val);
+      if (!val && val !== 0) {
+        continue;
+      }
+
+      // if pseudo selector
+      if (startsWith(key, '&:')) {
+        result[key] = result[key] ? extend(result[key] as any, val) : ensureStringObj(val);
+      }
+      // if media
+      else if (key === 'nested' && val) {
+        const nested = object.nested!;
+        for (let selector in nested) {
+          const subproperties = nested[selector]!;
+          result[selector] = result[selector] ? extend(result[selector], subproperties) : ensureStringObj(subproperties);
         }
       }
-      // Otherwise just copy to output
       else {
-        (result as Dictionary)[key] = ensureString(val);
+        // And we already have something for this key
+        result[key] = ensureString(val);
       }
     }
   }
@@ -231,12 +231,6 @@ export function classes(...classes: (string | boolean | undefined | null)[]): st
   return classes.filter(c => !!c).join(' ');
 }
 
-export type MediaQuery = {
-  type?: 'screen' | 'print' | 'all';
-  orientation?: 'landscape' | 'portrait';
-  minWidth?: number;
-  maxWidth?: number;
-}
 /**
  * Helps customize styles with media queries
  */
@@ -249,6 +243,10 @@ export const media = (mediaQuery: MediaQuery, ...objects: CSSProperties[]): CSSP
 
   const stringMediaQuery = `@media ${mediaQuerySections.join(' and ')}`;
 
-  const object = { [stringMediaQuery]: extend(...objects) };
+  const object = {
+    nested: {
+      [stringMediaQuery]: extend(...objects)
+    }
+  };
   return object;
 }
