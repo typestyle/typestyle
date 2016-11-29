@@ -4,7 +4,7 @@ import * as assert from 'assert';
 describe("media query", () => {
   it("standard freestyle", () => {
     reinit();
-    style({ color: 'red', '@media (min-width: 400px)': { color: 'red' } });
+    style({ color: 'red', nested: { '@media (min-width: 400px)': { color: 'red' } } });
     const standardFreeStyle = css();
     reinit();
     style({ color: 'red' }, media({ minWidth: 400 }, { color: 'red' }));

@@ -25,6 +25,8 @@ const {afterAllSync} = new class {
   }
 }
 
+type Dictionary = { [key: string]: any; };
+
 /**
  * Before we send styles to freeStyle we should convert any CSSType<T> to string
  * Call this whenever something might be a CSSType.
@@ -38,8 +40,8 @@ export function ensureString(x: any): string {
 /**
  * Ensures string for all values of an object
  */
-export function ensureStringObj(object: any): any {
-  const result: NestedCSSProperties = {};
+export function ensureStringObj(object: any): CSSProperties {
+  const result: CSSProperties & Dictionary = {};
   for (const key in object) {
     const val = object[key];
     result[key] = ensureString(val);
@@ -135,11 +137,19 @@ export const css = () => raw ? raw + freeStyle.getStyles() : freeStyle.getStyles
 /**
  * Takes CSSProperties and return a generated className you can use on your component
  */
-export function style(...objects: NestedCSSProperties[]) {
+export function style(...objects: CSSProperties[]) {
   const object = extend(...objects);
   const className = freeStyle.registerStyle(object);
   styleUpdated();
   return className;
+}
+
+export function fontFace(...fontFace: FontFace[]): void {
+  for (const face of fontFace) {
+    freeStyle.registerRule('@font-face', face);
+  }
+  styleUpdated();
+  return;
 }
 
 /**
@@ -158,7 +168,7 @@ export function cssRule(selector: string, ...objects: CSSProperties[]): void {
 export function keyframes(frames: KeyFrames) {
   // resolve keyframe css property helpers
   for (const key in frames) {
-    const frame = frames[key];
+    const frame = frames[key] as Dictionary;
     for (const prop in frame) {
       frame[prop] = ensureString(frame[prop]);
     }
@@ -183,10 +193,12 @@ export function cssFunction(functionName: string, ...params: CSSValueGeneral[]):
  * Merges various styles into a single style object.
  * Note: if two objects have the same property the last one wins
  */
-export function extend(...objects: NestedCSSProperties[]): NestedCSSProperties {
+export function extend(...objects: FontFace[]): FontFace;
+export function extend(...objects: CSSProperties[]): CSSProperties;
+export function extend(...objects: (FontFace | CSSProperties)[]): FontFace | CSSProperties {
   /** The final result we will return */
-  const result: NestedCSSProperties = {};
-  for (const object of objects) {
+  const result: (FontFace | CSSProperties) & Dictionary = {};
+  for (const object of objects as Dictionary[]) {
     for (const key in object) {
       const val = object[key];
       if (
@@ -205,7 +217,7 @@ export function extend(...objects: NestedCSSProperties[]): NestedCSSProperties {
       }
       // Otherwise just copy to output
       else {
-        result[key] = ensureString(val);
+        (result as Dictionary)[key] = ensureString(val);
       }
     }
   }
@@ -228,7 +240,7 @@ export type MediaQuery = {
 /**
  * Helps customize styles with media queries
  */
-export const media = (mediaQuery: MediaQuery, ...objects: NestedCSSProperties[]): NestedCSSProperties => {
+export const media = (mediaQuery: MediaQuery, ...objects: CSSProperties[]): CSSProperties => {
   const mediaQuerySections: string[] = [];
   if (mediaQuery.type) mediaQuerySections.push(mediaQuery.type);
   if (mediaQuery.orientation) mediaQuerySections.push(mediaQuery.orientation);

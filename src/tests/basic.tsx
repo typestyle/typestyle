@@ -20,25 +20,25 @@ describe("initial test", () => {
 
   it("child same", () => {
     reinit();
-    style({ color: 'red', '&>*': { color: 'red' } });
+    style({ color: 'red', nested: { '&>*': { color: 'red' } } });
     assert.equal(css(), '.f1nv0def,.f1nv0def>*{color:red}');
   });
 
   it("child different", () => {
     reinit();
-    style({ color: 'red', '&>*': { color: 'blue' } });
+    style({ color: 'red', nested: { '&>*': { color: 'blue' } } });
     assert.equal(css(), '.fv84gyi{color:red}.fv84gyi>*{color:blue}');
   });
 
   it("media same", () => {
     reinit();
-    style({ color: 'red', '@media (min-width: 400px)': { color: 'red' } });
+    style({ color: 'red', nested: { '@media (min-width: 400px)': { color: 'red' } } });
     assert.equal(css(), '.f12z113b{color:red}@media (min-width: 400px){.f12z113b{color:red}}');
   });
 
   it("media different", () => {
     reinit();
-    style({ color: 'red', '@media (min-width: 400px)': { color: 'blue' } });
+    style({ color: 'red', nested: { '@media (min-width: 400px)': { color: 'blue' } } });
     assert.equal(css(), '.fxfrsga{color:red}@media (min-width: 400px){.fxfrsga{color:blue}}');
   });
 

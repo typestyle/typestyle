@@ -200,7 +200,8 @@ type CSSUrl = string | CSSType<'url'>;
 /**
  * This interface documents key CSS properties for autocomplete
  */
-interface CSSProperties {
+type CSSPropertyMap = {
+  '-webkit-overflow-scrolling'?: string;
 
   /**
    * Aligns a flex container's lines within the flex container when there is extra space in the cross-axis, similar to how justify-content aligns individual items within the main-axis.
@@ -211,11 +212,15 @@ interface CSSProperties {
    * Sets the default alignment in the cross axis for all of the flex container's items, including anonymous flex items, similarly to how justify-content aligns items along the main axis.
    */
   alignItems?: CSSValue<CSSFlexAlign>;
+  '-ms-alignt-items'?: CSSValue<CSSFlexAlign>;
+  '-webkit-align-items'?: CSSValue<CSSFlexAlign>;
 
   /**
    * Allows the default alignment to be overridden for individual flex items.
    */
   alignSelf?: CSSValue<'auto' | CSSFlexAlign>;
+  '-webkit-align-self'?: CSSValue<'auto' | CSSFlexAlign>;
+  '-ms-flex-item-align'?: string;
 
   /**
    * This property allows precise alignment of elements, such as graphics, that do not have a baseline-table or lack the desired baseline in their baseline-table. With the alignment-adjust property, the position of the baseline identified by the alignment-baseline can be explicitly determined. It also determines precisely the alignment point for each glyph within a textual element.
@@ -529,6 +534,13 @@ interface CSSProperties {
   boxFlex?: number;
 
   /**
+   * box sizing
+   */
+  boxSizing?: string;
+  '-moz-box-sizing'?: string;
+  '-webkit-box-sizing'?: string;
+
+  /**
    * Deprecated.
    */
   boxFlexGroup?: number;
@@ -674,12 +686,16 @@ interface CSSProperties {
    * Shorthand for `flex-grow`, `flex-shrink`, and `flex-basis`.
    */
   flex?: number | string;
+  '-webkit-flex'?: number | string;
+  '-ms-flex'?: number | string;
 
   /**
    * Obsolete, do not use. This property has been renamed to align-items.
    * Specifies the alignment (perpendicular to the layout axis defined by the flex-direction property) of child elements of the object.
    */
   flexAlign?: any;
+  '-ms-flex-align'?: any;
+  '-webkit-flex-align'?: any;
 
   /**
    * The flex-basis CSS property describes the initial main size of the flex item before any free space is distributed according to the flex factors described in the flex property (flex-grow and flex-shrink).
@@ -690,6 +706,8 @@ interface CSSProperties {
    * The flex-direction CSS property describes how flex items are placed in the flex container, by setting the direction of the flex container's main axis.
    */
   flexDirection?: any;
+  '-ms-flex-direction'?: any;
+  '-webkit-flex-direction'?: any;
 
   /**
    * The flex-flow CSS property defines the flex container's main and cross axis. It is a shorthand property for the flex-direction and flex-wrap properties.
@@ -700,6 +718,8 @@ interface CSSProperties {
    * Specifies the flex grow factor of a flex item.
    */
   flexGrow?: number;
+  '-ms-flex-grow'?: number;
+  '-webkit-flex-grow'?: number;
 
   /**
    * Do not use. This property has been renamed to align-self
@@ -713,6 +733,14 @@ interface CSSProperties {
    */
   flexLinePack?: any;
 
+  flexPositive?: any;
+  '-ms-flex-positive'?: any;
+  '-webkit-flex-positive'?: any;
+
+  flexNegative?: any;
+  '-ms-flex-negative'?: any;
+  '-webkit-flex-negative'?: any;
+
   /**
    * Gets or sets a value that specifies the ordinal group that a flexbox element belongs to. This ordinal value identifies the display order for the group.
    */
@@ -722,6 +750,12 @@ interface CSSProperties {
    * Specifies the flex shrink factor of a flex item.
    */
   flexShrink?: number;
+  '-ms-flex-shrink'?: number;
+  '-webkit-flex-shrink'?: number;
+
+  flexWrap?: any;
+  '-ms-flex-wrap'?: any;
+  '-webkit-flex-wrap'?: any;
 
   /**
    * Elements which have the style float are floated horizontally. These elements can move as far to the left or right of the containing element. All elements after the floating element will flow around it, but elements before the floating element are not impacted. If several floating elements are placed after each other, they will float next to each other as long as there is room.
@@ -873,6 +907,8 @@ interface CSSProperties {
    * along the main-axis of their container.
    */
   justifyContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
+  '-webkit-justify-content'?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
+  '-ms-flex-pack'?: string;
 
   layoutGrid?: any;
 
@@ -1606,36 +1642,49 @@ interface CSSProperties {
    * Sets the initial zoom factor of a document defined by @viewport.
    */
   zoom?: "auto" | number;
-
-  [propertyName: string]: any;
 }
 
-/** Provides additional autocomplete for pseudo states + nesting */
-interface NestedCSSProperties extends CSSProperties {
+type NestedCSSProperties = {
+  selector?: string;
+  nested?: NestedCSSProperties | FontFace;
+}
+
+type NestedCSSSelectors = {
   /** States */
-  '&:hover'?: NestedCSSProperties;
-  '&:active'?: NestedCSSProperties;
-  '&:disabled'?: NestedCSSProperties;
-  '&:focus'?: NestedCSSProperties;
+  '&:hover'?: CSSProperties;
+  '&:active'?: CSSProperties;
+  '&:disabled'?: CSSProperties;
+  '&:focus'?: CSSProperties;
 
   /** Children */
-  '&>*'?: NestedCSSProperties;
-  '&:first-child'?: NestedCSSProperties;
-  '&:last-child'?: NestedCSSProperties;
+  '&>*'?: CSSProperties;
+  '&:first-child'?: CSSProperties;
+  '&:last-child'?: CSSProperties;
 
   /**
    * Mobile first media query example
    * e.g. style({ mobile, '@media' : notMobile });
    **/
-  '@media screen and (min-width: 700px)'?: NestedCSSProperties;
+  '@media screen and (min-width: 700px)'?: CSSProperties;
   /**
    * Desktop first media query example
    * e.g. style({ desktop, '@media' : notDesktop });
    **/
-  '@media screen and (max-width: 700px)'?: NestedCSSProperties;
+  '@media screen and (max-width: 700px)'?: CSSProperties;
+  '@font-face'?: FontFace;
+  [selector: string]: CSSProperties | FontFace | undefined;
+};
 
-  /** General purpose */
-  [selector: string]: CSSValueGeneral | CSSType<string> |  NestedCSSProperties | undefined;
+type CSSProperties = CSSPropertyMap & NestedCSSProperties;
+
+type FontFace = {
+  fontFamily?: string;
+  src?: string;
+  unicodeRange?: any;
+  fontVariant?: 'common-ligatures' | 'small-caps' | CSSGlobalValues;
+  fontFeatureSettings?: string;
+  fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter' | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | CSSGlobalValues;
+  fontSize?: 'normal' | 'italic' | 'oblique' | CSSGlobalValues;
 }
 
 /**
@@ -1645,5 +1694,5 @@ interface KeyFrames {
   [
   /** stuff like `from`, `to` or `10%` etc*/
   key: string
-  ]: NestedCSSProperties;
+  ]: CSSPropertyMap;
 }
