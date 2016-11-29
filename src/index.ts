@@ -240,3 +240,8 @@ export const media = (mediaQuery: MediaQuery, ...objects: NestedCSSProperties[])
   const object = { [stringMediaQuery]: extend(...objects) };
   return object;
 }
+
+/**
+ * Allows the use of importing the CSSProperties interface 
+ */
+export type CSSProps = CSSProperties
