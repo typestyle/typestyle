@@ -197,6 +197,8 @@ export function extend(...objects: CSSProperties[]): CSSProperties {
   const result: CSSProperties & Dictionary = {};
   for (const object of objects as (CSSProperties & Dictionary)[]) {
     for (const key in object) {
+
+      /** Falsy values except a explicit 0 is ignored */
       const val = object[key];
       if (!val && val !== 0) {
         continue;
