@@ -9,6 +9,20 @@ describe("extend", () => {
   it("nested objects should get flattened", () => {
     assert.deepEqual(
       extend(
+        {
+          nested: { '&:hover': { color: 'red' } }
+        },
+      ),
+      {
+        '&:hover': {
+          color: 'red'
+        }
+      });
+  });
+
+  it("nested objects should get flattened and merge", () => {
+    assert.deepEqual(
+      extend(
         { color: 'grey' },
         { nested: { '&:hover': { color: 'red' } } },
       ),
