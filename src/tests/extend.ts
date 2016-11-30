@@ -79,4 +79,25 @@ describe("extend", () => {
         }
       });
   });
+
+  it("different nested keys should not merge", () => {
+    assert.deepEqual(
+      extend(
+        { nested: { '&:hover': { color: 'red' } } },
+        { nested: { '&:hover': { backgroundColor: 'red' } } },
+        { nested: { '&:focus': { backgroundColor: 'red' } } },
+        { nested: { '&:hover': { fontSize: '14px' }, '&:focus': { fontFamily: 'arial' } } },
+      ),
+      {
+        '&:hover': {
+          fontSize: '14px',
+          color: 'red',
+          backgroundColor: 'red'
+        },
+        '&:focus': {
+          fontFamily: 'arial',
+          backgroundColor: 'red'
+        }
+      });
+  });
 });

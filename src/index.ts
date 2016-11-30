@@ -206,8 +206,9 @@ export function extend(...objects: CSSProperties[]): CSSProperties {
 
       // if freestyle media or pseudo selector
       if ((key.indexOf('&') !== -1 || key.indexOf('@media') === 0)) {
-        result[key] = result[key] ? extend(result[key] as any, object) : ensureStringObj(val);
+        result[key] = result[key] ? extend(result[key] as any, object[key]) : ensureStringObj(val);
       }
+
       // if nested media or pseudo selector
       else if (key === 'nested' && val) {
         const nested = object.nested!;
