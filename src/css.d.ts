@@ -1727,5 +1727,5 @@ interface KeyFrames {
   [
   /** stuff like `from`, `to` or `10%` etc*/
   key: string
-  ]: NestedCSSProperties;
+  ]: CSSProperties;
 }
