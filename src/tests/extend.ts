@@ -51,4 +51,18 @@ describe("extend", () => {
         }
       });
   });
+
+  it("extend should compose i.e. should be truly nestable", () => {
+    assert.deepEqual(
+      extend(
+        extend({ nested: { '&:hover': { color: 'red' } } }),
+        extend({ nested: { '&:hover': { backgroundColor: 'red' } } }),
+      ),
+      {
+        '&:hover': {
+          color: 'red',
+          backgroundColor: 'red'
+        }
+      });
+  });
 });

@@ -68,7 +68,7 @@ const {setTag, getTag} = new class {
     }
     return this.singletonTag;
   }
-  setTag = (tag: {innerHTML: string}) => {
+  setTag = (tag: { innerHTML: string }) => {
     this.singletonTag = tag;
     /** This special time buffer immediately */
     forceFlush();
@@ -202,7 +202,11 @@ export function extend(...objects: CSSProperties[]): CSSProperties {
         continue;
       }
 
-      // if media or pseudo selector
+      // if freestyle media or pseudo selector
+      if ((key.indexOf('&') !== -1 || key.indexOf('@media') === 0)) {
+        result[key] = result[key] ? extend(result[key] as any, object) : ensureStringObj(val);
+      }
+      // if nested media or pseudo selector
       else if (key === 'nested' && val) {
         const nested = object.nested!;
         for (let selector in nested) {
