@@ -137,7 +137,7 @@ export const css = () => raw ? raw + freeStyle.getStyles() : freeStyle.getStyles
 /**
  * Takes CSSProperties and return a generated className you can use on your component
  */
-export function style(...objects: CSSProperties[]) {
+export function style(...objects: NestedCSSProperties[]) {
   const object = extend(...objects);
   const className = freeStyle.registerStyle(object);
   styleUpdated();
@@ -155,7 +155,7 @@ export function fontFace(...fontFace: FontFace[]): void {
 /**
  * Takes CSSProperties and registers it to a global selector (body, html, etc.)
  */
-export function cssRule(selector: string, ...objects: CSSProperties[]): void {
+export function cssRule(selector: string, ...objects: NestedCSSProperties[]): void {
   const object = extend(...objects);
   freeStyle.registerRule(selector, object);
   styleUpdated();
@@ -192,10 +192,10 @@ export function cssFunction(functionName: string, ...params: CSSValueGeneral[]):
  * Merges various styles into a single style object.
  * Note: if two objects have the same property the last one wins
  */
-export function extend(...objects: CSSProperties[]): CSSProperties {
+export function extend(...objects: NestedCSSProperties[]): NestedCSSProperties {
   /** The final result we will return */
   const result: CSSProperties & Dictionary = {};
-  for (const object of objects as (CSSProperties & Dictionary)[]) {
+  for (const object of objects) {
     for (const key in object) {
 
       /** Falsy values except a explicit 0 is ignored */

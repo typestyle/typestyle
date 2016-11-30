@@ -200,7 +200,8 @@ type CSSUrl = string | CSSType<'url'>;
 /**
  * This interface documents key CSS properties for autocomplete
  */
-type CSSPropertyMap = {
+interface CSSProperties {
+  /** Smooth scrolling on an iPhone */
   '-webkit-overflow-scrolling'?: string;
 
   /**
@@ -1644,7 +1645,7 @@ type CSSPropertyMap = {
   zoom?: "auto" | number;
 }
 
-type NestedCSSProperties = {
+interface NestedCSSProperties extends CSSProperties {
   nested?: NestedCSSSelectors;
 }
 
@@ -1719,8 +1720,6 @@ type NestedCSSSelectors = {
   [selector: string]: CSSProperties | undefined;
 };
 
-type CSSProperties = CSSPropertyMap & NestedCSSProperties;
-
 /**
  * For animation keyframe definition
  */
@@ -1728,5 +1727,5 @@ interface KeyFrames {
   [
   /** stuff like `from`, `to` or `10%` etc*/
   key: string
-  ]: CSSPropertyMap;
+  ]: NestedCSSProperties;
 }
