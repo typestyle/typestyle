@@ -199,7 +199,7 @@ export function extend(...objects: NestedCSSProperties[]): NestedCSSProperties {
     for (const key in object) {
 
       /** Falsy values except a explicit 0 is ignored */
-      const val: any = object[key];
+      const val: any = (object as any)[key];
       if (!val && val !== 0) {
         continue;
       }
