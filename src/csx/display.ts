@@ -1,19 +1,20 @@
 /**
  * @module provide display helpers
  */
+import * as types from '../types';
 
-export var block: CSSProperties = {
+export var block: types.CSSProperties = {
   display: 'block'
 };
 
-export var none: CSSProperties = {
+export var none: types.CSSProperties = {
   display: 'none'
 };
 
-export var inlineBlock: CSSProperties = {
+export var inlineBlock: types.CSSProperties = {
   display: 'inline-block'
 };
 
-export var invisible: CSSProperties = {
+export var invisible: types.CSSProperties = {
   visibility: 'hidden'
 };

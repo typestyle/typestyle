@@ -1,4 +1,4 @@
-/// <reference path="./css.d.ts"/>
+import * as types from "./types";
 
 /**
  * @module Maintains a single stylesheet and keeps it in sync with requested styles
@@ -32,7 +32,7 @@ type Dictionary = { [key: string]: any; };
  * Call this whenever something might be a CSSType.
  */
 export function ensureString(x: any): string {
-  return typeof (x as CSSType<any>).type === 'string'
+  return typeof (x as types.CSSType<any>).type === 'string'
     ? x.toString()
     : x;
 }
@@ -40,8 +40,8 @@ export function ensureString(x: any): string {
 /**
  * Ensures string for all values of an object
  */
-export function ensureStringObj(object: any): CSSProperties {
-  const result: CSSProperties & Dictionary = {};
+export function ensureStringObj(object: any): types.CSSProperties {
+  const result: types.CSSProperties & Dictionary = {};
   for (const key in object) {
     const val = object[key];
     result[key] = ensureString(val);
@@ -139,14 +139,14 @@ export const css = () => raw ? raw + freeStyle.getStyles() : freeStyle.getStyles
 /**
  * Takes CSSProperties and return a generated className you can use on your component
  */
-export function style(...objects: NestedCSSProperties[]) {
+export function style(...objects: types.NestedCSSProperties[]) {
   const object = extend(...objects);
   const className = freeStyle.registerStyle(object);
   styleUpdated();
   return className;
 }
 
-export function fontFace(...fontFace: FontFace[]): void {
+export function fontFace(...fontFace: types.FontFace[]): void {
   for (const face of fontFace) {
     freeStyle.registerRule('@font-face', face);
   }
@@ -157,7 +157,7 @@ export function fontFace(...fontFace: FontFace[]): void {
 /**
  * Takes CSSProperties and registers it to a global selector (body, html, etc.)
  */
-export function cssRule(selector: string, ...objects: NestedCSSProperties[]): void {
+export function cssRule(selector: string, ...objects: types.NestedCSSProperties[]): void {
   const object = extend(...objects);
   freeStyle.registerRule(selector, object);
   styleUpdated();
@@ -167,7 +167,7 @@ export function cssRule(selector: string, ...objects: NestedCSSProperties[]): vo
 /**
  * Takes Keyframes and returns a generated animation name
  */
-export function keyframes(frames: KeyFrames) {
+export function keyframes(frames: types.KeyFrames) {
   // resolve keyframe css property helpers
   for (const key in frames) {
     const frame = frames[key] as Dictionary;
@@ -185,7 +185,7 @@ export function keyframes(frames: KeyFrames) {
  * Assumption is that most css function fall into this pattern:
  * `function-name(param [, param])`
  */
-export function cssFunction(functionName: string, ...params: CSSValueGeneral[]): string {
+export function cssFunction(functionName: string, ...params: types.CSSValueGeneral[]): string {
   const parts = params.map(ensureString).join(',');
   return `${functionName}(${parts})`;
 }
@@ -194,9 +194,9 @@ export function cssFunction(functionName: string, ...params: CSSValueGeneral[]):
  * Merges various styles into a single style object.
  * Note: if two objects have the same property the last one wins
  */
-export function extend(...objects: NestedCSSProperties[]): NestedCSSProperties {
+export function extend(...objects: types.NestedCSSProperties[]): types.NestedCSSProperties {
   /** The final result we will return */
-  const result: CSSProperties & Dictionary = {};
+  const result: types.CSSProperties & Dictionary = {};
   for (const object of objects) {
     for (const key in object) {
 
@@ -238,7 +238,7 @@ export function classes(...classes: (string | boolean | undefined | null)[]): st
 /**
  * Helps customize styles with media queries
  */
-export const media = (mediaQuery: MediaQuery, ...objects: CSSProperties[]): CSSProperties => {
+export const media = (mediaQuery: types.MediaQuery, ...objects: types.CSSProperties[]): types.CSSProperties => {
   const mediaQuerySections: string[] = [];
   if (mediaQuery.type) mediaQuerySections.push(mediaQuery.type);
   if (mediaQuery.orientation) mediaQuerySections.push(mediaQuery.orientation);

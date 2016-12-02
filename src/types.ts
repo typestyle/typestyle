@@ -1,16 +1,14 @@
-
-
 /**
  * Value of a CSS Property.  Could be a single value or a list of fallbacks
  * NOTE: array is for fallbacks
  */
-type CSSValue<T> = T | T[];
+export type CSSValue<T> = T | T[];
 
 /**
  * Interface for CSS Property Helpers.
  * Must implement toString and declare the `type`` they handle ('color', 'length', etc.)
  */
-type CSSType<T> = {
+export type CSSType<T> = {
   toString(): string;
   type: T;
 }
@@ -18,18 +16,18 @@ type CSSType<T> = {
 /**
  * For general purpose CSS values
  **/
-type CSSValueGeneral = CSSValue<number | string | CSSType<string>>;
+export type CSSValueGeneral = CSSValue<number | string | CSSType<string>>;
 
 /**
  * When you are sure that the value must be a string
  **/
-type CSSValueString = CSSValue<string | CSSType<string>>;
+export type CSSValueString = CSSValue<string | CSSType<string>>;
 
 /**
  * CSS properties that cascade also support these
  * https://drafts.csswg.org/css-cascade/#defaulting-keywords
  */
-type CSSGlobalValues
+export type CSSGlobalValues
   = 'initial'
   | 'inherit'
   | /** combination of `initial` and `inherit` */ 'unset'
@@ -39,42 +37,42 @@ type CSSGlobalValues
  * Absolute size keywords
  * https://drafts.csswg.org/css-fonts-3/#absolute-size-value
  */
-type CSSAbsoluteSize = 'xx-small' | 'x-small' | 'small' | 'medium' | 'large'
+export type CSSAbsoluteSize = 'xx-small' | 'x-small' | 'small' | 'medium' | 'large'
   | 'x-large' | 'xx-large' | CSSType<'absolute-size'>;
 
 /**
  * an angle; 0' | '0deg' | '0grad' | '0rad' | '0turn' | 'etc.
  * https://drafts.csswg.org/css-values-3/#angles
  */
-type CSSAngle = CSSGlobalValues | string | 0 | CSSType<'angle'>;
+export type CSSAngle = CSSGlobalValues | string | 0 | CSSType<'angle'>;
 
 
 /**
  * initial state of an animation.
  * https://drafts.csswg.org/css-animations/#animation-play-state
  */
-type CSSAnimationPlayState = CSSGlobalValues | string | 'paused' | 'running' | CSSType<'animation-play-state'>;
+export type CSSAnimationPlayState = CSSGlobalValues | string | 'paused' | 'running' | CSSType<'animation-play-state'>;
 
 /**
  * blend mode
  * https://drafts.fxtf.org/compositing-1/#ltblendmodegt
  */
-type CSSBlendMode = 'normal' | 'multiply' | 'screen' | 'overlay' | 'darken' | 'lighten' | 'color-dodge' | 'color-burn'
+export type CSSBlendMode = 'normal' | 'multiply' | 'screen' | 'overlay' | 'darken' | 'lighten' | 'color-dodge' | 'color-burn'
   | 'hard-light' | 'soft-light' | 'difference' | 'exclusion' | 'hue' | 'saturation' | 'color' | 'luminosity' | CSSType<'blend-mode'>;
 
 /**
  * Determines the area within which the background is painted.
  * https://drafts.csswg.org/css-backgrounds/#box
  */
-type CSSBox = CSSGlobalValues | string | 'border-box' | 'padding-box' | 'content-box' | CSSType<'box'>;
+export type CSSBox = CSSGlobalValues | string | 'border-box' | 'padding-box' | 'content-box' | CSSType<'box'>;
 
 /**
  * Color can be a named color, transparent, or a color function
  * https://drafts.csswg.org/css-color-3/#valuea-def-color
  */
-type CSSColor = CSSNamedColor | CSSGlobalValues | string | CSSType<'color'>;
+export type CSSColor = CSSNamedColor | CSSGlobalValues | string | CSSType<'color'>;
 
-type CSSNamedColor =
+export type CSSNamedColor =
   'aliceblue' | 'antiquewhite' | 'aqua' | 'aquamarine' | 'azure' | 'beige' | 'bisque' | 'black' | 'blanchedalmond' | 'blue'
   | 'blueviolet' | 'brown' | 'burlywood' | 'cadetblue' | 'chartreuse' | 'chocolate' | 'coral' | 'cornflowerblue' | 'cornsilk'
   | 'crimson' | 'cyan' | 'darkblue' | 'darkcyan' | 'darkgoldenrod' | 'darkgray' | 'darkgreen' | 'darkgrey' | 'darkkhaki'
@@ -94,45 +92,45 @@ type CSSNamedColor =
  * Special type for border-color which can use 1 or 4 colors
  * https://drafts.csswg.org/css-backgrounds-3/#border-color
  */
-type CSSColorSet = string | CSSColor | CSSType<'color-set'>
+export type CSSColorSet = string | CSSColor | CSSType<'color-set'>
 
 /** For gradients etc */
-type CSSColorStop = [CSSColor, CSSPercentage | CSSLength];
+export type CSSColorStop = [CSSColor, CSSPercentage | CSSLength];
 
 /**
  * Type for align-items and align-self in flex
  */
-type CSSFlexAlign = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch' | CSSType<'flex-align'>;
+export type CSSFlexAlign = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch' | CSSType<'flex-align'>;
 
 /**
  * a gradient function like linear-gradient
  * https://drafts.csswg.org/css-images-3/#gradients
  */
-type CSSGradient = CSSGlobalValues | string | CSSType<'gradient'>;
+export type CSSGradient = CSSGlobalValues | string | CSSType<'gradient'>;
 
 /**
  * complex type that describes the size of fonts
  * https://drafts.csswg.org/css-fonts-3/#propdef-font-size
  */
-type CSSFontSize = CSSGlobalValues | CSSLength | CSSPercentage | CSSAbsoluteSize | CSSRelativeSize;
+export type CSSFontSize = CSSGlobalValues | CSSLength | CSSPercentage | CSSAbsoluteSize | CSSRelativeSize;
 
 /**
  * a value that serves as an image
  * https://drafts.csswg.org/css-images-3/#typedef-image
  */
-type CSSImage = CSSGlobalValues | string | CSSGradient | CSSUrl | CSSType<'image'>;
+export type CSSImage = CSSGlobalValues | string | CSSGradient | CSSUrl | CSSType<'image'>;
 
 /**
  * an length; 0 | '0px' | '0em' etc.
  * https://drafts.csswg.org/css-values-3/#lengths
  */
-type CSSLength = CSSGlobalValues | string | number | CSSType<'length'>;
+export type CSSLength = CSSGlobalValues | string | number | CSSType<'length'>;
 
 /**
  * Style of a line (e.g. border-style)
  * https://drafts.csswg.org/css-backgrounds-3/#line-style
  */
-type CSSLineStyle = string | 'none' | 'hidden' | 'dotted'
+export type CSSLineStyle = string | 'none' | 'hidden' | 'dotted'
   | 'dashed' | 'solid' | 'double' | 'groove' | 'ridge' | 'inset'
   | 'outset' | CSSType<'line-style'>;
 
@@ -140,43 +138,43 @@ type CSSLineStyle = string | 'none' | 'hidden' | 'dotted'
  * Special type for border-style which can use 1 or 4 line-style
  * https://drafts.csswg.org/css-backgrounds-3/#border-style
  */
-type CSSLineStyleSet = string | CSSLineStyle | CSSType<'line-style-set'>
+export type CSSLineStyleSet = string | CSSLineStyle | CSSType<'line-style-set'>
 
 /**
  * Overlow modes
  * https://drafts.csswg.org/css-overflow-3/#propdef-overflow
  */
-type CSSOverflow = 'visible' | 'hidden' | 'scroll' | 'clip' | 'auto';
+export type CSSOverflow = 'visible' | 'hidden' | 'scroll' | 'clip' | 'auto';
 
 /**
  * a percentage; 0 | '0%' etc.
  * https://drafts.csswg.org/css-values-3/#percentage
  */
-type CSSPercentage = CSSGlobalValues | string | 0 | CSSType<'percentage'>;
+export type CSSPercentage = CSSGlobalValues | string | 0 | CSSType<'percentage'>;
 
 /**
  * Defines a position (e.g. background-position)
  * https://drafts.csswg.org/css-backgrounds-3/#position
  */
-type CSSPosition = CSSAngle | string | CSSType<'position'>;
+export type CSSPosition = CSSAngle | string | CSSType<'position'>;
 
 /**
  * Relative size keywords
  * https://drafts.csswg.org/css-fonts-3/#relative-size-value
  */
-type CSSRelativeSize = 'larger' | 'smaller' | CSSType<'relative-size'>;
+export type CSSRelativeSize = 'larger' | 'smaller' | CSSType<'relative-size'>;
 
 /**
  * Specifies how background images are tiled after they have been sized and positioned
  * https://drafts.csswg.org/css-backgrounds/#repeat-style
  */
-type CSSRepeatStyle = string | 'repeat-x' | 'repeat-y' | 'repeat' | 'space' | 'round' | 'no-repeat' | CSSType<'repeat-style'>;
+export type CSSRepeatStyle = string | 'repeat-x' | 'repeat-y' | 'repeat' | 'space' | 'round' | 'no-repeat' | CSSType<'repeat-style'>;
 
 /**
  * Starting position for many gradients
  * https://drafts.csswg.org/css-images-3/#typedef-side-or-corner
  */
-type CSSSideOrCorner = CSSAngle
+export type CSSSideOrCorner = CSSAngle
   | 'left' | 'right' | 'top' | 'bottom'
   | 'to left' | 'to right' | 'to top' | 'to bottom'
   | 'left top' | 'right top' | 'left bottom' | 'right bottom'
@@ -186,7 +184,7 @@ type CSSSideOrCorner = CSSAngle
   | CSSType<'side-or-corner'>;
 
 /** Supporting by `-timing-function` properties */
-type CSSTimingFunction
+export type CSSTimingFunction
   = /** e.g. steps(int,start|end)|cubic-bezier(n,n,n,n) */ string
   | CSSGlobalValues
   | 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear' | 'step-start' | 'step-end' | CSSType<'timing-function'>;
@@ -195,12 +193,12 @@ type CSSTimingFunction
  * Expressed as url('protocol://')
  * https://drafts.csswg.org/css-values-3/#urls
  */
-type CSSUrl = string | CSSType<'url'>;
+export type CSSUrl = string | CSSType<'url'>;
 
 /**
  * This interface documents key CSS properties for autocomplete
  */
-interface CSSProperties {
+export interface CSSProperties {
   /** Smooth scrolling on an iPhone */
   '-webkit-overflow-scrolling'?: string;
 
@@ -1645,11 +1643,11 @@ interface CSSProperties {
   zoom?: "auto" | number;
 }
 
-interface NestedCSSProperties extends CSSProperties {
+export interface NestedCSSProperties extends CSSProperties {
   nested?: NestedCSSSelectors;
 }
 
-type FontFace = {
+export type FontFace = {
   fontFamily?: string;
   src?: string;
   unicodeRange?: any;
@@ -1659,14 +1657,14 @@ type FontFace = {
   fontSize?: 'normal' | 'italic' | 'oblique' | CSSGlobalValues;
 }
 
-type MediaQuery = {
+export type MediaQuery = {
   type?: 'screen' | 'print' | 'all';
   orientation?: 'landscape' | 'portrait';
   minWidth?: number;
   maxWidth?: number;
 }
 
-type NestedCSSSelectors = {
+export type NestedCSSSelectors = {
   /** State selector */
   '&:active'?: CSSProperties;
   '&:any'?: CSSProperties;
@@ -1723,7 +1721,7 @@ type NestedCSSSelectors = {
 /**
  * For animation keyframe definition
  */
-interface KeyFrames {
+export interface KeyFrames {
   [
   /** stuff like `from`, `to` or `10%` etc*/
   key: string

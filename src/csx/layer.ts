@@ -2,11 +2,12 @@
  * @module Layers essentially allow you to create a new surface for layouts
  */
 import { extend } from '../';
+import * as types from '../types';
 
 /**
  * New layer parent
  */
-export var layerParent: CSSProperties = {
+export var layerParent: types.CSSProperties = {
   position: 'relative',
 };
 
@@ -14,7 +15,7 @@ export var layerParent: CSSProperties = {
  * Use this to attach to any parent layer
  * and then you can use `left`/`top` etc to position yourself
  */
-export const attachToLayerParent: CSSProperties = {
+export const attachToLayerParent: types.CSSProperties = {
   position: 'absolute',
 };
 
@@ -22,7 +23,7 @@ export const attachToLayerParent: CSSProperties = {
  * This new layer will attach itself to the nearest parent with `position:relative` or `position:absolute`
  * And will become the new `layerParent`
  */
-export var newLayer: CSSProperties = extend(
+export var newLayer: types.CSSProperties = extend(
   attachToLayerParent,
   {
     left: 0,
@@ -32,7 +33,7 @@ export var newLayer: CSSProperties = extend(
   }
 );
 
-export const attachToTop: CSSProperties = extend(
+export const attachToTop: types.CSSProperties = extend(
   attachToLayerParent,
   {
     top: 0,
@@ -40,7 +41,7 @@ export const attachToTop: CSSProperties = extend(
     right: 0,
   }
 );
-export const attachToRight: CSSProperties = extend(
+export const attachToRight: types.CSSProperties = extend(
   attachToLayerParent,
   {
     top: 0,
@@ -48,7 +49,7 @@ export const attachToRight: CSSProperties = extend(
     bottom: 0,
   }
 );
-export const attachToBottom: CSSProperties = extend(
+export const attachToBottom: types.CSSProperties = extend(
   attachToLayerParent,
   {
     right: 0,
@@ -56,7 +57,7 @@ export const attachToBottom: CSSProperties = extend(
     left: 0,
   }
 );
-export const attachToLeft: CSSProperties = extend(
+export const attachToLeft: types.CSSProperties = extend(
   attachToLayerParent,
   {
     top: 0,
@@ -68,26 +69,26 @@ export const attachToLeft: CSSProperties = extend(
 /**
  * Helps fixing to page
  */
-const fixed: CSSProperties = {
+const fixed: types.CSSProperties = {
   position: 'fixed'
 };
 
-export const pageTop: CSSProperties = extend(fixed, {
+export const pageTop: types.CSSProperties = extend(fixed, {
   top: 0,
   left: 0,
   right: 0,
 });
-export const pageRight: CSSProperties = extend(fixed, {
+export const pageRight: types.CSSProperties = extend(fixed, {
   top: 0,
   right: 0,
   bottom: 0,
 });
-export const pageBottom: CSSProperties = extend(fixed, {
+export const pageBottom: types.CSSProperties = extend(fixed, {
   right: 0,
   bottom: 0,
   left: 0,
 });
-export const pageLeft: CSSProperties = extend(fixed, {
+export const pageLeft: types.CSSProperties = extend(fixed, {
   top: 0,
   bottom: 0,
   left: 0,
