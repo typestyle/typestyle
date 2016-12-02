@@ -58,23 +58,16 @@ describe("test rules", () => {
     assert.equal(css(), 'html, body{height:100%;margin:0;padding:0;width:100%}html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}');
   });
 
-  it('support font faces', () => {
-    reinit();
-    cssRule('@font-face', {
-      fontFamily: '"Bitstream Vera Serif Bold"',
-      src: 'url("https://mdn.mozillademos.org/files/2468/VeraSeBd.ttf")'
-    });
-    assert.equal(css(), '@font-face{font-family:"Bitstream Vera Serif Bold";src:url("https://mdn.mozillademos.org/files/2468/VeraSeBd.ttf")}');
-  })
-
   it('support global media queries', () => {
     reinit();
     /** Save ink with a white background */
     cssRule('@media print', {
-      body: {
-        background: 'white'
+      nested: {
+        body: {
+          background: 'white'
+        }
       }
     });
     assert.equal(css(), '@media print{body{background:white}}');
-  })
+  });
 });

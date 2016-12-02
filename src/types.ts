@@ -1,16 +1,14 @@
-
-
 /**
  * Value of a CSS Property.  Could be a single value or a list of fallbacks
  * NOTE: array is for fallbacks
  */
-type CSSValue<T> = T | T[];
+export type CSSValue<T> = T | T[];
 
 /**
  * Interface for CSS Property Helpers.
  * Must implement toString and declare the `type`` they handle ('color', 'length', etc.)
  */
-type CSSType<T> = {
+export type CSSType<T> = {
   toString(): string;
   type: T;
 }
@@ -18,18 +16,18 @@ type CSSType<T> = {
 /**
  * For general purpose CSS values
  **/
-type CSSValueGeneral = CSSValue<number | string | CSSType<string>>;
+export type CSSValueGeneral = CSSValue<number | string | CSSType<string>>;
 
 /**
  * When you are sure that the value must be a string
  **/
-type CSSValueString = CSSValue<string | CSSType<string>>;
+export type CSSValueString = CSSValue<string | CSSType<string>>;
 
 /**
  * CSS properties that cascade also support these
  * https://drafts.csswg.org/css-cascade/#defaulting-keywords
  */
-type CSSGlobalValues
+export type CSSGlobalValues
   = 'initial'
   | 'inherit'
   | /** combination of `initial` and `inherit` */ 'unset'
@@ -39,42 +37,42 @@ type CSSGlobalValues
  * Absolute size keywords
  * https://drafts.csswg.org/css-fonts-3/#absolute-size-value
  */
-type CSSAbsoluteSize = 'xx-small' | 'x-small' | 'small' | 'medium' | 'large'
+export type CSSAbsoluteSize = 'xx-small' | 'x-small' | 'small' | 'medium' | 'large'
   | 'x-large' | 'xx-large' | CSSType<'absolute-size'>;
 
 /**
  * an angle; 0' | '0deg' | '0grad' | '0rad' | '0turn' | 'etc.
  * https://drafts.csswg.org/css-values-3/#angles
  */
-type CSSAngle = CSSGlobalValues | string | 0 | CSSType<'angle'>;
+export type CSSAngle = CSSGlobalValues | string | 0 | CSSType<'angle'>;
 
 
 /**
  * initial state of an animation.
  * https://drafts.csswg.org/css-animations/#animation-play-state
  */
-type CSSAnimationPlayState = CSSGlobalValues | string | 'paused' | 'running' | CSSType<'animation-play-state'>;
+export type CSSAnimationPlayState = CSSGlobalValues | string | 'paused' | 'running' | CSSType<'animation-play-state'>;
 
 /**
  * blend mode
  * https://drafts.fxtf.org/compositing-1/#ltblendmodegt
  */
-type CSSBlendMode = 'normal' | 'multiply' | 'screen' | 'overlay' | 'darken' | 'lighten' | 'color-dodge' | 'color-burn'
+export type CSSBlendMode = 'normal' | 'multiply' | 'screen' | 'overlay' | 'darken' | 'lighten' | 'color-dodge' | 'color-burn'
   | 'hard-light' | 'soft-light' | 'difference' | 'exclusion' | 'hue' | 'saturation' | 'color' | 'luminosity' | CSSType<'blend-mode'>;
 
 /**
  * Determines the area within which the background is painted.
  * https://drafts.csswg.org/css-backgrounds/#box
  */
-type CSSBox = CSSGlobalValues | string | 'border-box' | 'padding-box' | 'content-box' | CSSType<'box'>;
+export type CSSBox = CSSGlobalValues | string | 'border-box' | 'padding-box' | 'content-box' | CSSType<'box'>;
 
 /**
  * Color can be a named color, transparent, or a color function
  * https://drafts.csswg.org/css-color-3/#valuea-def-color
  */
-type CSSColor = CSSNamedColor | CSSGlobalValues | string | CSSType<'color'>;
+export type CSSColor = CSSNamedColor | CSSGlobalValues | string | CSSType<'color'>;
 
-type CSSNamedColor =
+export type CSSNamedColor =
   'aliceblue' | 'antiquewhite' | 'aqua' | 'aquamarine' | 'azure' | 'beige' | 'bisque' | 'black' | 'blanchedalmond' | 'blue'
   | 'blueviolet' | 'brown' | 'burlywood' | 'cadetblue' | 'chartreuse' | 'chocolate' | 'coral' | 'cornflowerblue' | 'cornsilk'
   | 'crimson' | 'cyan' | 'darkblue' | 'darkcyan' | 'darkgoldenrod' | 'darkgray' | 'darkgreen' | 'darkgrey' | 'darkkhaki'
@@ -94,45 +92,45 @@ type CSSNamedColor =
  * Special type for border-color which can use 1 or 4 colors
  * https://drafts.csswg.org/css-backgrounds-3/#border-color
  */
-type CSSColorSet = string | CSSColor | CSSType<'color-set'>
+export type CSSColorSet = string | CSSColor | CSSType<'color-set'>
 
 /** For gradients etc */
-type CSSColorStop = [CSSColor, CSSPercentage | CSSLength];
+export type CSSColorStop = [CSSColor, CSSPercentage | CSSLength];
 
 /**
  * Type for align-items and align-self in flex
  */
-type CSSFlexAlign = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch' | CSSType<'flex-align'>;
+export type CSSFlexAlign = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch' | CSSType<'flex-align'>;
 
 /**
  * a gradient function like linear-gradient
  * https://drafts.csswg.org/css-images-3/#gradients
  */
-type CSSGradient = CSSGlobalValues | string | CSSType<'gradient'>;
+export type CSSGradient = CSSGlobalValues | string | CSSType<'gradient'>;
 
 /**
  * complex type that describes the size of fonts
  * https://drafts.csswg.org/css-fonts-3/#propdef-font-size
  */
-type CSSFontSize = CSSGlobalValues | CSSLength | CSSPercentage | CSSAbsoluteSize | CSSRelativeSize;
+export type CSSFontSize = CSSGlobalValues | CSSLength | CSSPercentage | CSSAbsoluteSize | CSSRelativeSize;
 
 /**
  * a value that serves as an image
  * https://drafts.csswg.org/css-images-3/#typedef-image
  */
-type CSSImage = CSSGlobalValues | string | CSSGradient | CSSUrl | CSSType<'image'>;
+export type CSSImage = CSSGlobalValues | string | CSSGradient | CSSUrl | CSSType<'image'>;
 
 /**
  * an length; 0 | '0px' | '0em' etc.
  * https://drafts.csswg.org/css-values-3/#lengths
  */
-type CSSLength = CSSGlobalValues | string | number | CSSType<'length'>;
+export type CSSLength = CSSGlobalValues | string | number | CSSType<'length'>;
 
 /**
  * Style of a line (e.g. border-style)
  * https://drafts.csswg.org/css-backgrounds-3/#line-style
  */
-type CSSLineStyle = string | 'none' | 'hidden' | 'dotted'
+export type CSSLineStyle = string | 'none' | 'hidden' | 'dotted'
   | 'dashed' | 'solid' | 'double' | 'groove' | 'ridge' | 'inset'
   | 'outset' | CSSType<'line-style'>;
 
@@ -140,43 +138,43 @@ type CSSLineStyle = string | 'none' | 'hidden' | 'dotted'
  * Special type for border-style which can use 1 or 4 line-style
  * https://drafts.csswg.org/css-backgrounds-3/#border-style
  */
-type CSSLineStyleSet = string | CSSLineStyle | CSSType<'line-style-set'>
+export type CSSLineStyleSet = string | CSSLineStyle | CSSType<'line-style-set'>
 
 /**
  * Overlow modes
  * https://drafts.csswg.org/css-overflow-3/#propdef-overflow
  */
-type CSSOverflow = 'visible' | 'hidden' | 'scroll' | 'clip' | 'auto';
+export type CSSOverflow = 'visible' | 'hidden' | 'scroll' | 'clip' | 'auto';
 
 /**
  * a percentage; 0 | '0%' etc.
  * https://drafts.csswg.org/css-values-3/#percentage
  */
-type CSSPercentage = CSSGlobalValues | string | 0 | CSSType<'percentage'>;
+export type CSSPercentage = CSSGlobalValues | string | 0 | CSSType<'percentage'>;
 
 /**
  * Defines a position (e.g. background-position)
  * https://drafts.csswg.org/css-backgrounds-3/#position
  */
-type CSSPosition = CSSAngle | string | CSSType<'position'>;
+export type CSSPosition = CSSAngle | string | CSSType<'position'>;
 
 /**
  * Relative size keywords
  * https://drafts.csswg.org/css-fonts-3/#relative-size-value
  */
-type CSSRelativeSize = 'larger' | 'smaller' | CSSType<'relative-size'>;
+export type CSSRelativeSize = 'larger' | 'smaller' | CSSType<'relative-size'>;
 
 /**
  * Specifies how background images are tiled after they have been sized and positioned
  * https://drafts.csswg.org/css-backgrounds/#repeat-style
  */
-type CSSRepeatStyle = string | 'repeat-x' | 'repeat-y' | 'repeat' | 'space' | 'round' | 'no-repeat' | CSSType<'repeat-style'>;
+export type CSSRepeatStyle = string | 'repeat-x' | 'repeat-y' | 'repeat' | 'space' | 'round' | 'no-repeat' | CSSType<'repeat-style'>;
 
 /**
  * Starting position for many gradients
  * https://drafts.csswg.org/css-images-3/#typedef-side-or-corner
  */
-type CSSSideOrCorner = CSSAngle
+export type CSSSideOrCorner = CSSAngle
   | 'left' | 'right' | 'top' | 'bottom'
   | 'to left' | 'to right' | 'to top' | 'to bottom'
   | 'left top' | 'right top' | 'left bottom' | 'right bottom'
@@ -186,7 +184,7 @@ type CSSSideOrCorner = CSSAngle
   | CSSType<'side-or-corner'>;
 
 /** Supporting by `-timing-function` properties */
-type CSSTimingFunction
+export type CSSTimingFunction
   = /** e.g. steps(int,start|end)|cubic-bezier(n,n,n,n) */ string
   | CSSGlobalValues
   | 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear' | 'step-start' | 'step-end' | CSSType<'timing-function'>;
@@ -195,12 +193,14 @@ type CSSTimingFunction
  * Expressed as url('protocol://')
  * https://drafts.csswg.org/css-values-3/#urls
  */
-type CSSUrl = string | CSSType<'url'>;
+export type CSSUrl = string | CSSType<'url'>;
 
 /**
  * This interface documents key CSS properties for autocomplete
  */
-interface CSSProperties {
+export interface CSSProperties {
+  /** Smooth scrolling on an iPhone */
+  '-webkit-overflow-scrolling'?: string;
 
   /**
    * Aligns a flex container's lines within the flex container when there is extra space in the cross-axis, similar to how justify-content aligns individual items within the main-axis.
@@ -211,11 +211,15 @@ interface CSSProperties {
    * Sets the default alignment in the cross axis for all of the flex container's items, including anonymous flex items, similarly to how justify-content aligns items along the main axis.
    */
   alignItems?: CSSValue<CSSFlexAlign>;
+  '-ms-alignt-items'?: CSSValue<CSSFlexAlign>;
+  '-webkit-align-items'?: CSSValue<CSSFlexAlign>;
 
   /**
    * Allows the default alignment to be overridden for individual flex items.
    */
   alignSelf?: CSSValue<'auto' | CSSFlexAlign>;
+  '-webkit-align-self'?: CSSValue<'auto' | CSSFlexAlign>;
+  '-ms-flex-item-align'?: string;
 
   /**
    * This property allows precise alignment of elements, such as graphics, that do not have a baseline-table or lack the desired baseline in their baseline-table. With the alignment-adjust property, the position of the baseline identified by the alignment-baseline can be explicitly determined. It also determines precisely the alignment point for each glyph within a textual element.
@@ -529,6 +533,13 @@ interface CSSProperties {
   boxFlex?: number;
 
   /**
+   * box sizing
+   */
+  boxSizing?: string;
+  '-moz-box-sizing'?: string;
+  '-webkit-box-sizing'?: string;
+
+  /**
    * Deprecated.
    */
   boxFlexGroup?: number;
@@ -674,12 +685,16 @@ interface CSSProperties {
    * Shorthand for `flex-grow`, `flex-shrink`, and `flex-basis`.
    */
   flex?: number | string;
+  '-webkit-flex'?: number | string;
+  '-ms-flex'?: number | string;
 
   /**
    * Obsolete, do not use. This property has been renamed to align-items.
    * Specifies the alignment (perpendicular to the layout axis defined by the flex-direction property) of child elements of the object.
    */
   flexAlign?: any;
+  '-ms-flex-align'?: any;
+  '-webkit-flex-align'?: any;
 
   /**
    * The flex-basis CSS property describes the initial main size of the flex item before any free space is distributed according to the flex factors described in the flex property (flex-grow and flex-shrink).
@@ -690,6 +705,8 @@ interface CSSProperties {
    * The flex-direction CSS property describes how flex items are placed in the flex container, by setting the direction of the flex container's main axis.
    */
   flexDirection?: any;
+  '-ms-flex-direction'?: any;
+  '-webkit-flex-direction'?: any;
 
   /**
    * The flex-flow CSS property defines the flex container's main and cross axis. It is a shorthand property for the flex-direction and flex-wrap properties.
@@ -700,6 +717,8 @@ interface CSSProperties {
    * Specifies the flex grow factor of a flex item.
    */
   flexGrow?: number;
+  '-ms-flex-grow'?: number;
+  '-webkit-flex-grow'?: number;
 
   /**
    * Do not use. This property has been renamed to align-self
@@ -713,6 +732,14 @@ interface CSSProperties {
    */
   flexLinePack?: any;
 
+  flexPositive?: any;
+  '-ms-flex-positive'?: any;
+  '-webkit-flex-positive'?: any;
+
+  flexNegative?: any;
+  '-ms-flex-negative'?: any;
+  '-webkit-flex-negative'?: any;
+
   /**
    * Gets or sets a value that specifies the ordinal group that a flexbox element belongs to. This ordinal value identifies the display order for the group.
    */
@@ -722,6 +749,12 @@ interface CSSProperties {
    * Specifies the flex shrink factor of a flex item.
    */
   flexShrink?: number;
+  '-ms-flex-shrink'?: number;
+  '-webkit-flex-shrink'?: number;
+
+  flexWrap?: any;
+  '-ms-flex-wrap'?: any;
+  '-webkit-flex-wrap'?: any;
 
   /**
    * Elements which have the style float are floated horizontally. These elements can move as far to the left or right of the containing element. All elements after the floating element will flow around it, but elements before the floating element are not impacted. If several floating elements are placed after each other, they will float next to each other as long as there is room.
@@ -873,6 +906,8 @@ interface CSSProperties {
    * along the main-axis of their container.
    */
   justifyContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
+  '-webkit-justify-content'?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
+  '-ms-flex-pack'?: string;
 
   layoutGrid?: any;
 
@@ -1606,44 +1641,89 @@ interface CSSProperties {
    * Sets the initial zoom factor of a document defined by @viewport.
    */
   zoom?: "auto" | number;
-
-  [propertyName: string]: any;
 }
 
-/** Provides additional autocomplete for pseudo states + nesting */
-interface NestedCSSProperties extends CSSProperties {
-  /** States */
-  '&:hover'?: NestedCSSProperties;
-  '&:active'?: NestedCSSProperties;
-  '&:disabled'?: NestedCSSProperties;
-  '&:focus'?: NestedCSSProperties;
+export interface NestedCSSProperties extends CSSProperties {
+  nested?: NestedCSSSelectors;
+}
+
+export type FontFace = {
+  fontFamily?: string;
+  src?: string;
+  unicodeRange?: any;
+  fontVariant?: 'common-ligatures' | 'small-caps' | CSSGlobalValues;
+  fontFeatureSettings?: string;
+  fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter' | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | CSSGlobalValues;
+  fontSize?: 'normal' | 'italic' | 'oblique' | CSSGlobalValues;
+}
+
+export type MediaQuery = {
+  type?: 'screen' | 'print' | 'all';
+  orientation?: 'landscape' | 'portrait';
+  minWidth?: number;
+  maxWidth?: number;
+}
+
+export type NestedCSSSelectors = {
+  /** State selector */
+  '&:active'?: CSSProperties;
+  '&:any'?: CSSProperties;
+  '&:checked'?: CSSProperties;
+  '&:default'?: CSSProperties;
+  '&:disabled'?: CSSProperties;
+  '&:empty'?: CSSProperties;
+  '&:enabled'?: CSSProperties;
+  '&:first'?: CSSProperties;
+  '&:first-child'?: CSSProperties;
+  '&:first-of-type'?: CSSProperties;
+  '&:fullscreen'?: CSSProperties;
+  '&:focus'?: CSSProperties;
+  '&:hover'?: CSSProperties;
+  '&:indeterminate'?: CSSProperties;
+  '&:in-range'?: CSSProperties;
+  '&:invalid'?: CSSProperties;
+  '&:last-child'?: CSSProperties;
+  '&:last-of-type'?: CSSProperties;
+  '&:left'?: CSSProperties;
+  '&:link'?: CSSProperties;
+  '&:only-child'?: CSSProperties;
+  '&:only-of-type'?: CSSProperties;
+  '&:optional'?: CSSProperties;
+  '&:out-of-range'?: CSSProperties;
+  '&:read-only'?: CSSProperties;
+  '&:read-write'?: CSSProperties;
+  '&:required'?: CSSProperties;
+  '&:right'?: CSSProperties;
+  '&:root'?: CSSProperties;
+  '&:scope'?: CSSProperties;
+  '&:target'?: CSSProperties;
+  '&:valid'?: CSSProperties;
+  '&:visited'?: CSSProperties;
 
   /** Children */
-  '&>*'?: NestedCSSProperties;
-  '&:first-child'?: NestedCSSProperties;
-  '&:last-child'?: NestedCSSProperties;
+  '&>*'?: CSSProperties;
 
   /**
    * Mobile first media query example
-   * e.g. style({ mobile, '@media' : notMobile });
    **/
-  '@media screen and (min-width: 700px)'?: NestedCSSProperties;
+  '@media screen and (min-width: 700px)'?: CSSProperties;
   /**
    * Desktop first media query example
-   * e.g. style({ desktop, '@media' : notDesktop });
    **/
-  '@media screen and (max-width: 700px)'?: NestedCSSProperties;
+  '@media screen and (max-width: 700px)'?: CSSProperties;
 
-  /** General purpose */
-  [selector: string]: CSSValueGeneral | CSSType<string> |  NestedCSSProperties | undefined;
-}
+  /**
+   * Also cater for any other nested query you want
+   */
+  [selector: string]: CSSProperties | undefined;
+};
 
 /**
  * For animation keyframe definition
  */
-interface KeyFrames {
+export interface KeyFrames {
   [
   /** stuff like `from`, `to` or `10%` etc*/
   key: string
-  ]: NestedCSSProperties;
+  ]: CSSProperties;
 }

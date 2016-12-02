@@ -1,5 +1,6 @@
 import { cssFunction } from '../';
-import { ensurePercent, formatPercent } from '../formatting'
+import { ensurePercent, formatPercent } from '../formatting';
+import * as types from "../types";
 
 const isTypeArraySupported = typeof Float32Array !== 'undefined';
 
@@ -29,7 +30,7 @@ const maxChannelValues = {
  * Creates a color from a hex color code or named color.
  * e.g. color('red') or color('#FF0000') or color('#F00'))
  */
-export function color(value: CSSNamedColor | string): ColorHelper {
+export function color(value: types.CSSNamedColor | string): ColorHelper {
   return parseNamedColor(value) || parseHexCode(value) || parseNamedColor('red') !;
 }
 
@@ -234,7 +235,7 @@ export class ColorHelper {
     return new ColorHelper(this._format, v[R], v[G], v[B], a, true);
   }
 
-  public mix(mixin: CSSColor, weight?: number): ColorHelper {
+  public mix(mixin: types.CSSColor, weight?: number): ColorHelper {
     const color1 = this;
     const color2 = ensureColor(mixin);
     const c1 = (color1._format === RGB ? color1 : color1.toRGB())._values;
@@ -410,12 +411,12 @@ export const {aliceblue, antiquewhite, aqua, aquamarine, azure, beige, bisque, b
   rebeccapurple, red, silver, teal, transparent, white, yellow } = namedColors;
 
 function toHex(n: number): string {
-  return (n < 16 ? '0' : '') +  Math.round(n).toString(16);
+  return (n < 16 ? '0' : '') + Math.round(n).toString(16);
 }
 
 function modDegrees(n: number): number {
   // note: maybe there is a way to simplify this
-  return  ((n < 0 ? 360 : 0) + (n % 360)) % 360;
+  return ((n < 0 ? 360 : 0) + (n % 360)) % 360;
 }
 
 function roundFloat(n: number, places: number): number {
@@ -536,7 +537,7 @@ function clampColor(format: number, channel: number, value: number): number {
   return value < min ? min : value > max ? max : value;
 }
 
-function ensureColor(c: CSSColor): ColorHelper {
+function ensureColor(c: types.CSSColor): ColorHelper {
   return c instanceof ColorHelper ? c as ColorHelper : color(c as string);
 }
 

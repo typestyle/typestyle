@@ -1,4 +1,4 @@
-/// <reference path="./css.d.ts"/>
+import * as types from "./types";
 
 /**
  * @module Maintains a single stylesheet and keeps it in sync with requested styles
@@ -25,12 +25,14 @@ const {afterAllSync} = new class {
   }
 }
 
+type Dictionary = { [key: string]: any; };
+
 /**
  * Before we send styles to freeStyle we should convert any CSSType<T> to string
  * Call this whenever something might be a CSSType.
  */
 export function ensureString(x: any): string {
-  return typeof (x as CSSType<any>).type === 'string'
+  return typeof (x as types.CSSType<any>).type === 'string'
     ? x.toString()
     : x;
 }
@@ -38,8 +40,8 @@ export function ensureString(x: any): string {
 /**
  * Ensures string for all values of an object
  */
-export function ensureStringObj(object: any): any {
-  const result: NestedCSSProperties = {};
+export function ensureStringObj(object: any): types.CSSProperties {
+  const result: types.CSSProperties & Dictionary = {};
   for (const key in object) {
     const val = object[key];
     result[key] = ensureString(val);
@@ -66,15 +68,15 @@ const {setTag, getTag} = new class {
     }
     return this.singletonTag;
   }
-  setTag = (tag: {innerHTML: string}) => {
+  setTag = (tag: { innerHTML: string }) => {
     this.singletonTag = tag;
     /** This special time buffer immediately */
-    forceFlush();
+    forceRender();
   }
 };
 
 /** Sets the tag where we write the CSS on style updates */
-export const setTarget = setTag;
+export const target = setTag;
 
 /** Checks if the style tag needs updating and if so queues up the change */
 const styleUpdated = () => {
@@ -85,7 +87,7 @@ const styleUpdated = () => {
 
   lastFreeStyleChangeId = freeStyle.changeId;
   pendingRawChange = false;
-  afterAllSync(forceFlush);
+  afterAllSync(forceRender);
 };
 
 let pendingRawChange = false;
@@ -105,9 +107,11 @@ export function cssRaw(mustBeValidCSS: string) {
 }
 
 /**
- * Flushes styles to the singleton tag
+ * Renders styles to the singleton tag imediately
+ * NOTE: You should only call it on initial render to prevent any non CSS flash.
+ * After that it is kept sync using `requestAnimationFrame` and we haven't noticed any bad flashes.
  **/
-export function forceFlush() {
+export function forceRender() {
   getTag().innerHTML = css();
 }
 
@@ -135,17 +139,25 @@ export const css = () => raw ? raw + freeStyle.getStyles() : freeStyle.getStyles
 /**
  * Takes CSSProperties and return a generated className you can use on your component
  */
-export function style(...objects: NestedCSSProperties[]) {
+export function style(...objects: types.NestedCSSProperties[]) {
   const object = extend(...objects);
   const className = freeStyle.registerStyle(object);
   styleUpdated();
   return className;
 }
 
+export function fontFace(...fontFace: types.FontFace[]): void {
+  for (const face of fontFace) {
+    freeStyle.registerRule('@font-face', face);
+  }
+  styleUpdated();
+  return;
+}
+
 /**
  * Takes CSSProperties and registers it to a global selector (body, html, etc.)
  */
-export function cssRule(selector: string, ...objects: CSSProperties[]): void {
+export function cssRule(selector: string, ...objects: types.NestedCSSProperties[]): void {
   const object = extend(...objects);
   freeStyle.registerRule(selector, object);
   styleUpdated();
@@ -155,10 +167,10 @@ export function cssRule(selector: string, ...objects: CSSProperties[]): void {
 /**
  * Takes Keyframes and returns a generated animation name
  */
-export function keyframes(frames: KeyFrames) {
+export function keyframes(frames: types.KeyFrames) {
   // resolve keyframe css property helpers
   for (const key in frames) {
-    const frame = frames[key];
+    const frame = frames[key] as Dictionary;
     for (const prop in frame) {
       frame[prop] = ensureString(frame[prop]);
     }
@@ -173,8 +185,7 @@ export function keyframes(frames: KeyFrames) {
  * Assumption is that most css function fall into this pattern:
  * `function-name(param [, param])`
  */
-export function cssFunction(functionName: string, ...params: CSSValueGeneral[]): string {
-
+export function cssFunction(functionName: string, ...params: types.CSSValueGeneral[]): string {
   const parts = params.map(ensureString).join(',');
   return `${functionName}(${parts})`;
 }
@@ -183,28 +194,33 @@ export function cssFunction(functionName: string, ...params: CSSValueGeneral[]):
  * Merges various styles into a single style object.
  * Note: if two objects have the same property the last one wins
  */
-export function extend(...objects: NestedCSSProperties[]): NestedCSSProperties {
+export function extend(...objects: types.NestedCSSProperties[]): types.NestedCSSProperties {
   /** The final result we will return */
-  const result: NestedCSSProperties = {};
+  const result: types.CSSProperties & Dictionary = {};
   for (const object of objects) {
     for (const key in object) {
-      const val = object[key];
-      if (
-        // Some psuedo state or media query
-        (key.indexOf('&') !== -1 || key.indexOf('@media') === 0)
-      ) {
-        // And we already have something for this key
-        if (result[key]) {
-          // Then extend in the final result
-          result[key] = extend(result[key] as any, object);
-        }
-        // Otherwise still ensure string for all values
-        else {
-          result[key] = ensureStringObj(val);
+
+      /** Falsy values except a explicit 0 is ignored */
+      const val: any = (object as any)[key];
+      if (!val && val !== 0) {
+        continue;
+      }
+
+      // if freestyle media or pseudo selector
+      if ((key.indexOf('&') !== -1 || key.indexOf('@media') === 0)) {
+        result[key] = result[key] ? extend(result[key] as any, val) : ensureStringObj(val);
+      }
+
+      // if nested media or pseudo selector
+      else if (key === 'nested' && val) {
+        const nested = object.nested!;
+        for (let selector in nested) {
+          const subproperties = nested[selector]!;
+          result[selector] = result[selector] ? extend(result[selector], subproperties) : ensureStringObj(subproperties);
         }
       }
-      // Otherwise just copy to output
       else {
+        // And we already have something for this key
         result[key] = ensureString(val);
       }
     }
@@ -219,16 +235,10 @@ export function classes(...classes: (string | boolean | undefined | null)[]): st
   return classes.filter(c => !!c).join(' ');
 }
 
-export type MediaQuery = {
-  type?: 'screen' | 'print' | 'all';
-  orientation?: 'landscape' | 'portrait';
-  minWidth?: number;
-  maxWidth?: number;
-}
 /**
  * Helps customize styles with media queries
  */
-export const media = (mediaQuery: MediaQuery, ...objects: NestedCSSProperties[]): NestedCSSProperties => {
+export const media = (mediaQuery: types.MediaQuery, ...objects: types.CSSProperties[]): types.CSSProperties => {
   const mediaQuerySections: string[] = [];
   if (mediaQuery.type) mediaQuerySections.push(mediaQuery.type);
   if (mediaQuery.orientation) mediaQuerySections.push(mediaQuery.orientation);
@@ -237,6 +247,10 @@ export const media = (mediaQuery: MediaQuery, ...objects: NestedCSSProperties[])
 
   const stringMediaQuery = `@media ${mediaQuerySections.join(' and ')}`;
 
-  const object = { [stringMediaQuery]: extend(...objects) };
+  const object = {
+    nested: {
+      [stringMediaQuery]: extend(...objects)
+    }
+  };
   return object;
 }
