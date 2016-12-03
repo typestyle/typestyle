@@ -69,6 +69,10 @@ const {setTag, getTag} = new class {
     return this.singletonTag;
   }
   setTag = (tag: { innerHTML: string }) => {
+    /** Clear any data in any previous tag */
+    if (this.singletonTag) {
+      this.singletonTag.innerHTML = '';
+    }
     this.singletonTag = tag;
     /** This special time buffer immediately */
     forceRender();
