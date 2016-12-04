@@ -75,4 +75,4 @@ You are probably here cause you are unhappy with your current workflow. So why n
 [types.ts]:https://github.com/typestyle/typestyle/blob/master/src/types.ts
 [csx]:https://github.com/typestyle/typestyle#csx
 [book]:http://typestyle.io
-[why]:(http://typestyle.io/#/why)
+[why]:http://typestyle.io/#/why
