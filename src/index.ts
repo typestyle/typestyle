@@ -80,7 +80,7 @@ const {setTag, getTag} = new class {
 };
 
 /** Sets the target tag where we write the css on style updates */
-export const setTargetTag = setTag;
+export const setStylesTarget = setTag;
 
 /** Checks if the style tag needs updating and if so queues up the change */
 const styleUpdated = () => {
