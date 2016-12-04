@@ -87,7 +87,7 @@ const styleTag = `<style>${css()}</style>`
 
 ## Advanced
 **Pseudo States**
-`&:hover`, `&:active`, `&:focus`, `&:disabled` as you would expect e.g.
+`&:hover`, `&:active`, `&:focus`, `&:disabled` can be nested as you would expect e.g.
 
 ```tsx
 /** Import */
@@ -96,8 +96,10 @@ import {style} from "typestyle";
 /** convert a style object to a CSS class name */
 const className = style({
   color: 'blue',
-  '&:hover': {
-    color: 'red'
+  nested: {
+    '&:hover': {
+      color: 'red'
+    }
   }
 });
 ```
@@ -114,21 +116,28 @@ const spacing = '5px';
 
 /** style -> className :) */
 const className = style({
-  '&>*': {
-    marginBottom: spacing,
-  },
-  '&>*:last-child': {
-    marginBottom: '0px',
+  nested: {
+    '&>*': {
+      marginBottom: spacing,
+    },
+    '&>*:last-child': {
+      marginBottom: '0px',
+    }
   }
 });
 ```
 
 **Media Queries**
+
+You can even nest media queries.
+
 ```tsx
 const colorChangingClass = style({
   backgroundColor: 'red',
-  '@media (min-width: 400px)': {
-    backgroundColor: 'pink'
+  nested: {
+    '@media (min-width: 400px)': {
+      backgroundColor: 'pink'
+    }
   }
 })
 ```
@@ -141,7 +150,11 @@ const redMaker = {color:'red'};
 const alwaysRedClass = style(redMaker);
 const greyOnHoverClass = style(
   redMaker,
-  {'&:hover':{color: 'grey'}}
+  {
+    nested:{
+      '&:hover': { color: 'grey' }
+    }
+  }
 );
 ```
 
@@ -179,7 +192,7 @@ namespace MyStyles {
   const color = 'red';
 
   export const alwaysRedClass = style({color});
-  export const onlyRedOnHoverClass = style({'&:hover':{color});
+  export const onlyRedOnHoverClass = style({nested:{'&:hover':{color}});
 }
 
 /** Use e.g. with React */
