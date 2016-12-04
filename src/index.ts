@@ -75,7 +75,7 @@ const {setTag, getTag} = new class {
     }
     this.singletonTag = tag;
     /** This special time buffer immediately */
-    forceRender();
+    forceRenderStyles();
   }
 };
 
@@ -91,7 +91,7 @@ const styleUpdated = () => {
 
   lastFreeStyleChangeId = freeStyle.changeId;
   pendingRawChange = false;
-  afterAllSync(forceRender);
+  afterAllSync(forceRenderStyles);
 };
 
 let pendingRawChange = false;
@@ -115,7 +115,7 @@ export function cssRaw(mustBeValidCSS: string) {
  * NOTE: You should only call it on initial render to prevent any non CSS flash.
  * After that it is kept sync using `requestAnimationFrame` and we haven't noticed any bad flashes.
  **/
-export function forceRender() {
+export function forceRenderStyles() {
   getTag().innerHTML = css();
 }
 
