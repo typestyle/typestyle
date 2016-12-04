@@ -26,7 +26,7 @@ Checkout [the awesome list of reviews 🌹](http://typestyle.io/#/reviews).
 ## Overview
 
 * [Quickstart](#quickstart)
-* [Guide: Pseudo Classes, Animations, Media Queries, Server side rendering](#book)
+* [Guide: Pseudo Classes, Animations, Media Queries, Server side rendering](#guide)
 * [How](#how)
   * [Really How](#really-how)
 * [Performance](#performance)
