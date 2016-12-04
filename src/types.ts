@@ -423,6 +423,11 @@ export interface CSSProperties {
   borderLeftWidth?: CSSValue<CSSLength | CSSPercentage>;
 
   /**
+   * Allows Web authors to define how rounded border corners are
+   */
+  borderRadius?: CSSValue<CSSLength | CSSPercentage>;
+
+  /**
    * Shorthand property that defines the border-width, border-style and border-color of an element's right border in a single declaration. Note that you can use the corresponding longhand properties to set specific individual properties of the right border — border-right-width, border-right-style and border-right-color.
    */
   borderRight?: any;
