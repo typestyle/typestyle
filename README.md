@@ -349,11 +349,11 @@ This works very much in the same principle as CSS modules in that it takes a sty
 ### Really How
 * [FreeStyle][free-style] converts a JS style object to a CSS className using hashing
 * We keep a single style sheet updated as you register styles.
-* Provide [`css.d.ts`][css.d.ts] to help with autocomplete + error reporting.
+* Provide [`types.ts`][types.ts] to help with autocomplete + error reporting.
 
 ## Help
 
-Really apprecate as many PRs for [`css.d.ts`][css.d.ts] `CSSProperties` as you can throw at us 🌹
+Really appreciate as many PRs for [`types.ts`][types.ts] `CSSProperties` as you can throw at us 🌹
 
 ## Performance
 Same as [FreeStyle][free-style] which is *super simple* and does the *absolute minimum but necessary*, so faster than other CSS in JS frameworks for sure. We'd love to be told otherwise.
@@ -363,6 +363,6 @@ Same as [FreeStyle][free-style] which is *super simple* and does the *absolute m
 [travis-url]:https://travis-ci.org/typestyle/typestyle
 [npm-image]:https://img.shields.io/npm/v/typestyle.svg?style=flat
 [npm-url]:https://npmjs.org/package/typestyle
-[css.d.ts]:https://github.com/typestyle/typestyle/blob/master/src/css.d.ts
+[types.ts]:https://github.com/typestyle/typestyle/blob/master/src/types.ts
 [csx]:https://github.com/typestyle/typestyle#csx
 [book]:https://typestyle.github.io
