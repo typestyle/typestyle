@@ -27,10 +27,7 @@ Checkout [the awesome list of reviews 🌹](http://typestyle.io/#/reviews).
 
 * [Quickstart](#quickstart)
 * [Guide: Pseudo Classes, Animations, Media Queries, Server side rendering](#guide)
-* [How](#how)
-  * [Really How](#really-how)
-* [Performance](#performance)
-* [Help](#help)
+* [Why](#why)
 
 ## Quickstart
 
@@ -67,16 +64,8 @@ We really really want to make CSS maintainable and simple. So we even wrote a fr
 
 [![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/source/public/images/book/cover.png)][book]
 
-## How
-This works very much in the same principle as CSS modules in that it takes a style object and generates a *non conflicting generated* class name.
-
-### Really How
-* [FreeStyle][free-style] converts a JS style object to a CSS className using hashing
-* We keep a single style sheet updated as you register styles.
-* Provide [`types.ts`][types.ts] to help with autocomplete + error reporting.
-
-## Performance
-Same as [FreeStyle][free-style] which is *super simple* and does the *absolute minimum but necessary*, so faster than other CSS in JS frameworks for sure. We'd love to be told otherwise.
+## Why
+You are probably here cause you are unhappy with your current workflow. So why not just jump to the [guide][book] and give it a go. If you [still need reasons we have quite a few][why]
 
 [free-style]:https://github.com/blakeembrey/free-style
 [travis-image]:https://travis-ci.org/typestyle/typestyle.svg?branch=master
@@ -85,4 +74,5 @@ Same as [FreeStyle][free-style] which is *super simple* and does the *absolute m
 [npm-url]:https://npmjs.org/package/typestyle
 [types.ts]:https://github.com/typestyle/typestyle/blob/master/src/types.ts
 [csx]:https://github.com/typestyle/typestyle#csx
-[book]:https://typestyle.github.io
+[book]:http://typestyle.io
+[why](http://typestyle.io/#/why)
