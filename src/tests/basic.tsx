@@ -1,4 +1,4 @@
-import { style, css, reinit, classes, cssRule } from '../index';
+import { style, css, reinit, classes, cssRule, IS_UNIQUE } from '../index';
 import * as assert from 'assert';
 
 describe("initial test", () => {
@@ -58,5 +58,27 @@ describe("initial test", () => {
     cssRule('.transparent', { color: 'transparent' });
     style({ color: 'transparent' });
     assert.equal(css(), '.transparent{color:transparent}.fwarpl0{color:transparent}');
+  });
+
+  it("should support IS_UNIQUE", () => {
+    reinit();
+    style({
+      color: 'blue',
+      nested: {
+        '&::-webkit-input-placeholder': {
+          color: `rgba(0, 0, 0, 0)`,
+          [IS_UNIQUE]: true
+        },
+        '&::-moz-placeholder': {
+          color: `rgba(0, 0, 0, 0)`,
+          [IS_UNIQUE]: true
+        },
+        '&::-ms-input-placeholder': {
+          color: `rgba(0, 0, 0, 0)`,
+          [IS_UNIQUE]: true
+        }
+      }
+    });
+    assert.equal(css(), '.f13byakl{color:blue}.f13byakl::-webkit-input-placeholder{color:rgba(0, 0, 0, 0)}.f13byakl::-moz-placeholder{color:rgba(0, 0, 0, 0)}.f13byakl::-ms-input-placeholder{color:rgba(0, 0, 0, 0)}');
   });
 })

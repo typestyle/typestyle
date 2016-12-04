@@ -4,6 +4,7 @@ import * as types from "./types";
  * @module Maintains a single stylesheet and keeps it in sync with requested styles
  */
 import * as FreeStyle from "free-style";
+export const IS_UNIQUE: '__DO_NOT_DEDUPE_STYLE__' = FreeStyle.IS_UNIQUE as any;
 
 
 /** Raf for node + browser */
