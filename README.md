@@ -65,7 +65,7 @@ We really really want to make CSS maintainable and simple. So we even wrote a fr
 [![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/source/public/images/book/cover.png)][book]
 
 ## Why
-You are probably here cause you are unhappy with your current workflow. So why not just jump to the [guide][book] and give it a go. If you [still need reasons we have quite a few][why]
+You are probably here cause you are unhappy with your current workflow. So why not just jump to the [guide][book] and give it a go. If you [still need reasons we have quite a few][why].
 
 [free-style]:https://github.com/blakeembrey/free-style
 [travis-image]:https://travis-ci.org/typestyle/typestyle.svg?branch=master
