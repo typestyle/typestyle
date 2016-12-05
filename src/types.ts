@@ -1310,12 +1310,12 @@ export interface CSSProperties {
   /**
    * The text-align CSS property describes how inline content like text is aligned in its parent block element. text-align does not control the alignment of block elements itself, only their inline content.
    */
-  textAlign?: any;
+  textAlign?: CSSGlobalValues | 'start' | 'end' | 'left' | 'right' | 'center' | 'justify' | 'justify-all' | 'match-parent';
 
   /**
    * The text-align-last CSS property describes how the last line of a block element or a line before line break is aligned in its parent block element.
    */
-  textAlignLast?: any;
+  textAlignLast?: CSSGlobalValues | 'auto' | 'start' | 'end' | 'left' | 'right' | 'center' | 'justify';
 
   /**
    * The text-decoration CSS property is used to set the text formatting to underline, overline, line-through or blink.
