@@ -63,7 +63,6 @@ function ensureStringObj(object: types.NestedCSSProperties): any {
       }
     }
     else {
-      // And we already have something for this key
       result[key] = ensureString(val);
     }
   }
