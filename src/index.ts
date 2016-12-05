@@ -56,6 +56,33 @@ export function ensureStringObj(object: any): types.CSSProperties {
   return result;
 }
 
+/**
+ * We need to do the following to *our* objects before passing to freestyle:
+ * - Convert any CSSType to their string value
+ * - For any `$nest` directive move up to FreeStyle style nesting
+ * - For any `$unique` directive map to FreeStyle Unique
+ */
+function cleanUpObjForFreeStyle(object: types.NestedCSSProperties): any {
+  /** The final result we will return */
+  const result: types.CSSProperties & Dictionary = {};
+
+  for (const key in object) {
+    if (key === '$nest') {
+      const nested = object.$nest!;
+      for (let selector in nested) {
+        const subproperties = nested[selector]!;
+        result[selector] = cleanUpObjForFreeStyle(ensureStringObj(subproperties));
+      }
+    }
+    else {
+      // And we already have something for this key
+      result[key] = ensureString((object as any)[key] as any);
+    }
+  }
+
+  return result;
+}
+
 
 /**
  * We have a single stylesheet that we update as components register themselves
@@ -151,7 +178,7 @@ export const css = () => raw ? raw + freeStyle.getStyles() : freeStyle.getStyles
  * Takes CSSProperties and return a generated className you can use on your component
  */
 export function style(...objects: types.NestedCSSProperties[]) {
-  const object = extend(...objects);
+  const object = cleanUpObjForFreeStyle(extend(...objects));
   const className = freeStyle.registerStyle(object);
   styleUpdated();
   return className;
@@ -169,7 +196,7 @@ export function fontFace(...fontFace: types.FontFace[]): void {
  * Takes CSSProperties and registers it to a global selector (body, html, etc.)
  */
 export function cssRule(selector: string, ...objects: types.NestedCSSProperties[]): void {
-  const object = extend(...objects);
+  const object = cleanUpObjForFreeStyle(extend(...objects));
   freeStyle.registerRule(selector, object);
   styleUpdated();
   return;
@@ -217,25 +244,20 @@ export function extend(...objects: types.NestedCSSProperties[]): types.NestedCSS
         continue;
       }
 
-      // if freestyle media or pseudo selector
-      if ((key.indexOf('&') !== -1 || key.indexOf('@media') === 0)) {
-        result[key] = result[key] ? extend(result[key] as any, val) : ensureStringObj(val);
+      /** if nested media or pseudo selector */
+      if (key === '$nest' && val) {
+        result[key] = result['$nest'] ? extend(result['$nest'], val) : val;
       }
-
-      // if nested media or pseudo selector
-      else if (key === '$nest' && val) {
-        const nested = object.$nest!;
-        for (let selector in nested) {
-          const subproperties = nested[selector]!;
-          result[selector] = result[selector] ? extend(result[selector], subproperties) : ensureStringObj(subproperties);
-        }
+      /** if freestyle sub key that needs merging. We come here due to our recursive calls */
+      else if ((key.indexOf('&') !== -1 || key.indexOf('@media') === 0)) {
+        result[key] = result[key] ? extend(result[key], val) : val;
       }
       else {
-        // And we already have something for this key
-        result[key] = ensureString(val);
+        result[key] = val;
       }
     }
   }
+
   return result;
 }
 
