@@ -1660,7 +1660,7 @@ export interface CSSProperties {
 }
 
 export interface NestedCSSProperties extends CSSProperties {
-  nested?: NestedCSSSelectors;
+  $nest?: NestedCSSSelectors;
 }
 
 export type FontFace = {

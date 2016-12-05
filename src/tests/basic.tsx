@@ -20,13 +20,13 @@ describe("initial test", () => {
 
   it("child same", () => {
     reinit();
-    style({ color: 'red', nested: { '&>*': { color: 'red' } } });
+    style({ color: 'red', $nest: { '&>*': { color: 'red' } } });
     assert.equal(css(), '.f1nv0def,.f1nv0def>*{color:red}');
   });
 
   it("child different", () => {
     reinit();
-    style({ color: 'red', nested: { '&>*': { color: 'blue' } } });
+    style({ color: 'red', $nest: { '&>*': { color: 'blue' } } });
     assert.equal(css(), '.fv84gyi{color:red}.fv84gyi>*{color:blue}');
   });
 
@@ -34,7 +34,7 @@ describe("initial test", () => {
     reinit();
     style({
       color: 'red',
-      nested: {
+      $nest: {
         '@media (min-width: 400px)': { color: 'red' }
       }
     });
@@ -43,7 +43,7 @@ describe("initial test", () => {
 
   it("media different", () => {
     reinit();
-    style({ color: 'red', nested: { '@media (min-width: 400px)': { color: 'blue' } } });
+    style({ color: 'red', $nest: { '@media (min-width: 400px)': { color: 'blue' } } });
     assert.equal(css(), '.fxfrsga{color:red}@media (min-width: 400px){.fxfrsga{color:blue}}');
   });
 
@@ -64,7 +64,7 @@ describe("initial test", () => {
     reinit();
     style({
       color: 'blue',
-      nested: {
+      $nest: {
         '&::-webkit-input-placeholder': {
           color: `rgba(0, 0, 0, 0)`,
         },
@@ -83,7 +83,7 @@ describe("initial test", () => {
     reinit();
     style({
       color: 'blue',
-      nested: {
+      $nest: {
         '&::-webkit-input-placeholder': {
           $unique: true,
           color: `rgba(0, 0, 0, 0)`,

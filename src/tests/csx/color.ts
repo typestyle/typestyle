@@ -73,7 +73,7 @@ describe('color', () => {
     it('handles hsl in style with & interpolation', () => {
       reinit();
       style({
-        nested: {
+        $nest: {
           '&:hover': {
             backgroundColor: hsl(0, '100%', '50%'),
           }

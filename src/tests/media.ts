@@ -6,7 +6,7 @@ describe("media query", () => {
     reinit();
     style({
       color: 'red',
-      nested: {
+      $nest: {
         '@media (min-width: 400px)': { color: 'red' }
       }
     });

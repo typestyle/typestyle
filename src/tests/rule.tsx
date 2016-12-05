@@ -62,7 +62,7 @@ describe("test rules", () => {
     reinit();
     /** Save ink with a white background */
     cssRule('@media print', {
-      nested: {
+      $nest: {
         body: {
           background: 'white'
         }

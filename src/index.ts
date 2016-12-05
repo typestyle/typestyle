@@ -223,8 +223,8 @@ export function extend(...objects: types.NestedCSSProperties[]): types.NestedCSS
       }
 
       // if nested media or pseudo selector
-      else if (key === 'nested' && val) {
-        const nested = object.nested!;
+      else if (key === '$nest' && val) {
+        const nested = object.$nest!;
         for (let selector in nested) {
           const subproperties = nested[selector]!;
           result[selector] = result[selector] ? extend(result[selector], subproperties) : ensureStringObj(subproperties);
@@ -259,7 +259,7 @@ export const media = (mediaQuery: types.MediaQuery, ...objects: types.CSSPropert
   const stringMediaQuery = `@media ${mediaQuerySections.join(' and ')}`;
 
   const object = {
-    nested: {
+    $nest: {
       [stringMediaQuery]: extend(...objects)
     }
   };
