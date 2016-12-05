@@ -24,6 +24,12 @@ describe("initial test", () => {
     assert.equal(css(), '.f1nv0def,.f1nv0def>*{color:red}');
   });
 
+  it("child same unique", () => {
+    reinit();
+    style({ color: 'red', $nest: { '&>*': { color: 'red', $unique: true } } });
+    assert.equal(css(), '.f1nv0def{color:red}.f1nv0def>*{color:red}');
+  });
+
   it("child different", () => {
     reinit();
     style({ color: 'red', $nest: { '&>*': { color: 'blue' } } });
