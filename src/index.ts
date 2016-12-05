@@ -76,7 +76,7 @@ function cleanUpObjForFreeStyle(object: types.NestedCSSProperties): any {
     }
     else {
       // And we already have something for this key
-      result[key] = ensureString(object[key] as any);
+      result[key] = ensureString((object as any)[key] as any);
     }
   }
 
