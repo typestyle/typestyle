@@ -37,46 +37,34 @@ export function ensureString(x: any): string {
 }
 
 /**
- * Ensures string for all values of an object
- */
-export function ensureStringObj(object: any): types.CSSProperties {
-  const result: types.CSSProperties & Dictionary = {};
-  for (const key in object) {
-    const val = object[key];
-    result[key] = ensureString(val);
-
-    /** TypeStyle configuration options */
-    if (key === '$unique') {
-      const atKey = FreeStyle.IS_UNIQUE;
-      const objToPutBack = result[key];
-      delete result[key];
-      result[atKey] = objToPutBack;
-    }
-  }
-  return result;
-}
-
-/**
  * We need to do the following to *our* objects before passing to freestyle:
  * - Convert any CSSType to their string value
  * - For any `$nest` directive move up to FreeStyle style nesting
  * - For any `$unique` directive map to FreeStyle Unique
  */
-function cleanUpObjForFreeStyle(object: types.NestedCSSProperties): any {
+function ensureStringObj(object: types.NestedCSSProperties): any {
   /** The final result we will return */
   const result: types.CSSProperties & Dictionary = {};
 
   for (const key in object) {
-    if (key === '$nest') {
-      const nested = object.$nest!;
+
+    /** Grab the value upfront */
+    const val: any = (object as any)[key];
+
+    /** TypeStyle configuration options */
+    if (key === '$unique') {
+      result[FreeStyle.IS_UNIQUE] = val;
+    }
+    else if (key === '$nest') {
+      const nested = val!;
       for (let selector in nested) {
         const subproperties = nested[selector]!;
-        result[selector] = cleanUpObjForFreeStyle(ensureStringObj(subproperties));
+        result[selector] = ensureStringObj(subproperties);
       }
     }
     else {
       // And we already have something for this key
-      result[key] = ensureString((object as any)[key] as any);
+      result[key] = ensureString(val);
     }
   }
 
@@ -178,7 +166,7 @@ export const css = () => raw ? raw + freeStyle.getStyles() : freeStyle.getStyles
  * Takes CSSProperties and return a generated className you can use on your component
  */
 export function style(...objects: types.NestedCSSProperties[]) {
-  const object = cleanUpObjForFreeStyle(extend(...objects));
+  const object = ensureStringObj(extend(...objects));
   const className = freeStyle.registerStyle(object);
   styleUpdated();
   return className;
@@ -196,7 +184,7 @@ export function fontFace(...fontFace: types.FontFace[]): void {
  * Takes CSSProperties and registers it to a global selector (body, html, etc.)
  */
 export function cssRule(selector: string, ...objects: types.NestedCSSProperties[]): void {
-  const object = cleanUpObjForFreeStyle(extend(...objects));
+  const object = ensureStringObj(extend(...objects));
   freeStyle.registerRule(selector, object);
   styleUpdated();
   return;
