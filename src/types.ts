@@ -199,6 +199,17 @@ export type CSSUrl = string | CSSType<'url'>;
  * This interface documents key CSS properties for autocomplete
  */
 export interface CSSProperties {
+  /**
+   * Typestyle configuration options
+   **/
+  /**
+   * The generated CSS selector gets its own unique location in the generated CSS (disables deduping).
+   * So instead of `.classA,.classB{same properties}`
+   * you get `.classA {same properties} .classB {same properties}`
+   * This is needed for certain browser edge cases like placeholder styling
+   **/
+  $unique?: boolean;
+
   /** Smooth scrolling on an iPhone */
   '-webkit-overflow-scrolling'?: string;
 

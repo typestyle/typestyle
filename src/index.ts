@@ -4,8 +4,6 @@ import * as types from "./types";
  * @module Maintains a single stylesheet and keeps it in sync with requested styles
  */
 import * as FreeStyle from "free-style";
-export const IS_UNIQUE: '__DO_NOT_DEDUPE_STYLE__' = FreeStyle.IS_UNIQUE as any;
-
 
 /** Raf for node + browser */
 const raf = typeof requestAnimationFrame === 'undefined' ? setTimeout : requestAnimationFrame;
@@ -46,6 +44,14 @@ export function ensureStringObj(object: any): types.CSSProperties {
   for (const key in object) {
     const val = object[key];
     result[key] = ensureString(val);
+
+    /** TypeStyle configuration options */
+    if (key === '$unique') {
+      const atKey = FreeStyle.IS_UNIQUE;
+      const objToPutBack = result[key];
+      delete result[key];
+      result[atKey] = objToPutBack;
+    }
   }
   return result;
 }
