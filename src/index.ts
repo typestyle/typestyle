@@ -1,4 +1,5 @@
 import * as types from "./types";
+import { ensureString, ensureStringObj, Dictionary } from './formatting';
 
 /**
  * @module Maintains a single stylesheet and keeps it in sync with requested styles
@@ -23,53 +24,6 @@ const {afterAllSync} = new class {
     })
   }
 }
-
-type Dictionary = { [key: string]: any; };
-
-/**
- * Before we send styles to freeStyle we should convert any CSSType<T> to string
- * Call this whenever something might be a CSSType.
- */
-export function ensureString(x: any): string {
-  return typeof (x as types.CSSType<any>).type === 'string'
-    ? x.toString()
-    : x;
-}
-
-/**
- * We need to do the following to *our* objects before passing to freestyle:
- * - Convert any CSSType to their string value
- * - For any `$nest` directive move up to FreeStyle style nesting
- * - For any `$unique` directive map to FreeStyle Unique
- */
-function ensureStringObj(object: types.NestedCSSProperties): any {
-  /** The final result we will return */
-  const result: types.CSSProperties & Dictionary = {};
-
-  for (const key in object) {
-
-    /** Grab the value upfront */
-    const val: any = (object as any)[key];
-
-    /** TypeStyle configuration options */
-    if (key === '$unique') {
-      result[FreeStyle.IS_UNIQUE] = val;
-    }
-    else if (key === '$nest') {
-      const nested = val!;
-      for (let selector in nested) {
-        const subproperties = nested[selector]!;
-        result[selector] = ensureStringObj(subproperties);
-      }
-    }
-    else {
-      result[key] = ensureString(val);
-    }
-  }
-
-  return result;
-}
-
 
 /**
  * We have a single stylesheet that we update as components register themselves
