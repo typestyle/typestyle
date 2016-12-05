@@ -556,6 +556,11 @@ export interface CSSProperties {
   '-webkit-box-sizing'?: string;
 
   /**
+   * Box shadow
+   */
+  boxShadow?: CSSValueGeneral;
+
+  /**
    * Deprecated.
    */
   boxFlexGroup?: number;
@@ -1539,6 +1544,14 @@ export interface CSSProperties {
    * For inputing user content
    */
   userInput?: any;
+
+  /**
+   * User select
+   */
+  userSelect?: 'auto' | 'text' | 'none' | 'contain' | 'all';
+  '-moz-user-select'?: 'auto' | 'text' | 'none' | 'contain' | 'all';
+  '-webkit-user-select'?: 'auto' | 'text' | 'none' | 'contain' | 'all';
+  '-ms-user-select'?: 'auto' | 'text' | 'none' | 'contain' | 'all';
 
   /**
    * The vertical-align property controls how inline elements or text are vertically aligned compared to the baseline. If this property is used on table-cells it controls the vertical alignment of content of the table cell.
