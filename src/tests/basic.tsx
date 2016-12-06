@@ -106,4 +106,18 @@ describe("initial test", () => {
     });
     assert.equal(css(), '.f13byakl{color:blue}.f13byakl::-webkit-input-placeholder{color:rgba(0, 0, 0, 0)}.f13byakl::-moz-placeholder{color:rgba(0, 0, 0, 0)}.f13byakl::-ms-input-placeholder{color:rgba(0, 0, 0, 0)}');
   });
+
+  it("should support $debugName", () => {
+    reinit();
+    style({
+      $debugName: 'sample',
+      color: 'blue',
+      $nest: {
+        '&:hover': {
+          color: 'rgba(0, 0, 0, 0)',
+        }
+      }
+    });
+    assert.equal(css(), '.sample_fy3xmhm{color:blue}.sample_fy3xmhm:hover{color:rgba(0, 0, 0, 0)}');
+  });
 })
