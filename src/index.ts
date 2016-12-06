@@ -120,7 +120,10 @@ export const css = () => raw ? raw + freeStyle.getStyles() : freeStyle.getStyles
  */
 export function style(...objects: types.NestedCSSProperties[]) {
   const object = ensureStringObj(extend(...objects));
-  const className = freeStyle.registerStyle(object);
+  const className =
+    object['$debugName']
+      ? freeStyle.registerStyle(object, object['$debugName'])
+      : freeStyle.registerStyle(object);
   styleUpdated();
   return className;
 }
