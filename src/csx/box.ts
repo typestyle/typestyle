@@ -158,7 +158,7 @@ export const horizontallyCenterSelf = {
  * Block elements: Centering *child* elements using textAlign
  */
 export const horizontallyCenterChildren = {
-  textAlign: 'center'
+  textAlign: 'center' as 'center'
 }
 
 /** mixin: height */
