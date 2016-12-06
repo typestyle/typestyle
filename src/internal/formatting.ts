@@ -1,4 +1,4 @@
-import * as types from './types';
+import * as types from './../types';
 import * as FreeStyle from 'free-style';
 
 export function ensurePercent(value: string | number): number {

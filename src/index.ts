@@ -1,5 +1,5 @@
 import * as types from "./types";
-import { ensureString, ensureStringObj, Dictionary } from './formatting';
+import { ensureString, ensureStringObj, Dictionary } from './internal/formatting';
 
 /**
  * @module Maintains a single stylesheet and keeps it in sync with requested styles

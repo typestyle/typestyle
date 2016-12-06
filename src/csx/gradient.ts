@@ -1,6 +1,6 @@
 import { cssFunction } from '../';
 import * as types from '../types';
-import { ensureString } from '../formatting';
+import { ensureString } from '../internal/formatting';
 
 /**
  * Helper for the linear-gradient function in CSS
