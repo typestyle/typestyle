@@ -31,7 +31,7 @@ const maxChannelValues = {
  * e.g. color('red') or color('#FF0000') or color('#F00'))
  */
 export function color(value: types.CSSNamedColor | string): ColorHelper {
-  return parseNamedColor(value) || parseHexCode(value) || parseNamedColor('red') !;
+  return parseNamedColor(value) || parseHexCode(value) || parseColorFunction(value) || parseNamedColor('red') !;
 }
 
 /**
@@ -564,3 +564,41 @@ function parseHexCode(stringValue: string): ColorHelper | undefined {
 
   return new ColorHelper(RGB, r, b, g, 1, false);
 };
+
+function parseColorFunction(colorString: string): ColorHelper | undefined {
+  const cssParts = parseCSSFunction(colorString);
+  if (!cssParts || !(cssParts.length === 4 || cssParts.length === 5)) {
+    return undefined;
+  }
+
+  const fn = cssParts[0];
+  const isRGBA = fn === 'rgba';
+  const isHSLA = fn === 'hsla';
+  const isRGB = fn === 'rgb';
+  const isHSL = fn === 'hsl';
+  const hasAlpha = isHSLA || isRGBA;
+
+  let type: number;
+  if (isRGB || isRGBA) {
+    type = RGB;
+  } else if (isHSL || isHSLA) {
+    type = HSL;
+  } else {
+    throw new Error('unsupported color string');
+  }
+
+  const c0 = parseFloat(cssParts[1]);
+  const c1 = isRGB || isRGBA ? parseFloat(cssParts[2]) : ensurePercent(cssParts[2]);
+  const c2 = isRGB || isRGBA ? parseFloat(cssParts[3]) : ensurePercent(cssParts[3]);
+  const c3 = hasAlpha ? parseFloat(cssParts[4]) : 1;
+
+  return new ColorHelper(type, c0, c1, c2, c3, hasAlpha);
+ }
+
+function parseCSSFunction(stringValue: string): string[] | undefined {
+  const matches = /[\s]*([a-z-]+)[\s]*\([\s]*([^\)]+)[\s]*\)[\s]*/ig.exec(stringValue);
+  if (!matches || !matches.length) {
+    return undefined;
+  }
+  return [matches[1]].concat(matches[2].split(','));
+}
