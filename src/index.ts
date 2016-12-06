@@ -1,4 +1,5 @@
 import * as types from "./types";
+import { ensureString, ensureStringObj, Dictionary } from './internal/formatting';
 
 /**
  * @module Maintains a single stylesheet and keeps it in sync with requested styles
@@ -23,39 +24,6 @@ const {afterAllSync} = new class {
     })
   }
 }
-
-type Dictionary = { [key: string]: any; };
-
-/**
- * Before we send styles to freeStyle we should convert any CSSType<T> to string
- * Call this whenever something might be a CSSType.
- */
-export function ensureString(x: any): string {
-  return typeof (x as types.CSSType<any>).type === 'string'
-    ? x.toString()
-    : x;
-}
-
-/**
- * Ensures string for all values of an object
- */
-export function ensureStringObj(object: any): types.CSSProperties {
-  const result: types.CSSProperties & Dictionary = {};
-  for (const key in object) {
-    const val = object[key];
-    result[key] = ensureString(val);
-
-    /** TypeStyle configuration options */
-    if (key === '$unique') {
-      const atKey = FreeStyle.IS_UNIQUE;
-      const objToPutBack = result[key];
-      delete result[key];
-      result[atKey] = objToPutBack;
-    }
-  }
-  return result;
-}
-
 
 /**
  * We have a single stylesheet that we update as components register themselves
@@ -151,7 +119,7 @@ export const css = () => raw ? raw + freeStyle.getStyles() : freeStyle.getStyles
  * Takes CSSProperties and return a generated className you can use on your component
  */
 export function style(...objects: types.NestedCSSProperties[]) {
-  const object = extend(...objects);
+  const object = ensureStringObj(extend(...objects));
   const className = freeStyle.registerStyle(object);
   styleUpdated();
   return className;
@@ -169,7 +137,7 @@ export function fontFace(...fontFace: types.FontFace[]): void {
  * Takes CSSProperties and registers it to a global selector (body, html, etc.)
  */
 export function cssRule(selector: string, ...objects: types.NestedCSSProperties[]): void {
-  const object = extend(...objects);
+  const object = ensureStringObj(extend(...objects));
   freeStyle.registerRule(selector, object);
   styleUpdated();
   return;
@@ -217,25 +185,20 @@ export function extend(...objects: types.NestedCSSProperties[]): types.NestedCSS
         continue;
       }
 
-      // if freestyle media or pseudo selector
-      if ((key.indexOf('&') !== -1 || key.indexOf('@media') === 0)) {
-        result[key] = result[key] ? extend(result[key] as any, val) : ensureStringObj(val);
+      /** if nested media or pseudo selector */
+      if (key === '$nest' && val) {
+        result[key] = result['$nest'] ? extend(result['$nest'], val) : val;
       }
-
-      // if nested media or pseudo selector
-      else if (key === '$nest' && val) {
-        const nested = object.$nest!;
-        for (let selector in nested) {
-          const subproperties = nested[selector]!;
-          result[selector] = result[selector] ? extend(result[selector], subproperties) : ensureStringObj(subproperties);
-        }
+      /** if freestyle sub key that needs merging. We come here due to our recursive calls */
+      else if ((key.indexOf('&') !== -1 || key.indexOf('@media') === 0)) {
+        result[key] = result[key] ? extend(result[key], val) : val;
       }
       else {
-        // And we already have something for this key
-        result[key] = ensureString(val);
+        result[key] = val;
       }
     }
   }
+
   return result;
 }
 

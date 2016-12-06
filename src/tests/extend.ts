@@ -6,7 +6,7 @@ describe("extend", () => {
     assert.deepEqual(extend({ color: 'red' }), { color: 'red' });
   });
 
-  it("nested objects should get flattened", () => {
+  it("nested objects should not get flattened", () => {
     assert.deepEqual(
       extend(
         {
@@ -14,13 +14,12 @@ describe("extend", () => {
         },
       ),
       {
-        '&:hover': {
-          color: 'red'
-        }
-      });
+        $nest: { '&:hover': { color: 'red' } }
+      }
+    );
   });
 
-  it("nested objects should get flattened and merge", () => {
+  it("nested objects should merge into non nested", () => {
     assert.deepEqual(
       extend(
         { color: 'grey' },
@@ -28,13 +27,11 @@ describe("extend", () => {
       ),
       {
         color: 'grey',
-        '&:hover': {
-          color: 'red'
-        }
+        $nest: { '&:hover': { color: 'red' } }
       });
   });
 
-  it("nested objects should merge", () => {
+  it("nested objects should merge together", () => {
     assert.deepEqual(
       extend(
         { color: 'grey' },
@@ -45,9 +42,11 @@ describe("extend", () => {
       {
         color: 'grey',
         backgroundColor: 'grey',
-        '&:hover': {
-          color: 'red',
-          backgroundColor: 'red'
+        $nest: {
+          '&:hover': {
+            color: 'red',
+            backgroundColor: 'red'
+          }
         }
       });
   });
@@ -59,9 +58,11 @@ describe("extend", () => {
         { $nest: { '&:hover': { backgroundColor: 'red' } } },
       ),
       {
-        '&:hover': {
-          color: 'red',
-          backgroundColor: 'red'
+        $nest: {
+          '&:hover': {
+            color: 'red',
+            backgroundColor: 'red'
+          }
         }
       });
   });
@@ -73,9 +74,11 @@ describe("extend", () => {
         extend({ $nest: { '&:hover': { backgroundColor: 'red' } } }),
       ),
       {
-        '&:hover': {
-          color: 'red',
-          backgroundColor: 'red'
+        $nest: {
+          '&:hover': {
+            color: 'red',
+            backgroundColor: 'red'
+          }
         }
       });
   });
@@ -89,14 +92,16 @@ describe("extend", () => {
         { $nest: { '&:hover': { fontSize: '14px' }, '&:focus': { fontFamily: 'arial' } } },
       ),
       {
-        '&:hover': {
-          fontSize: '14px',
-          color: 'red',
-          backgroundColor: 'red'
-        },
-        '&:focus': {
-          fontFamily: 'arial',
-          backgroundColor: 'red'
+        $nest: {
+          '&:hover': {
+            fontSize: '14px',
+            color: 'red',
+            backgroundColor: 'red'
+          },
+          '&:focus': {
+            fontFamily: 'arial',
+            backgroundColor: 'red'
+          }
         }
       });
   });
