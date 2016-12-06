@@ -119,15 +119,8 @@ export const css = () => raw ? raw + freeStyle.getStyles() : freeStyle.getStyles
  * Takes CSSProperties and return a generated className you can use on your component
  */
 export function style(...objects: types.NestedCSSProperties[]) {
-  const object = ensureStringObj(extend(...objects));
-  const debugName = object['$debugName']
-  if (debugName) {
-    delete object['$debugName'];
-    const className = freeStyle.registerStyle(object, debugName)
-    styleUpdated();
-    return className;
-  }
-  const className = freeStyle.registerStyle(object);
+  const {result, debugName} = ensureStringObj(extend(...objects));
+  const className = debugName ? freeStyle.registerStyle(result, debugName) : freeStyle.registerStyle(result);
   styleUpdated();
   return className;
 }
@@ -144,7 +137,7 @@ export function fontFace(...fontFace: types.FontFace[]): void {
  * Takes CSSProperties and registers it to a global selector (body, html, etc.)
  */
 export function cssRule(selector: string, ...objects: types.NestedCSSProperties[]): void {
-  const object = ensureStringObj(extend(...objects));
+  const object = ensureStringObj(extend(...objects)).result;
   freeStyle.registerRule(selector, object);
   styleUpdated();
   return;

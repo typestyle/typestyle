@@ -28,10 +28,12 @@ export function ensureString(x: any): string {
  * - Convert any CSSType to their string value
  * - For any `$nest` directive move up to FreeStyle style nesting
  * - For any `$unique` directive map to FreeStyle Unique
+ * - For any `$debugName` directive return the debug name
  */
-export function ensureStringObj(object: types.NestedCSSProperties): any {
+export function ensureStringObj(object: types.NestedCSSProperties): {result: any, debugName: string} {
   /** The final result we will return */
   const result: types.CSSProperties & Dictionary = {};
+  let debugName = '';
 
   for (const key in object) {
 
@@ -46,15 +48,18 @@ export function ensureStringObj(object: types.NestedCSSProperties): any {
       const nested = val!;
       for (let selector in nested) {
         const subproperties = nested[selector]!;
-        result[selector] = ensureStringObj(subproperties);
+        result[selector] = ensureStringObj(subproperties).result;
       }
+    }
+    else if (key === '$debugName') {
+      debugName = val;
     }
     else {
       result[key] = ensureString(val);
     }
   }
 
-  return result;
+  return {result, debugName};
 }
 
 export function parseCSSFunction(stringValue: string): string[] | undefined {
