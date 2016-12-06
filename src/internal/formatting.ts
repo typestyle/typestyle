@@ -56,3 +56,11 @@ export function ensureStringObj(object: types.NestedCSSProperties): any {
 
   return result;
 }
+
+export function parseCSSFunction(stringValue: string): string[] | undefined {
+  const matches = /[\s]*([a-z-]+)[\s]*\([\s]*([^\)]+)[\s]*\)[\s]*/ig.exec(stringValue);
+  if (!matches || !matches.length) {
+    return undefined;
+  }
+  return [matches[1]].concat(matches[2].split(','));
+}

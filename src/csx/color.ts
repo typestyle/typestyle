@@ -1,5 +1,5 @@
 import { cssFunction } from '../';
-import { ensurePercent, formatPercent } from '../internal/formatting';
+import { ensurePercent, formatPercent, parseCSSFunction } from '../internal/formatting';
 import * as types from "../types";
 
 const isTypeArraySupported = typeof Float32Array !== 'undefined';
@@ -593,12 +593,4 @@ function parseColorFunction(colorString: string): ColorHelper | undefined {
   const c3 = hasAlpha ? parseFloat(cssParts[4]) : 1;
 
   return new ColorHelper(type, c0, c1, c2, c3, hasAlpha);
- }
-
-function parseCSSFunction(stringValue: string): string[] | undefined {
-  const matches = /[\s]*([a-z-]+)[\s]*\([\s]*([^\)]+)[\s]*\)[\s]*/ig.exec(stringValue);
-  if (!matches || !matches.length) {
-    return undefined;
-  }
-  return [matches[1]].concat(matches[2].split(','));
 }
