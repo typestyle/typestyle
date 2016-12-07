@@ -345,7 +345,7 @@ export interface CSSProperties {
   /**
    * Background-size specifies the size of a background image
    */
-  backgroundSize?: 'auto' | 'length' | 'cover' | 'contain';
+  backgroundSize?: 'auto' | 'cover' | 'contain' | CSSLength | CSSPercentage | CSSGlobalValues;
 
   /**
    * Obsolete - spec retired, not implemented.
@@ -659,7 +659,7 @@ export interface CSSProperties {
   /**
    * The content property is used with the :before and :after pseudo-elements, to insert generated content.
    */
-  content?: string;
+  content?: CSSValueString;
 
   /**
    * The counter-increment property accepts one or more names of counters (identifiers), each one optionally followed by an integer which specifies the value by which the counter should be incremented (e.g. if the value is 2, the counter increases by 2 each time it is invoked).
