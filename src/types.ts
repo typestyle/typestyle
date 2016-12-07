@@ -198,7 +198,7 @@ export type CSSUrl = string | CSSType<'url'>;
 /**
  * Font weights
  */
-export type CSSFontWeight = 'normal' | 'bold' | 'bolder' | 'lighter' | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | CSSGlobalValues;
+export type CSSFontWeight = 'normal' | 'bold' | 'bolder' | 'lighter' | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | number | CSSGlobalValues;
 
 /**
  * This interface documents key CSS properties for autocomplete
@@ -2135,56 +2135,56 @@ export type MediaQuery = {
 
 export type NestedCSSSelectors = {
   /** State selector */
-  '&:active'?: CSSProperties;
-  '&:any'?: CSSProperties;
-  '&:checked'?: CSSProperties;
-  '&:default'?: CSSProperties;
-  '&:disabled'?: CSSProperties;
-  '&:empty'?: CSSProperties;
-  '&:enabled'?: CSSProperties;
-  '&:first'?: CSSProperties;
-  '&:first-child'?: CSSProperties;
-  '&:first-of-type'?: CSSProperties;
-  '&:fullscreen'?: CSSProperties;
-  '&:focus'?: CSSProperties;
-  '&:hover'?: CSSProperties;
-  '&:indeterminate'?: CSSProperties;
-  '&:in-range'?: CSSProperties;
-  '&:invalid'?: CSSProperties;
-  '&:last-child'?: CSSProperties;
-  '&:last-of-type'?: CSSProperties;
-  '&:left'?: CSSProperties;
-  '&:link'?: CSSProperties;
-  '&:only-child'?: CSSProperties;
-  '&:only-of-type'?: CSSProperties;
-  '&:optional'?: CSSProperties;
-  '&:out-of-range'?: CSSProperties;
-  '&:read-only'?: CSSProperties;
-  '&:read-write'?: CSSProperties;
-  '&:required'?: CSSProperties;
-  '&:right'?: CSSProperties;
-  '&:root'?: CSSProperties;
-  '&:scope'?: CSSProperties;
-  '&:target'?: CSSProperties;
-  '&:valid'?: CSSProperties;
-  '&:visited'?: CSSProperties;
+  '&:active'?: NestedCSSProperties;
+  '&:any'?: NestedCSSProperties;
+  '&:checked'?: NestedCSSProperties;
+  '&:default'?: NestedCSSProperties;
+  '&:disabled'?: NestedCSSProperties;
+  '&:empty'?: NestedCSSProperties;
+  '&:enabled'?: NestedCSSProperties;
+  '&:first'?: NestedCSSProperties;
+  '&:first-child'?: NestedCSSProperties;
+  '&:first-of-type'?: NestedCSSProperties;
+  '&:fullscreen'?: NestedCSSProperties;
+  '&:focus'?: NestedCSSProperties;
+  '&:hover'?: NestedCSSProperties;
+  '&:indeterminate'?: NestedCSSProperties;
+  '&:in-range'?: NestedCSSProperties;
+  '&:invalid'?: NestedCSSProperties;
+  '&:last-child'?: NestedCSSProperties;
+  '&:last-of-type'?: NestedCSSProperties;
+  '&:left'?: NestedCSSProperties;
+  '&:link'?: NestedCSSProperties;
+  '&:only-child'?: NestedCSSProperties;
+  '&:only-of-type'?: NestedCSSProperties;
+  '&:optional'?: NestedCSSProperties;
+  '&:out-of-range'?: NestedCSSProperties;
+  '&:read-only'?: NestedCSSProperties;
+  '&:read-write'?: NestedCSSProperties;
+  '&:required'?: NestedCSSProperties;
+  '&:right'?: NestedCSSProperties;
+  '&:root'?: NestedCSSProperties;
+  '&:scope'?: NestedCSSProperties;
+  '&:target'?: NestedCSSProperties;
+  '&:valid'?: NestedCSSProperties;
+  '&:visited'?: NestedCSSProperties;
 
   /** Children */
-  '&>*'?: CSSProperties;
+  '&>*'?: NestedCSSProperties;
 
   /**
    * Mobile first media query example
    **/
-  '@media screen and (min-width: 700px)'?: CSSProperties;
+  '@media screen and (min-width: 700px)'?: NestedCSSProperties;
   /**
    * Desktop first media query example
    **/
-  '@media screen and (max-width: 700px)'?: CSSProperties;
+  '@media screen and (max-width: 700px)'?: NestedCSSProperties;
 
   /**
    * Also cater for any other nested query you want
    */
-  [selector: string]: CSSProperties | undefined;
+  [selector: string]: NestedCSSProperties | undefined;
 };
 
 /**
