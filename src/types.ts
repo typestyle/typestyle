@@ -343,6 +343,11 @@ export interface CSSProperties {
   backgroundRepeat?: CSSValue<CSSRepeatStyle>;
 
   /**
+   * Background-size specifies the size of a background image
+   */
+  backgroundSize?: 'auto' | 'cover' | 'contain' | CSSLength | CSSPercentage | CSSGlobalValues;
+
+  /**
    * Obsolete - spec retired, not implemented.
    */
   baselineShift?: any;
@@ -650,6 +655,11 @@ export interface CSSProperties {
    * This property is a shorthand property for setting column-width and/or column-count.
    */
   columns?: any;
+
+  /**
+   * The content property is used with the :before and :after pseudo-elements, to insert generated content.
+   */
+  content?: CSSValueString;
 
   /**
    * The counter-increment property accepts one or more names of counters (identifiers), each one optionally followed by an integer which specifies the value by which the counter should be incremented (e.g. if the value is 2, the counter increases by 2 each time it is invoked).
@@ -2113,7 +2123,7 @@ export type FontFace = {
   fontVariant?: 'common-ligatures' | 'small-caps' | CSSGlobalValues;
   fontFeatureSettings?: string;
   fontWeight?: CSSFontWeight;
-  fontSize?: 'normal' | 'italic' | 'oblique' | CSSGlobalValues;
+  fontStyle?: 'normal' | 'italic' | 'oblique' | CSSGlobalValues;
 }
 
 export type MediaQuery = {
