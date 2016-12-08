@@ -227,7 +227,7 @@ export interface CSSProperties {
    * Sets the default alignment in the cross axis for all of the flex container's items, including anonymous flex items, similarly to how justify-content aligns items along the main axis.
    */
   alignItems?: CSSValue<CSSFlexAlign>;
-  '-ms-alignt-items'?: CSSValue<CSSFlexAlign>;
+  '-ms-align-items'?: CSSValue<CSSFlexAlign>;
   '-webkit-align-items'?: CSSValue<CSSFlexAlign>;
 
   /**
@@ -561,7 +561,7 @@ export interface CSSProperties {
   /**
    * box sizing
    */
-  boxSizing?: string;
+  boxSizing?: CSSGlobalValues | 'content-box' | 'border-box';
   '-moz-box-sizing'?: string;
   '-webkit-box-sizing'?: string;
 
@@ -684,17 +684,17 @@ export interface CSSProperties {
   /**
    * Specifies the mouse cursor displayed when the mouse pointer is over an element.
    */
-  cursor?: any;
+  cursor?: CSSGlobalValues | string | 'auto' | 'default' | 'none' | 'context-menu' | 'help' | 'pointer' | 'progress' | 'wait' | 'cell' | 'crosshair' | 'text' | 'vertical-text' | 'alias' | 'copy' | 'move' | 'no-drop' | 'not-allowed' | 'e-resize' | 'n-resize' | 'ne-resize' | 'nw-resize' | 's-resize' | 'se-resize' | 'sw-resize' | 'w-resize' | 'ew-resize' | 'ns-resize' | 'nesw-resize' | 'nwse-resize' | 'col-resize' | 'row-resize' | 'all-scroll' | 'zoom-in' | 'zoom-out' | 'grab' | 'grabbing';
 
   /**
    * The direction CSS property specifies the text direction/writing direction. The rtl is used for Hebrew or Arabic text, the ltr is for other languages.
    */
-  direction?: any;
+  direction?: CSSGlobalValues | 'ltr' | 'rtl';
 
   /**
    * This property specifies the type of rendering box used for an element. It is a shorthand property for many other display properties.
    */
-  display?: any;
+  display?: CSSValue<CSSGlobalValues | string | 'none' | 'inline' | 'block' | 'inline-block' | 'contents' | 'list-item' | 'inline-list-item' | 'table' | 'inline-table' | 'table-cell' | 'table-column' | 'table-column-group' | 'table-footer-group' | 'table-header-group' | 'table-row' | 'table-row-group' | 'table-caption' | 'flex' | 'inline-flex' | 'grid' | 'inline-grid' | 'ruby' | 'ruby-base' | 'ruby-text' | 'ruby-base-container' | 'ruby-text-container' | 'run-in'>;
 
   /**
    * The ‘fill’ property paints the interior of the given graphical element. The area to be painted consists of any areas inside the outline of the shape. To determine the inside of the shape, all subpaths are considered, and the interior is determined according to the rules associated with the current value of the ‘fill-rule’ property. The zero-width geometric outline of a shape is included in the area to be painted.
@@ -1133,6 +1133,11 @@ export interface CSSProperties {
   outlineColor?: CSSValue<CSSColor>;
 
   /**
+   * The outline-style property sets the style of the outline of an element.
+   */
+  outlineStyle?: CSSGlobalValues | 'auto' | 'none' | 'dotted' | 'dashed' | 'solid' | 'double' | 'groove' | 'ridge' | 'inset' | 'outset';
+
+  /**
    * The outline-offset property offsets the outline and draw it beyond the border edge.
    */
   outlineOffset?: any;
@@ -1230,12 +1235,12 @@ export interface CSSProperties {
   /**
    * The pointer-events property allows you to control whether an element can be the target for the pointing device (e.g, mouse, pen) events.
    */
-  pointerEvents?: any;
+  pointerEvents?: CSSGlobalValues | 'auto' | 'none' | 'visiblePainted' | 'visibleFill' | 'visibleStroke' | 'visible' | 'painted' | 'fill' | 'stroke' | 'all';
 
   /**
    * The position property controls the type of positioning used by an element within its parent elements. The effect of the position property depends on a lot of factors, for example the position property of parent elements.
    */
-  position?: any;
+  position?: CSSGlobalValues | 'static' | 'relative' | 'absolute' | 'sticky' | 'fixed';
 
   /**
    * Obsolete: unsupported.
@@ -1621,7 +1626,7 @@ export interface CSSProperties {
   /**
    * The white-space property controls whether and how white space inside the element is collapsed, and whether lines may wrap at unforced "soft wrap" opportunities.
    */
-  whiteSpace?: any;
+  whiteSpace?: CSSGlobalValues | 'normal' | 'nowrap' | 'pre' | 'pre-line' | 'pre-wrap';
 
   /**
    * Obsolete: unsupported.
@@ -1652,7 +1657,7 @@ export interface CSSProperties {
   /**
    * An alias of css/properties/overflow-wrap, word-wrap defines whether to break words when the content exceeds the boundaries of its container.
    */
-  wordWrap?: any;
+  wordWrap?: CSSGlobalValues | 'normal' | 'break-word';
 
   /**
    * Specifies how exclusions affect inline content within block-level elements. Elements lay out their inline content in their content area but wrap around exclusion areas.
@@ -1673,7 +1678,7 @@ export interface CSSProperties {
   /**
    * writing-mode specifies if lines of text are laid out horizontally or vertically, and the direction which lines of text and blocks progress.
    */
-  writingMode?: any;
+  writingMode?: CSSGlobalValues | 'horizontal-tb' | 'vertical-rl' | 'vertical-lr' | 'sideways-rl' | 'sideways-lr';
 
   /**
    * The z-index property specifies the z-order of an element and its descendants.
