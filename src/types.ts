@@ -243,6 +243,12 @@ export interface CSSProperties {
   alignmentBaseline?: 'auto' | 'baseline' | 'before-edge' | 'text-before-edge' | 'middle' | 'central' | 'after-edge' | 'text-after-edge' | 'ideographic' | 'alphabetic' | 'hanging' | 'mathematical' | 'inherit';
 
   /**
+   * Shorthand property for animation-name, animation-duration, animation-timing-function, animation-delay,
+   * animation-iteration-count, animation-direction, animation-fill-mode, and animation-play-state.
+   */
+  animation?: string;
+
+  /**
    * Defines a length of time to elapse before an animation starts, allowing an animation to begin execution some time after it is applied.
    */
   animationDelay?: any;
@@ -259,6 +265,11 @@ export interface CSSProperties {
   animationDuration?: CSSValue<string>;
 
   /**
+   * Specifies how a CSS animation should apply styles to its target before and after it is executing.
+   */
+  animationFillMode?: 'none' | 'forwards' | 'backwards' | 'both';
+
+  /**
    * Specifies how many times an animation cycle should play.
    */
   animationIterationCount?: CSSValue<number | string>;
@@ -270,14 +281,14 @@ export interface CSSProperties {
   animationName?: CSSValue<string>;
 
   /**
-   * Sets the pace of an animation
-   */
-  animationTimingFunction?: CSSValue<CSSTimingFunction>;
-
-  /**
    * Defines whether an animation is running or paused.
    */
   animationPlayState?: CSSValue<CSSAnimationPlayState>;
+
+  /**
+   * Sets the pace of an animation
+   */
+  animationTimingFunction?: CSSValue<CSSTimingFunction>;
 
   /**
    * Allows changing the style of any element to platform-based interface elements or vice versa.
