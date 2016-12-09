@@ -303,7 +303,7 @@ export interface CSSProperties {
   /**
    * Determines whether or not the “back” side of a transformed element is visible when facing the viewer.
    */
-  backfaceVisibility?: any;
+  backfaceVisibility?: CSSGlobalValues | 'visible' | 'hidden';
 
   /**
    * Shorthand property to set the values for one or more of:
@@ -529,7 +529,7 @@ export interface CSSProperties {
   /**
    * This property specifies how far an absolutely positioned box's bottom margin edge is offset above the bottom edge of the box's containing block. For relatively positioned boxes, the offset is with respect to the bottom edges of the box itself (i.e., the box is given a position in the normal flow, then offset from that position according to these properties).
    */
-  bottom?: CSSValue<CSSLength | CSSPercentage | CSSGlobalValues>;
+  bottom?: CSSValue<'auto' | CSSLength | CSSPercentage | CSSGlobalValues>;
 
   /**
    * Obsolete.
@@ -589,22 +589,27 @@ export interface CSSProperties {
   /**
    * The CSS break-after property allows you to force a break on multi-column layouts. More specifically, it allows you to force a break after an element. It allows you to determine if a break should occur, and what type of break it should be. The break-after CSS property describes how the page, column or region break behaves after the generated box. If there is no generated box, the property is ignored.
    */
-  breakAfter?: any;
+  breakAfter?: 'auto' | 'avoid' | 'avoid-page' | 'page' | 'left' | 'right' | 'recto' | 'verso' | 'avoid-column' | 'column' | 'avoid-region' | 'region';
 
   /**
    * Control page/column/region breaks that fall above a block of content
    */
-  breakBefore?: any;
+  breakBefore?: 'auto' | 'avoid' | 'avoid-page' | 'page' | 'left' | 'right' | 'recto' | 'verso' | 'avoid-column' | 'column' | 'avoid-region' | 'region';
 
   /**
    * Control page/column/region breaks that fall within a block of content
    */
-  breakInside?: any;
+  breakInside?: 'auto' | 'avoid' | 'avoid-page' | 'avoid-column' | 'avoid-region';
+
+  /**
+   * The caption-side CSS property positions the content of a table's <caption> on the specified side.
+   */
+  captionSide?: CSSGlobalValues | 'top' | 'bottom' | 'block-start' | 'block-end' | 'inline-start' | 'inline-end';
 
   /**
    * The clear CSS property specifies if an element can be positioned next to or must be positioned below the floating elements that precede it in the markup.
    */
-  clear?: any;
+  clear?: CSSGlobalValues | 'none' | 'left' | 'right' | 'both';
 
   /**
    * Deprecated; see clip-path.
@@ -841,12 +846,12 @@ export interface CSSProperties {
   /**
    * Allows you to expand or condense the widths for a normal, condensed, or expanded font face.
    */
-  fontStretch?: any;
+  fontStretch?: CSSGlobalValues | 'normal' | 'ultra-condensed' | 'extra-condensed' | 'condensed' | 'semi-condensed' | 'semi-expanded' | 'expanded' | 'extra-expanded' | 'ultra-expanded';
 
   /**
    * The font-style property allows normal, italic, or oblique faces to be selected. Italic forms are generally cursive in nature while oblique faces are typically sloped versions of the regular face. Oblique faces can be simulated by artificially sloping the glyphs of the regular face.
    */
-  fontStyle?: any;
+  fontStyle?: CSSGlobalValues | 'normal' | 'italic' | 'oblique';
 
   /**
    * This value specifies whether the user agent is allowed to synthesize bold or oblique font faces when a font family lacks bold or italic faces.
@@ -924,7 +929,7 @@ export interface CSSProperties {
   /**
    * Sets the height of an element. The content area of the element height does not include the padding, border, and margin of the element.
    */
-  height?: CSSValue<CSSLength | CSSPercentage>;
+  height?: CSSValue<'auto' | CSSLength | CSSPercentage | CSSGlobalValues>;
 
   /**
    * Specifies the minimum number of characters in a hyphenated word
@@ -969,7 +974,7 @@ export interface CSSProperties {
   /**
    * Sets the left edge of an element
    */
-  left?: CSSValue<CSSLength | CSSPercentage | CSSGlobalValues>;
+  left?: CSSValue<'auto' | CSSLength | CSSPercentage | CSSGlobalValues>;
 
   /**
    * The letter-spacing CSS property specifies the spacing behavior between text characters.
@@ -1282,7 +1287,7 @@ export interface CSSProperties {
   /**
    * Specifies the position an element in relation to the right side of the containing element.
    */
-  right?: CSSValue<CSSLength | CSSPercentage | CSSGlobalValues>;
+  right?: CSSValue<'auto' | CSSLength | CSSPercentage | CSSGlobalValues>;
 
   rubyAlign?: any;
 
@@ -1442,7 +1447,7 @@ export interface CSSProperties {
   /**
    * The text-overflow shorthand CSS property determines how overflowed content that is not displayed is signaled to the users. It can be clipped, display an ellipsis ('…', U+2026 HORIZONTAL ELLIPSIS) or a Web author-defined string. It covers the two long-hand properties text-overflow-mode and text-overflow-ellipsis
    */
-  textOverflow?: any;
+  textOverflow?: CSSGlobalValues | 'clip' | 'ellipsis' | string;
 
   /**
    * The text-overline property is the shorthand for the text-overline-style, text-overline-width, text-overline-color, and text-overline-mode properties.
@@ -1504,12 +1509,12 @@ export interface CSSProperties {
   /**
    * This property specifies how far an absolutely positioned box's top margin edge is offset below the top edge of the box's containing block. For relatively positioned boxes, the offset is with respect to the top edges of the box itself (i.e., the box is given a position in the normal flow, then offset from that position according to these properties).
    */
-  top?: CSSValue<CSSLength | CSSPercentage | CSSGlobalValues>;
+  top?: CSSValue<'auto' | CSSLength | CSSPercentage | CSSGlobalValues>;
 
   /**
    * Determines whether touch input may trigger default behavior supplied by the user agent, such as panning or zooming.
    */
-  touchAction?: any;
+  touchAction?: CSSGlobalValues | 'auto' | 'none' | 'pan-x' | 'pan-left' | 'pan-right' | 'pan-y' | 'pan-up' | 'pan-down' | 'manipulation';
 
   /**
    * CSS transforms allow elements styled with CSS to be transformed in two-dimensional or three-dimensional space. Using this property, elements can be translated, rotated, scaled, and skewed. The value list may consist of 2D and/or 3D transform values.
@@ -1529,7 +1534,7 @@ export interface CSSProperties {
   /**
    * This property specifies how nested elements are rendered in 3D space relative to their parent.
    */
-  transformStyle?: any;
+  transformStyle?: CSSGlobalValues | 'flat' | 'preserve-3d';
 
   /**
    * The transition CSS property is a shorthand property for transition-property, transition-duration, transition-timing-function, and transition-delay. It allows to define the transition between two states of an element.
@@ -1549,7 +1554,7 @@ export interface CSSProperties {
   /**
    * The 'transition-property' property specifies the name of the CSS property to which the transition is applied.
    */
-  transitionProperty?: any;
+  transitionProperty?: CSSGlobalValues;
 
   /**
    * Sets the pace of action within a transition
@@ -1587,12 +1592,12 @@ export interface CSSProperties {
   /**
    * The vertical-align property controls how inline elements or text are vertically aligned compared to the baseline. If this property is used on table-cells it controls the vertical alignment of content of the table cell.
    */
-  verticalAlign?: any;
+  verticalAlign?: CSSGlobalValues | 'baseline' | 'sub' | 'super' | 'text-top' | 'text-bottom' | 'middle' | 'top' | 'bottom' | CSSLength | CSSPercentage;
 
   /**
    * The visibility property specifies whether the boxes generated by an element are rendered.
    */
-  visibility?: any;
+  visibility?: CSSGlobalValues | 'visible' | 'hidden' | 'collapse';
 
   /**
    * The voice-balance property sets the apparent position (in stereo sound) of the synthesized voice for spoken media.
@@ -1653,17 +1658,17 @@ export interface CSSProperties {
   /**
    * Specifies the width of the content area of an element. The content area of the element width does not include the padding, border, and margin of the element.
    */
-  width?: CSSValue<CSSLength | CSSPercentage>;
+  width?: CSSValue<'auto' | CSSLength | CSSPercentage | CSSGlobalValues>;
 
   /**
    * The word-break property is often used when there is long generated content that is strung together without and spaces or hyphens to beak apart. A common case of this is when there is a long URL that does not have any hyphens. This case could potentially cause the breaking of the layout as it could extend past the parent element.
    */
-  wordBreak?: any;
+  wordBreak?: CSSGlobalValues | 'normal' | 'break-all' | 'keep-all';
 
   /**
    * The word-spacing CSS property specifies the spacing behavior between "words".
    */
-  wordSpacing?: any;
+  wordSpacing?: CSSGlobalValues | 'normal' | CSSLength | CSSPercentage;
 
   /**
    * An alias of css/properties/overflow-wrap, word-wrap defines whether to break words when the content exceeds the boundaries of its container.
