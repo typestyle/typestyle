@@ -1,5 +1,9 @@
-import * as types from "./types";
 import { ensureString, ensureStringObj, Dictionary } from './internal/formatting';
+
+/**
+ * All the CSS types in the 'types' namespace
+ */
+export import types = require("./types");
 
 /**
  * @module Maintains a single stylesheet and keeps it in sync with requested styles
