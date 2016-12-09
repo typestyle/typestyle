@@ -272,7 +272,7 @@ export interface CSSProperties {
   /**
    * Specifies how many times an animation cycle should play.
    */
-  animationIterationCount?: CSSValue<number | string>;
+  animationIterationCount?: CSSValue<number | 'infinite'>;
 
   /**
    * Defines the list of animations that apply to the element.
