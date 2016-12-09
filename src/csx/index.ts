@@ -1,13 +1,11 @@
 /**
- * @module Provides useful `style` primitives
+ * @module Provides useful CSS primitives
  */
-export * from './flex';
-export * from './layer';
-export * from './box';
-export * from './scroll';
-export * from './display';
+
+/** CSS Colors functions */
 export * from './color';
-export * from './page';
-export * from './font';
 export * from './gradient';
+
+/** Page setup */
+export * from './page';
 export * from './normalize';

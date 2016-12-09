@@ -1,5 +1,4 @@
 import { cssRule } from '../';
-import { fillParent } from './box';
 
 /**
  * Recommended Page setup
@@ -26,5 +25,8 @@ export function setupPage(rootSelector: string) {
   });
 
   /** Also root should fill parent */
-  cssRule(rootSelector, fillParent);
+  cssRule(rootSelector, {
+    width: '100%',
+    height: '100%',
+  });
 }
