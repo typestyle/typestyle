@@ -39,18 +39,18 @@ let lastFreeStyleChangeId = freeStyle.changeId;
  * We create a tag on first request or return the one that was hydrated
  */
 const {setTag, getTag} = new class {
-  singletonTag?: { innerHTML: string } = undefined;
+  singletonTag?: { textContent: string | null } = undefined;
   getTag = () => {
     if (!this.singletonTag) {
-      this.singletonTag = typeof window === 'undefined' ? { innerHTML: '' } : document.createElement('style');
+      this.singletonTag = typeof window === 'undefined' ? { textContent: '' } : document.createElement('style');
       if (typeof document !== 'undefined') document.head.appendChild(this.singletonTag as any);
     }
     return this.singletonTag;
   }
-  setTag = (tag: { innerHTML: string }) => {
+  setTag = (tag: { textContent: string }) => {
     /** Clear any data in any previous tag */
     if (this.singletonTag) {
-      this.singletonTag.innerHTML = '';
+      this.singletonTag.textContent = '';
     }
     this.singletonTag = tag;
     /** This special time buffer immediately */
@@ -95,7 +95,7 @@ export function cssRaw(mustBeValidCSS: string) {
  * After that it is kept sync using `requestAnimationFrame` and we haven't noticed any bad flashes.
  **/
 export function forceRenderStyles() {
-  getTag().innerHTML = getCss();
+  getTag().textContent = getCss();
 }
 
 /**
@@ -111,7 +111,7 @@ export function reinit() {
   pendingRawChange = false;
 
   /** Clear any styles that were flushed */
-  getTag().innerHTML = '';
+  getTag().textContent = '';
 }
 
 /**
