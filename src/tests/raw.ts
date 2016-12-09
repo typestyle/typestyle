@@ -1,4 +1,4 @@
-import { style, css, reinit, cssRaw } from '../index';
+import { style, getCss, reinit, cssRaw } from '../index';
 import * as assert from 'assert';
 
 describe("raw css support", () => {
@@ -10,7 +10,7 @@ describe("raw css support", () => {
     }
 `;
     cssRaw(rawCSS);
-    assert.equal(css(), rawCSS);
+    assert.equal(getCss(), rawCSS);
   })
   it('should insert raw CSS followed by style', () => {
     reinit();
@@ -23,6 +23,6 @@ describe("raw css support", () => {
       color: 'red'
     })
     cssRaw(rawCSS);
-    assert.equal(css(), rawCSS + '.f1jvcvsh{color:red}');
+    assert.equal(getCss(), rawCSS + '.f1jvcvsh{color:red}');
   })
 });

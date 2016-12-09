@@ -95,7 +95,7 @@ export function cssRaw(mustBeValidCSS: string) {
  * After that it is kept sync using `requestAnimationFrame` and we haven't noticed any bad flashes.
  **/
 export function forceRenderStyles() {
-  getTag().innerHTML = css();
+  getTag().innerHTML = getCss();
 }
 
 /**
@@ -117,7 +117,7 @@ export function reinit() {
 /**
  * Allows use to use the stylesheet in a node.js environment
  */
-export const css = () => raw ? raw + freeStyle.getStyles() : freeStyle.getStyles();
+export const getCss = () => raw ? raw + freeStyle.getStyles() : freeStyle.getStyles();
 
 /**
  * Takes CSSProperties and return a generated className you can use on your component

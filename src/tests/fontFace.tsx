@@ -1,4 +1,4 @@
-import { css, reinit, fontFace } from '../index';
+import { getCss, reinit, fontFace } from '../index';
 import * as assert from 'assert';
 
 describe("fontFace", () => {
@@ -11,7 +11,7 @@ describe("fontFace", () => {
       src: 'url("https://mdn.mozillademos.org/files/2468/VeraSeBd.ttf")'
     });
 
-    assert.equal(css(), '@font-face{font-family:"Bitstream Vera Serif Bold";src:url("https://mdn.mozillademos.org/files/2468/VeraSeBd.ttf")}');
+    assert.equal(getCss(), '@font-face{font-family:"Bitstream Vera Serif Bold";src:url("https://mdn.mozillademos.org/files/2468/VeraSeBd.ttf")}');
   })
 
 });
