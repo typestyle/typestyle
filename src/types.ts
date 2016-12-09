@@ -70,7 +70,7 @@ export type CSSBox = CSSGlobalValues | string | 'border-box' | 'padding-box' | '
  * Color can be a named color, transparent, or a color function
  * https://drafts.csswg.org/css-color-3/#valuea-def-color
  */
-export type CSSColor = CSSNamedColor | CSSGlobalValues | string | CSSType<'color'>;
+export type CSSColor = CSSNamedColor | CSSGlobalValues | 'currentColor' | string | CSSType<'color'>;
 
 export type CSSNamedColor =
   'aliceblue' | 'antiquewhite' | 'aqua' | 'aquamarine' | 'azure' | 'beige' | 'bisque' | 'black' | 'blanchedalmond' | 'blue'
