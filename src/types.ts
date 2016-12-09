@@ -246,7 +246,7 @@ export interface CSSProperties {
    * Shorthand property for animation-name, animation-duration, animation-timing-function, animation-delay,
    * animation-iteration-count, animation-direction, animation-fill-mode, and animation-play-state.
    */
-  animation?: string;
+  animation?: CSSValueString;
 
   /**
    * Defines a length of time to elapse before an animation starts, allowing an animation to begin execution some time after it is applied.
