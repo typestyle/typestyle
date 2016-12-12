@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "declaration": true,
+    "outDir": "./lib/es2015",
+    "module": "es2015"
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
