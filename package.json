@@ -8,7 +8,7 @@
   "jsnext:main": "./lib/es2015/index.js",
   "scripts": {
     "build": "tsc -p . && tsc -p tsconfig-es2015.json",
-    "unittest": "mocha ./lib/tests/**",
+    "unittest": "mocha ./lib/commonjs/tests/**",
     "test": "npm run build && npm run unittest",
     "preversion": "npm run build",
     "postversion": "git push --follow-tags && npm publish",
