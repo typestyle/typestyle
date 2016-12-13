@@ -41,7 +41,7 @@ export interface FontFace {
    * Location of a font-face.  Used with the @font-face at rule
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/src
    */
-  src?: string;
+  src?: CSSValueString;
   unicodeRange?: any;
   fontVariant?: 'common-ligatures' | 'small-caps' | CSSGlobalValues;
   fontFeatureSettings?: string;
