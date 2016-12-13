@@ -33,6 +33,22 @@ export type CSSGlobalValues
   | /** combination of `initial` and `inherit` */ 'unset'
   | 'revert';
 
+
+export interface FontFace {
+  fontFamily?: string;
+
+  /**
+   * Location of a font-face.  Used with the @font-face at rule
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/src
+   */
+  src?: string;
+  unicodeRange?: any;
+  fontVariant?: 'common-ligatures' | 'small-caps' | CSSGlobalValues;
+  fontFeatureSettings?: string;
+  fontWeight?: CSSFontWeight;
+  fontStyle?: 'normal' | 'italic' | 'oblique' | CSSGlobalValues;
+}
+
 /**
  * Absolute size keywords
  * https://drafts.csswg.org/css-fonts-3/#absolute-size-value
@@ -1530,6 +1546,12 @@ export interface CSSProperties {
   speakAs?: any;
 
   /**
+   * Location of a font-face.  Used with the @font-face at rule
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/src
+   */
+  src?: CSSValueString;
+
+  /**
    * SVG: Specifies the opacity of the outline on the current object.
    * @see https://developer.mozilla.org/en/docs/Web/CSS/stroke-opacity
    */
@@ -2384,16 +2406,6 @@ export interface NestedCSSProperties extends CSSProperties {
    * Helps you figure out where the class is coming from if you care
    **/
   $debugName?: string;
-}
-
-export type FontFace = {
-  fontFamily?: string;
-  src?: string;
-  unicodeRange?: any;
-  fontVariant?: 'common-ligatures' | 'small-caps' | CSSGlobalValues;
-  fontFeatureSettings?: string;
-  fontWeight?: CSSFontWeight;
-  fontStyle?: 'normal' | 'italic' | 'oblique' | CSSGlobalValues;
 }
 
 export type MediaQuery = {
