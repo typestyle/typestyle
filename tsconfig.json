@@ -7,7 +7,7 @@
     "strictNullChecks": true,
     "declaration": true,
     "moduleResolution": "node",
-    "outDir": "./lib/commonjs"
+    "outDir": "./lib"
   },
   "include": [
     "src/**/*"
