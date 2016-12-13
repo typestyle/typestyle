@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "outDir": "./lib.es2015",
+    "module": "es2015"
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
