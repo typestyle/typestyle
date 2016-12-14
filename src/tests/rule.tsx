@@ -1,4 +1,4 @@
-import { getCss, reinit, cssRule } from '../index';
+import { getStyles, reinit, cssRule } from '../index';
 import * as assert from 'assert';
 
 describe("test rules", () => {
@@ -33,7 +33,7 @@ describe("test rules", () => {
       color: colors.primary
     });
 
-    assert.equal(getCss(), 'html{height:100%}body{background-color:white;color:blue;font-size:14pt;height:100%;margin:0;padding:0}');
+    assert.equal(getStyles(), 'html{height:100%}body{background-color:white;color:blue;font-size:14pt;height:100%;margin:0;padding:0}');
   });
 
   it("support application style layout", () => {
@@ -55,7 +55,7 @@ describe("test rules", () => {
       boxSizing: 'inherit',
     });
 
-    assert.equal(getCss(), 'html, body{height:100%;margin:0;padding:0;width:100%}html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}');
+    assert.equal(getStyles(), 'html, body{height:100%;margin:0;padding:0;width:100%}html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}');
   });
 
   it('support global media queries', () => {
@@ -68,6 +68,6 @@ describe("test rules", () => {
         }
       }
     });
-    assert.equal(getCss(), '@media print{body{background:white}}');
+    assert.equal(getStyles(), '@media print{body{background:white}}');
   });
 });

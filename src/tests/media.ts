@@ -1,4 +1,4 @@
-import { style, getCss, reinit, media } from '../index';
+import { style, getStyles, reinit, media } from '../index';
 import * as assert from 'assert';
 
 describe("media query", () => {
@@ -10,16 +10,16 @@ describe("media query", () => {
         '@media (min-width: 400px)': { color: 'red' }
       }
     });
-    const standardFreeStyle = getCss();
+    const standardFreeStyle = getStyles();
     reinit();
     style({ color: 'red' }, media({
       minWidth: 400 }, { color: 'red' }));
-    assert.equal(getCss(), standardFreeStyle);
+    assert.equal(getStyles(), standardFreeStyle);
   });
 
   it("support type", () => {
     reinit();
     style({ color: 'red' }, media({ minWidth: 400, type: 'screen' }, { color: 'red' }));
-    assert.equal(getCss(), '.f1960l9c{color:red}@media screen and (min-width: 400px){.f1960l9c{color:red}}');
+    assert.equal(getStyles(), '.f1960l9c{color:red}@media screen and (min-width: 400px){.f1960l9c{color:red}}');
   });
 })

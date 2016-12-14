@@ -59,7 +59,7 @@ const {setTag, getTag} = new class {
 };
 
 /** Sets the target tag where we write the css on style updates */
-export const setCssTarget = setTag;
+export const setStylesTarget = setTag;
 
 /** Checks if the style tag needs updating and if so queues up the change */
 const styleUpdated = () => {
@@ -95,7 +95,7 @@ export function cssRaw(mustBeValidCSS: string) {
  * After that it is kept sync using `requestAnimationFrame` and we haven't noticed any bad flashes.
  **/
 export function forceRenderStyles() {
-  getTag().textContent = getCss();
+  getTag().textContent = getStyles();
 }
 
 /**
@@ -117,7 +117,7 @@ export function reinit() {
 /**
  * Allows use to use the stylesheet in a node.js environment
  */
-export const getCss = () => raw ? raw + freeStyle.getStyles() : freeStyle.getStyles();
+export const getStyles = () => raw ? raw + freeStyle.getStyles() : freeStyle.getStyles();
 
 /**
  * Takes CSSProperties and return a generated className you can use on your component
