@@ -659,8 +659,8 @@ export interface CSSProperties {
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing
    */
   boxSizing?: CSSGlobalValues | 'content-box' | 'border-box';
-  '-moz-box-sizing'?: string;
-  '-webkit-box-sizing'?: string;
+  '-moz-box-sizing'?: CSSGlobalValues | 'content-box' | 'border-box';
+  '-webkit-box-sizing'?: CSSGlobalValues | 'content-box' | 'border-box';
 
   /**
    * Box shadow
@@ -934,14 +934,14 @@ export interface CSSProperties {
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/flex-wrap
    */
   flexWrap?: CSSGlobalValues | 'nowrap' | 'wrap' | 'wrap-reverse';
-  '-ms-flex-wrap'?: any;
-  '-webkit-flex-wrap'?: any;
+  '-ms-flex-wrap'?: CSSGlobalValues | 'nowrap' | 'wrap' | 'wrap-reverse';
+  '-webkit-flex-wrap'?: CSSGlobalValues | 'nowrap' | 'wrap' | 'wrap-reverse';
 
   /**
    * Elements which have the style float are floated horizontally. These elements can move as far to the left or right of the containing element. All elements after the floating element will flow around it, but elements before the floating element are not impacted. If several floating elements are placed after each other, they will float next to each other as long as there is room.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/float
    */
-  float?: any;
+  float?: CSSGlobalValues | 'left' | 'right' | 'none' | 'inline-start' | 'inline-end';
 
   /**
    * Flows content from a named flow (specified by a corresponding flow-into) through selected elements to form a dynamic chain of layout regions.
@@ -1179,7 +1179,7 @@ export interface CSSProperties {
    * Specifies if the list-item markers should appear inside or outside the content flow.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-position
    */
-  listStylePosition?: any;
+  listStylePosition?: CSSGlobalValues | 'inside' | 'outside';
 
   /**
    * Specifies the type of list-item marker in a list.
@@ -1622,7 +1622,7 @@ export interface CSSProperties {
    * This property specifies the style of the text decoration line drawn on the specified element. The intended meaning for the values are the same as those of the border-style-properties.
    * @see https://developer.mozilla.org/en/docs/Web/CSS/text-decoration-style
    */
-  textDecorationStyle?: any;
+  textDecorationStyle?: CSSGlobalValues | 'solid' | 'double' | 'dotted' | 'dashed' | 'wavy';
 
   textDecorationUnderline?: any;
 
