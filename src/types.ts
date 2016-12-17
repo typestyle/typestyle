@@ -5,23 +5,14 @@
 export type CSSValue<T> = T | T[];
 
 /**
- * Interface for CSS Property Helpers.
- * Must implement toString and declare the `type`` they handle ('color', 'length', etc.)
- */
-export type CSSType<T> = {
-  toString(): string;
-  type: T;
-}
-
-/**
  * For general purpose CSS values
  **/
-export type CSSValueGeneral = CSSValue<number | string | CSSType<string>>;
+export type CSSValueGeneral = CSSValue<number | string>;
 
 /**
  * When you are sure that the value must be a string
  **/
-export type CSSValueString = CSSValue<string | CSSType<string>>;
+export type CSSValueString = CSSValue<string>;
 
 /**
  * CSS properties that cascade also support these
@@ -54,39 +45,39 @@ export interface FontFace {
  * https://drafts.csswg.org/css-fonts-3/#absolute-size-value
  */
 export type CSSAbsoluteSize = 'xx-small' | 'x-small' | 'small' | 'medium' | 'large'
-  | 'x-large' | 'xx-large' | CSSType<'absolute-size'>;
+  | 'x-large' | 'xx-large';
 
 /**
  * an angle; 0' | '0deg' | '0grad' | '0rad' | '0turn' | 'etc.
  * https://drafts.csswg.org/css-values-3/#angles
  */
-export type CSSAngle = CSSGlobalValues | string | 0 | CSSType<'angle'>;
+export type CSSAngle = CSSGlobalValues | string | 0;
 
 
 /**
  * initial state of an animation.
  * https://drafts.csswg.org/css-animations/#animation-play-state
  */
-export type CSSAnimationPlayState = CSSGlobalValues | string | 'paused' | 'running' | CSSType<'animation-play-state'>;
+export type CSSAnimationPlayState = CSSGlobalValues | string | 'paused' | 'running';
 
 /**
  * blend mode
  * https://drafts.fxtf.org/compositing-1/#ltblendmodegt
  */
 export type CSSBlendMode = 'normal' | 'multiply' | 'screen' | 'overlay' | 'darken' | 'lighten' | 'color-dodge' | 'color-burn'
-  | 'hard-light' | 'soft-light' | 'difference' | 'exclusion' | 'hue' | 'saturation' | 'color' | 'luminosity' | CSSType<'blend-mode'>;
+  | 'hard-light' | 'soft-light' | 'difference' | 'exclusion' | 'hue' | 'saturation' | 'color' | 'luminosity';
 
 /**
  * Determines the area within which the background is painted.
  * https://drafts.csswg.org/css-backgrounds/#box
  */
-export type CSSBox = CSSGlobalValues | string | 'border-box' | 'padding-box' | 'content-box' | CSSType<'box'>;
+export type CSSBox = CSSGlobalValues | string | 'border-box' | 'padding-box' | 'content-box';
 
 /**
  * Color can be a named color, transparent, or a color function
  * https://drafts.csswg.org/css-color-3/#valuea-def-color
  */
-export type CSSColor = CSSNamedColor | CSSGlobalValues | 'currentColor' | string | CSSType<'color'>;
+export type CSSColor = CSSNamedColor | CSSGlobalValues | 'currentColor' | string;
 
 export type CSSNamedColor =
   'aliceblue' | 'antiquewhite' | 'aqua' | 'aquamarine' | 'azure' | 'beige' | 'bisque' | 'black' | 'blanchedalmond' | 'blue'
@@ -108,7 +99,7 @@ export type CSSNamedColor =
  * Special type for border-color which can use 1 or 4 colors
  * https://drafts.csswg.org/css-backgrounds-3/#border-color
  */
-export type CSSColorSet = string | CSSColor | CSSType<'color-set'>
+export type CSSColorSet = string | CSSColor;
 
 /** For gradients etc */
 export type CSSColorStop = [CSSColor, CSSPercentage | CSSLength];
@@ -116,13 +107,13 @@ export type CSSColorStop = [CSSColor, CSSPercentage | CSSLength];
 /**
  * Type for align-items and align-self in flex
  */
-export type CSSFlexAlign = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch' | CSSType<'flex-align'>;
+export type CSSFlexAlign = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
 
 /**
  * a gradient function like linear-gradient
  * https://drafts.csswg.org/css-images-3/#gradients
  */
-export type CSSGradient = CSSGlobalValues | string | CSSType<'gradient'>;
+export type CSSGradient = CSSGlobalValues | string;
 
 /**
  * complex type that describes the size of fonts
@@ -134,13 +125,13 @@ export type CSSFontSize = CSSGlobalValues | CSSLength | CSSPercentage | CSSAbsol
  * a value that serves as an image
  * https://drafts.csswg.org/css-images-3/#typedef-image
  */
-export type CSSImage = CSSGlobalValues | string | CSSGradient | CSSUrl | CSSType<'image'>;
+export type CSSImage = CSSGlobalValues | string | CSSGradient | CSSUrl;
 
 /**
  * an length; 0 | '0px' | '0em' etc.
  * https://drafts.csswg.org/css-values-3/#lengths
  */
-export type CSSLength = CSSGlobalValues | string | number | CSSType<'length'>;
+export type CSSLength = CSSGlobalValues | string | number;
 
 /**
  * Style of a line (e.g. border-style)
@@ -148,13 +139,13 @@ export type CSSLength = CSSGlobalValues | string | number | CSSType<'length'>;
  */
 export type CSSLineStyle = string | 'none' | 'hidden' | 'dotted'
   | 'dashed' | 'solid' | 'double' | 'groove' | 'ridge' | 'inset'
-  | 'outset' | CSSType<'line-style'>;
+  | 'outset';
 
 /**
  * Special type for border-style which can use 1 or 4 line-style
  * https://drafts.csswg.org/css-backgrounds-3/#border-style
  */
-export type CSSLineStyleSet = string | CSSLineStyle | CSSType<'line-style-set'>
+export type CSSLineStyleSet = string | CSSLineStyle;
 
 /**
  * Overlow modes
@@ -166,25 +157,25 @@ export type CSSOverflow = 'visible' | 'hidden' | 'scroll' | 'clip' | 'auto';
  * a percentage; 0 | '0%' etc.
  * https://drafts.csswg.org/css-values-3/#percentage
  */
-export type CSSPercentage = CSSGlobalValues | string | 0 | CSSType<'percentage'>;
+export type CSSPercentage = CSSGlobalValues | string | 0;
 
 /**
  * Defines a position (e.g. background-position)
  * https://drafts.csswg.org/css-backgrounds-3/#position
  */
-export type CSSPosition = CSSAngle | string | CSSType<'position'>;
+export type CSSPosition = CSSAngle | string;
 
 /**
  * Relative size keywords
  * https://drafts.csswg.org/css-fonts-3/#relative-size-value
  */
-export type CSSRelativeSize = 'larger' | 'smaller' | CSSType<'relative-size'>;
+export type CSSRelativeSize = 'larger' | 'smaller';
 
 /**
  * Specifies how background images are tiled after they have been sized and positioned
  * https://drafts.csswg.org/css-backgrounds/#repeat-style
  */
-export type CSSRepeatStyle = string | 'repeat-x' | 'repeat-y' | 'repeat' | 'space' | 'round' | 'no-repeat' | CSSType<'repeat-style'>;
+export type CSSRepeatStyle = string | 'repeat-x' | 'repeat-y' | 'repeat' | 'space' | 'round' | 'no-repeat';
 
 /**
  * Starting position for many gradients
@@ -196,20 +187,19 @@ export type CSSSideOrCorner = CSSAngle
   | 'left top' | 'right top' | 'left bottom' | 'right bottom'
   | 'top left' | 'top right' | 'bottom left' | 'bottom right'
   | 'to left top' | 'to right top' | 'to left bottom' | 'to right bottom'
-  | 'to top left' | 'to top right' | 'to bottom left' | 'to bottom right'
-  | CSSType<'side-or-corner'>;
+  | 'to top left' | 'to top right' | 'to bottom left' | 'to bottom right';
 
 /** Supporting by `-timing-function` properties */
 export type CSSTimingFunction
   = /** e.g. steps(int,start|end)|cubic-bezier(n,n,n,n) */ string
   | CSSGlobalValues
-  | 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear' | 'step-start' | 'step-end' | CSSType<'timing-function'>;
+  | 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear' | 'step-start' | 'step-end';
 
 /**
  * Expressed as url('protocol://')
  * https://drafts.csswg.org/css-values-3/#urls
  */
-export type CSSUrl = string | CSSType<'url'>;
+export type CSSUrl = string;
 
 /**
  * Font weights

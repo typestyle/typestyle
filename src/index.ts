@@ -1,4 +1,4 @@
-import { ensureString, ensureStringObj, Dictionary } from './internal/formatting';
+import { ensureStringObj, Dictionary } from './internal/formatting';
 
 /**
  * All the CSS types in the 'types' namespace
@@ -156,7 +156,7 @@ export function keyframes(frames: types.KeyFrames) {
   for (const key in frames) {
     const frame = frames[key] as Dictionary;
     for (const prop in frame) {
-      frame[prop] = ensureString(frame[prop]);
+      frame[prop] = frame[prop].toString();
     }
   }
   const animationName = freeStyle.registerKeyframes(frames);
@@ -170,7 +170,7 @@ export function keyframes(frames: types.KeyFrames) {
  * `function-name(param [, param])`
  */
 export function cssFunction(functionName: string, ...params: types.CSSValueGeneral[]): string {
-  const parts = params.map(ensureString).join(',');
+  const parts = params.map(s => s.toString()).join(',');
   return `${functionName}(${parts})`;
 }
 

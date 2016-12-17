@@ -4,7 +4,7 @@ import * as FreeStyle from 'free-style';
 export function ensurePercent(value: string | number): number {
   return typeof value === 'number'
     ? value as number
-    : parseFloat(ensureString(value)) * .01;
+    : parseFloat(value.toString()) * .01;
 }
 
 export function formatPercent(value: number): string {
@@ -12,16 +12,6 @@ export function formatPercent(value: number): string {
 }
 
 export type Dictionary = { [key: string]: any; };
-
-/**
- * Before we send styles to freeStyle we should convert any CSSType<T> to string
- * Call this whenever something might be a CSSType.
- */
-export function ensureString(x: any): string {
-  return typeof (x as types.CSSType<any>).type === 'string'
-    ? x.toString()
-    : x;
-}
 
 /**
  * We need to do the following to *our* objects before passing to freestyle:
@@ -55,7 +45,7 @@ export function ensureStringObj(object: types.NestedCSSProperties): {result: any
       debugName = val;
     }
     else {
-      result[key] = ensureString(val);
+      result[key] = val.toString();
     }
   }
 
