@@ -130,6 +130,9 @@ export function style(...objects: types.NestedCSSProperties[]) {
   return className;
 }
 
+/**
+ * Utility function to register an @font-face
+ */
 export function fontFace(...fontFace: types.FontFace[]): void {
   for (const face of fontFace) {
     freeStyle.registerRule('@font-face', face);
@@ -149,7 +152,7 @@ export function cssRule(selector: string, ...objects: types.NestedCSSProperties[
 }
 
 /**
- * Takes Keyframes and returns a generated animation name
+ * Takes keyframes and returns a generated animationName
  */
 export function keyframes(frames: types.KeyFrames) {
   // resolve keyframe css property helpers
@@ -162,16 +165,6 @@ export function keyframes(frames: types.KeyFrames) {
   const animationName = freeStyle.registerKeyframes(frames);
   styleUpdated();
   return animationName;
-}
-
-/**
- * Helper for you to create a CSSFunction
- * Assumption is that most css function fall into this pattern:
- * `function-name(param [, param])`
- */
-export function cssFunction(functionName: string, ...params: types.CSSValueGeneral[]): string {
-  const parts = params.map(s => s.toString()).join(',');
-  return `${functionName}(${parts})`;
 }
 
 /**
@@ -215,7 +208,12 @@ export function classes(...classes: (string | boolean | undefined | null)[]): st
 }
 
 /**
- * Helps customize styles with media queries
+ * Utility to help customize styles with media queries. e.g.
+ * ```
+ * style(
+ *  media({maxWidth:500}, {color:'red'})
+ * )
+ * ```
  */
 export const media = (mediaQuery: types.MediaQuery, ...objects: types.CSSProperties[]): types.CSSProperties => {
   const mediaQuerySections: string[] = [];
