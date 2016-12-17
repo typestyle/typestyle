@@ -351,6 +351,12 @@ export interface CSSProperties {
   backgroundBlendMode?: CSSValue<CSSBlendMode>;
 
   /**
+   * Specifies whether an element's background, either the color or image, extends underneath its border.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/background-clip
+   */
+  backgroundClip?: CSSValue<CSSBox | 'text'>;
+
+  /**
    * Sets the background color of an element.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/background-color
    */
