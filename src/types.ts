@@ -101,9 +101,6 @@ export type CSSNamedColor =
  */
 export type CSSColorSet = string | CSSColor;
 
-/** For gradients etc */
-export type CSSColorStop = [CSSColor, CSSPercentage | CSSLength];
-
 /**
  * Type for align-items and align-self in flex
  */

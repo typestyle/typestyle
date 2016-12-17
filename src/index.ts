@@ -155,13 +155,7 @@ export function cssRule(selector: string, ...objects: types.NestedCSSProperties[
  * Takes keyframes and returns a generated animationName
  */
 export function keyframes(frames: types.KeyFrames) {
-  // resolve keyframe css property helpers
-  for (const key in frames) {
-    const frame = frames[key] as Dictionary;
-    for (const prop in frame) {
-      frame[prop] = frame[prop].toString();
-    }
-  }
+  // TODO: replace $debugName with display name
   const animationName = freeStyle.registerKeyframes(frames);
   styleUpdated();
   return animationName;

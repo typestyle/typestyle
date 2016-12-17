@@ -1,16 +1,6 @@
 import * as types from './../types';
 import * as FreeStyle from 'free-style';
 
-export function ensurePercent(value: string | number): number {
-  return typeof value === 'number'
-    ? value as number
-    : parseFloat(value.toString()) * .01;
-}
-
-export function formatPercent(value: number): string {
-  return (value * 100) + '%'
-}
-
 export type Dictionary = { [key: string]: any; };
 
 /**
@@ -45,17 +35,9 @@ export function ensureStringObj(object: types.NestedCSSProperties): {result: any
       debugName = val;
     }
     else {
-      result[key] = val.toString();
+      result[key] = val
     }
   }
 
   return {result, debugName};
-}
-
-export function parseCSSFunction(stringValue: string): string[] | undefined {
-  const matches = /[\s]*([a-z-]+)[\s]*\([\s]*([^\)]+)[\s]*\)[\s]*/ig.exec(stringValue);
-  if (!matches || !matches.length) {
-    return undefined;
-  }
-  return [matches[1]].concat(matches[2].split(','));
 }
