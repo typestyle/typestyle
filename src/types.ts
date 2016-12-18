@@ -175,6 +175,12 @@ export type CSSRelativeSize = 'larger' | 'smaller';
 export type CSSRepeatStyle = string | 'repeat-x' | 'repeat-y' | 'repeat' | 'space' | 'round' | 'no-repeat';
 
 /**
+ * Tranform list for the element.
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function
+ */
+export type CSSTransformFunction = string | 'none';
+
+/**
  * Starting position for many gradients
  * https://drafts.csswg.org/css-images-3/#typedef-side-or-corner
  */
@@ -1768,7 +1774,7 @@ export interface CSSProperties {
    * CSS transforms allow elements styled with CSS to be transformed in two-dimensional or three-dimensional space. Using this property, elements can be translated, rotated, scaled, and skewed. The value list may consist of 2D and/or 3D transform values.
    * @see https://developer.mozilla.org/en/docs/Web/CSS/transform
    */
-  transform?: any;
+  transform?: CSSTransformFunction;
 
   /**
    * This property defines the origin of the transformation axes relative to the element to which the transformation is applied.
