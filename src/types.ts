@@ -341,7 +341,7 @@ export interface CSSProperties {
    * or scrolls along with its containing block.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/background-attachment
    */
-  backgroundAttachment?: "scroll" | "fixed" | "local";
+  backgroundAttachment?: 'scroll' | 'fixed' | 'local';
 
   /**
    * This property describes how the element's background images should blend with each other and the element's background color.
@@ -349,6 +349,12 @@ export interface CSSProperties {
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/background-blend-mode
    */
   backgroundBlendMode?: CSSValue<CSSBlendMode>;
+
+  /**
+   * Specifies whether an element's background, either the color or image, extends underneath its border.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/background-clip
+   */
+  backgroundClip?: CSSValue<CSSBox | 'text'>;
 
   /**
    * Sets the background color of an element.
@@ -1110,8 +1116,8 @@ export interface CSSProperties {
    * along the main-axis of their container.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content
    */
-  justifyContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
-  '-webkit-justify-content'?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
+  justifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around';
+  '-webkit-justify-content'?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around';
   '-ms-flex-pack'?: string;
 
   layoutGrid?: any;
@@ -1963,13 +1969,13 @@ export interface CSSProperties {
    * When elements overlap, z-order determines which one covers the other.
    * @see https://developer.mozilla.org/en/docs/Web/CSS/z-index
    */
-  zIndex?: "auto" | number;
+  zIndex?: 'auto' | number;
 
   /**
    * Sets the initial zoom factor of a document defined by @viewport.
    * @see https://developer.mozilla.org/en/docs/Web/CSS/zoom
    */
-  zoom?: "auto" | number;
+  zoom?: 'auto' | number;
 
   // VENDOR prefixes
   // non-authoritative source: http://peter.sh/experiments/vendor-prefixed-css-property-overview/
