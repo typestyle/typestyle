@@ -7,6 +7,7 @@ lib/**/*.js
 lib/**/*.d.ts
 lib.es2015/**/*.js
 lib.es2015/**/*.d.ts
+umd
 
 # Logs
 logs
