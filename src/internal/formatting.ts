@@ -44,7 +44,7 @@ export function ensureStringObj(object: types.NestedCSSProperties): {result: any
 
 // todo: better name here
 export function explodeKeyframes(frames: types.KeyFrames): { $debugName?: string, keyframes: types.KeyFrames } {
-  const result = { $debugName: undefined, keyframes: {} };
+  const result = { $debugName: undefined, keyframes: {} as types.KeyFrames };
 
   for (const offset in frames) {
       const val: any = (frames as any)[offset];
