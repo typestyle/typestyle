@@ -1,4 +1,4 @@
-import { ensureStringObj, Dictionary } from './internal/formatting';
+import { ensureStringObj, explodeKeyframes, Dictionary } from './internal/formatting';
 
 /**
  * All the CSS types in the 'types' namespace
@@ -155,8 +155,9 @@ export function cssRule(selector: string, ...objects: types.NestedCSSProperties[
  * Takes keyframes and returns a generated animationName
  */
 export function keyframes(frames: types.KeyFrames) {
+  const { keyframes, $debugName  } = explodeKeyframes(frames);
   // TODO: replace $debugName with display name
-  const animationName = freeStyle.registerKeyframes(frames);
+  const animationName = freeStyle.registerKeyframes(keyframes, $debugName);
   styleUpdated();
   return animationName;
 }
