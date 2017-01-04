@@ -1533,7 +1533,7 @@ export interface CSSProperties {
    * SVG: For the <ellipse> element, this attribute defines the y-radius of the element. A value of zero disables rendering of the element.
    * https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/ry
    */
-  rx?: number;
+  ry?: number;
 
   /**
    * Defines the alpha channel threshold used to extract a shape from an image. Can be thought of as a "minimum opacity" threshold; that is, a value of 0.5 means that the shape will enclose all the pixels that are more than 50% opaque.
