@@ -1851,7 +1851,7 @@ export interface CSSProperties {
    * The 'transition-property' property specifies the name of the CSS property to which the transition is applied.
    * @see https://developer.mozilla.org/en/docs/Web/CSS/transition-property
    */
-  transitionProperty?: CSSGlobalValues;
+  transitionProperty?: CSSValueString;
 
   /**
    * Sets the pace of action within a transition
