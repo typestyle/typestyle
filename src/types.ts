@@ -823,6 +823,12 @@ export interface CSSProperties {
   display?: CSSValue<CSSGlobalValues | string | 'none' | 'inline' | 'block' | 'inline-block' | 'contents' | 'list-item' | 'inline-list-item' | 'table' | 'inline-table' | 'table-cell' | 'table-column' | 'table-column-group' | 'table-footer-group' | 'table-header-group' | 'table-row' | 'table-row-group' | 'table-caption' | 'flex' | 'inline-flex' | 'grid' | 'inline-grid' | 'ruby' | 'ruby-base' | 'ruby-text' | 'ruby-base-container' | 'ruby-text-container' | 'run-in'>;
 
   /**
+   * SVG: Used to determine or re-determine a scaled-baseline-table.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/dominant-baseline
+   */
+  dominantBaseline?: 'auto' | 'use-script' | 'no-change' | 'reset-size' | 'ideographic' | 'alphabetic' | 'hanging' | 'mathematical' | 'central' | 'middle' | 'text-after-edge' | 'text-before-edge' | 'inherit';
+
+  /**
    * The ‘fill’ property paints the interior of the given graphical element. The area to be painted consists of any areas inside the outline of the shape. To determine the inside of the shape, all subpaths are considered, and the interior is determined according to the rules associated with the current value of the ‘fill-rule’ property. The zero-width geometric outline of a shape is included in the area to be painted.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/fill
    */
@@ -1518,6 +1524,18 @@ export interface CSSProperties {
   rubyPosition?: CSSGlobalValues | 'over' | 'under' | 'inter-character';
 
   /**
+   * SVG: For the <ellipse> element, this attribute defines the x-radius of the element. A value of zero disables rendering of the element.
+   * https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/rx
+   */
+  rx?: number;
+
+  /**
+   * SVG: For the <ellipse> element, this attribute defines the y-radius of the element. A value of zero disables rendering of the element.
+   * https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/ry
+   */
+  ry?: number;
+
+  /**
    * Defines the alpha channel threshold used to extract a shape from an image. Can be thought of as a "minimum opacity" threshold; that is, a value of 0.5 means that the shape will enclose all the pixels that are more than 50% opaque.
    * @see https://developer.mozilla.org/en/docs/Web/CSS/shape-image-threshold
    */
@@ -1557,6 +1575,18 @@ export interface CSSProperties {
   src?: CSSValueString;
 
   /**
+   * SVG: Defines the color of the outline on a given graphical element.
+   * @see https://developer.mozilla.org/en/docs/Web/CSS/stroke
+   */
+  stroke?: string;
+
+  /**
+   * SVG: Controls the pattern of dashes and gaps used to stroke paths.
+   * @see https://developer.mozilla.org/en/docs/Web/CSS/stroke-dasharray
+   */
+  strokeDasharray?: number[];
+
+  /**
    * SVG: Specifies the opacity of the outline on the current object.
    * @see https://developer.mozilla.org/en/docs/Web/CSS/stroke-opacity
    */
@@ -1579,6 +1609,12 @@ export interface CSSProperties {
    * @see https://developer.mozilla.org/en/docs/Web/CSS/table-layout
    */
   tableLayout?: any;
+
+  /**
+   * SVG: The text-anchor attribute is used to align (start-, middle- or end-alignment) a string of text relative to a given point.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/text-anchor
+   */
+  textAnchor?: 'start' | 'middle' | 'end' | 'inherit';
 
   /**
    * The text-align CSS property describes how inline content like text is aligned in its parent block element. text-align does not control the alignment of block elements itself, only their inline content.
