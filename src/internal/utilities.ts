@@ -12,13 +12,6 @@ export function classes(...classes: (string | boolean | undefined | null)[]): st
 }
 
 /**
- * binding without losing type safety on the outside
- */
-export function bindToInstance<T extends Function>(instance: any, fn: T): T {
-  return function() { return fn.apply(instance, arguments); } as any as T;
-}
-
-/**
  * Merges various styles into a single style object.
  * Note: if two objects have the same property the last one wins
  */

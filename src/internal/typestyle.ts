@@ -6,13 +6,13 @@ import { extend, raf } from './utilities';
  */
 import * as types from '../types';
 
-/**
- * @module Maintains a single stylesheet and keeps it in sync with requested styles
- */
 import * as FreeStyle from "free-style";
 
 export type StyleTarget = { textContent: string | null };
 
+/**
+ * Maintains a single stylesheet and keeps it in sync with requested styles
+ */
 export class TypeStyle {
   private _autoGenerateTag: boolean;
   private _freeStyle: FreeStyle.FreeStyle;
@@ -88,12 +88,12 @@ export class TypeStyle {
   }
 
   /**
- * Insert `raw` CSS as a string. This is useful for e.g.
- * - third party CSS that you are customizing with template strings
- * - generating raw CSS in JavaScript
- * - reset libraries like normalize.css that you can use without loaders
- */
-  public cssRaw(mustBeValidCSS: string): void {
+   * Insert `raw` CSS as a string. This is useful for e.g.
+   * - third party CSS that you are customizing with template strings
+   * - generating raw CSS in JavaScript
+   * - reset libraries like normalize.css that you can use without loaders
+   */
+  public cssRaw = (mustBeValidCSS: string): void => {
     if (!mustBeValidCSS) {
       return;
     }
@@ -103,9 +103,9 @@ export class TypeStyle {
   }
 
   /**
- * Takes CSSProperties and registers it to a global selector (body, html, etc.)
- */
-  public cssRule(selector: string, ...objects: types.NestedCSSProperties[]): void {
+   * Takes CSSProperties and registers it to a global selector (body, html, etc.)
+   */
+  public cssRule = (selector: string, ...objects: types.NestedCSSProperties[]): void => {
     const object = ensureStringObj(extend(...objects)).result;
     this._freeStyle.registerRule(selector, object);
     this._styleUpdated();
@@ -113,11 +113,11 @@ export class TypeStyle {
   }
 
   /**
- * Renders styles to the singleton tag imediately
- * NOTE: You should only call it on initial render to prevent any non CSS flash.
- * After that it is kept sync using `requestAnimationFrame` and we haven't noticed any bad flashes.
- **/
-  public forceRenderStyles(): void {
+   * Renders styles to the singleton tag imediately
+   * NOTE: You should only call it on initial render to prevent any non CSS flash.
+   * After that it is kept sync using `requestAnimationFrame` and we haven't noticed any bad flashes.
+   **/
+  public forceRenderStyles = (): void => {
     const target = this._getTag();
     if (!target) {
       return;
@@ -128,7 +128,7 @@ export class TypeStyle {
   /**
    * Utility function to register an @font-face
    */
-  public fontFace(...fontFace: types.FontFace[]): void {
+  public fontFace = (...fontFace: types.FontFace[]): void => {
     const freeStyle = this._freeStyle;
     for (const face of fontFace) {
       freeStyle.registerRule('@font-face', face);
@@ -140,15 +140,15 @@ export class TypeStyle {
   /**
    * Allows use to use the stylesheet in a node.js environment
    */
-  public getStyles() {
+  public getStyles = () => {
     return (this._raw || '') + this._freeStyle.getStyles();
   }
 
   /**
    * Takes keyframes and returns a generated animationName
    */
-  public keyframes(frames: types.KeyFrames): string {
-    const { keyframes, $debugName  } = explodeKeyframes(frames);
+  public keyframes = (frames: types.KeyFrames): string => {
+    const { keyframes, $debugName } = explodeKeyframes(frames);
     // TODO: replace $debugName with display name
     const animationName = this._freeStyle.registerKeyframes(keyframes, $debugName);
     this._styleUpdated();
@@ -158,7 +158,7 @@ export class TypeStyle {
   /**
    * Helps with testing. Reinitializes FreeStyle + raw
    */
-  public reinit(): void {
+  public reinit = (): void => {
     /** reinit freestyle */
     const freeStyle = FreeStyle.create();
     this._freeStyle = freeStyle;
@@ -176,7 +176,7 @@ export class TypeStyle {
   }
 
   /** Sets the target tag where we write the css on style updates */
-  public setStylesTarget(tag: StyleTarget): void {
+  public setStylesTarget = (tag: StyleTarget): void => {
     /** Clear any data in any previous tag */
     if (this._tag) {
       this._tag.textContent = '';
@@ -186,16 +186,14 @@ export class TypeStyle {
     this.forceRenderStyles();
   }
 
-
   /**
    * Takes CSSProperties and return a generated className you can use on your component
    */
-  public style(...objects: types.NestedCSSProperties[]): string {
+  public style = (...objects: types.NestedCSSProperties[]): string => {
     const freeStyle = this._freeStyle;
-    const {result, debugName} = ensureStringObj(extend(...objects));
+    const { result, debugName } = ensureStringObj(extend(...objects));
     const className = debugName ? freeStyle.registerStyle(result, debugName) : freeStyle.registerStyle(result);
     this._styleUpdated();
     return className;
   }
-
 }
