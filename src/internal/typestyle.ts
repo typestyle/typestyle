@@ -8,7 +8,7 @@ import * as types from '../types';
 
 import * as FreeStyle from "free-style";
 
-export type StyleTarget = { textContent: string | null };
+export type StylesTarget = { textContent: string | null };
 
 /**
  * Maintains a single stylesheet and keeps it in sync with requested styles
@@ -19,7 +19,7 @@ export class TypeStyle {
   private _pending: number;
   private _pendingRawChange: boolean;
   private _raw: string;
-  private _tag?: StyleTarget;
+  private _tag?: StylesTarget;
 
   /**
    * We have a single stylesheet that we update as components register themselves
@@ -49,10 +49,10 @@ export class TypeStyle {
         return;
       }
       cb();
-    })
+    });
   }
 
-  private _getTag(): StyleTarget | undefined {
+  private _getTag(): StylesTarget | undefined {
     if (this._tag) {
       return this._tag;
     }
@@ -176,7 +176,7 @@ export class TypeStyle {
   }
 
   /** Sets the target tag where we write the css on style updates */
-  public setStylesTarget = (tag: StyleTarget): void => {
+  public setStylesTarget = (tag: StylesTarget): void => {
     /** Clear any data in any previous tag */
     if (this._tag) {
       this._tag.textContent = '';

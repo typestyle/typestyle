@@ -63,7 +63,9 @@ export const reinit = ts.reinit;
 export const style = ts.style;
 
 /**
- * Creates a new instance of TypeStyle separate from the default instance
+ * Creates a new instance of TypeStyle separate from the default instance.
+ * Use this for creating a different typestyle instance for a shadow dom component.
+ * NOTE: styles aren't shared between different instances.
  */
 export function typestyle(target?: { textContent: string | null }): TypeStyle {
   const instance = new TypeStyle(false);
