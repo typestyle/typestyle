@@ -1,4 +1,4 @@
-import { style, getStyles, reinit, classes, cssRule } from '../index';
+import { style, getStyles, reinit, classes, cssRule, typestyle } from '../index';
 import * as assert from 'assert';
 
 describe("initial test", () => {
@@ -119,5 +119,23 @@ describe("initial test", () => {
       }
     });
     assert.equal(getStyles(), '.sample_fy3xmhm{color:blue}.sample_fy3xmhm:hover{color:rgba(0, 0, 0, 0)}');
+  });
+
+  it("should generate unique instances when typestyle() is called", () => {
+    const ts1 = typestyle({ textContent: '' });
+    const ts2 = typestyle({ textContent: '' });
+
+    ts1.style({ fontSize: 14 });
+    ts2.style({ fontSize: 16 });
+
+    assert.equal(ts1.getStyles(), '.fc4zu15{font-size:14px}');
+    assert.equal(ts2.getStyles(), '.f1rwc7t7{font-size:16px}');
+  });
+
+  it("should not fail if no target is set on an instance", () => {
+    const ts = typestyle();
+    ts.cssRule('body', { fontSize: 12 });
+
+    assert.equal(ts.getStyles(), 'body{font-size:12px}');
   });
 })
