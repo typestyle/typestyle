@@ -64,7 +64,9 @@ export const style = ts.style;
 
 /**
  * Creates a new instance of TypeStyle separate from the default instance.
- * Use this for creating a different typestyle instance for a shadow dom component.
+ *
+ * - Use this for creating a different typestyle instance for a shadow dom component.
+ * - Use this if you don't want an auto tag generated and you just want to collect the CSS.
  *
  * NOTE: styles aren't shared between different instances.
  */
