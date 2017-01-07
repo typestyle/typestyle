@@ -1,4 +1,4 @@
-import { ensureStringObj, explodeKeyframes, Dictionary } from './internal/formatting';
+import { TypeStyle } from './internal/typestyle';
 
 /**
  * All the CSS types in the 'types' namespace
@@ -7,75 +7,15 @@ import * as types from './types';
 export { types };
 
 /**
- * @module Maintains a single stylesheet and keeps it in sync with requested styles
+ * Export certain utilities
  */
-import * as FreeStyle from "free-style";
+export { extend, classes, media } from './internal/utilities';
 
-/** Raf for node + browser */
-const raf = typeof requestAnimationFrame === 'undefined' ? setTimeout : requestAnimationFrame;
-
-/**
- * Only calls cb all sync operations settle
- */
-const {afterAllSync} = new class {
-
-  pending = 0;
-  afterAllSync = (cb: () => void) => {
-    this.pending++;
-    const pending = this.pending;
-    raf(() => {
-      if (pending !== this.pending) return;
-      cb();
-    })
-  }
-}
-
-/**
- * We have a single stylesheet that we update as components register themselves
- */
-let freeStyle = FreeStyle.create();
-let lastFreeStyleChangeId = freeStyle.changeId;
-
-/**
- * We create a tag on first request or return the one that was hydrated
- */
-const {setTag, getTag} = new class {
-  singletonTag?: { textContent: string | null } = undefined;
-  getTag = () => {
-    if (!this.singletonTag) {
-      this.singletonTag = typeof window === 'undefined' ? { textContent: '' } : document.createElement('style');
-      if (typeof document !== 'undefined') document.head.appendChild(this.singletonTag as any);
-    }
-    return this.singletonTag;
-  }
-  setTag = (tag: { textContent: string }) => {
-    /** Clear any data in any previous tag */
-    if (this.singletonTag) {
-      this.singletonTag.textContent = '';
-    }
-    this.singletonTag = tag;
-    /** This special time buffer immediately */
-    forceRenderStyles();
-  }
-};
+/** Zero configuration, default instance of TypeStyle */
+const ts = new TypeStyle({ autoGenerateTag: true });
 
 /** Sets the target tag where we write the css on style updates */
-export const setStylesTarget = setTag;
-
-/** Checks if the style tag needs updating and if so queues up the change */
-const styleUpdated = () => {
-  if (
-    freeStyle.changeId === lastFreeStyleChangeId
-    && !pendingRawChange
-  ) return;
-
-  lastFreeStyleChangeId = freeStyle.changeId;
-  pendingRawChange = false;
-  afterAllSync(forceRenderStyles);
-};
-
-let pendingRawChange = false;
-let raw = '';
+export const setStylesTarget = ts.setStylesTarget;
 
 /**
  * Insert `raw` CSS as a string. This is useful for e.g.
@@ -83,146 +23,57 @@ let raw = '';
  * - generating raw CSS in JavaScript
  * - reset libraries like normalize.css that you can use without loaders
  */
-export function cssRaw(mustBeValidCSS: string) {
-  if (!mustBeValidCSS) return;
-  raw = raw + mustBeValidCSS;
-  pendingRawChange = true;
-  styleUpdated();
-}
+export const cssRaw = ts.cssRaw;
+
+/**
+ * Takes CSSProperties and registers it to a global selector (body, html, etc.)
+ */
+export const cssRule = ts.cssRule;
 
 /**
  * Renders styles to the singleton tag imediately
  * NOTE: You should only call it on initial render to prevent any non CSS flash.
  * After that it is kept sync using `requestAnimationFrame` and we haven't noticed any bad flashes.
  **/
-export function forceRenderStyles() {
-  getTag().textContent = getStyles();
-}
-
-/**
- * Helps with testing. Reinitializes FreeStyle + raw
- */
-export function reinit() {
-  /** reinit freestyle */
-  freeStyle = FreeStyle.create();
-  lastFreeStyleChangeId = freeStyle.changeId;
-
-  /** reinit raw */
-  raw = '';
-  pendingRawChange = false;
-
-  /** Clear any styles that were flushed */
-  getTag().textContent = '';
-}
-
-/**
- * Allows use to use the stylesheet in a node.js environment
- */
-export const getStyles = () => raw ? raw + freeStyle.getStyles() : freeStyle.getStyles();
-
-/**
- * Takes CSSProperties and return a generated className you can use on your component
- */
-export function style(...objects: types.NestedCSSProperties[]) {
-  const {result, debugName} = ensureStringObj(extend(...objects));
-  const className = debugName ? freeStyle.registerStyle(result, debugName) : freeStyle.registerStyle(result);
-  styleUpdated();
-  return className;
-}
+export const forceRenderStyles = ts.forceRenderStyles;
 
 /**
  * Utility function to register an @font-face
  */
-export function fontFace(...fontFace: types.FontFace[]): void {
-  for (const face of fontFace) {
-    freeStyle.registerRule('@font-face', face);
-  }
-  styleUpdated();
-  return;
-}
+export const fontFace = ts.fontFace;
 
 /**
- * Takes CSSProperties and registers it to a global selector (body, html, etc.)
+ * Allows use to use the stylesheet in a node.js environment
  */
-export function cssRule(selector: string, ...objects: types.NestedCSSProperties[]): void {
-  const object = ensureStringObj(extend(...objects)).result;
-  freeStyle.registerRule(selector, object);
-  styleUpdated();
-  return;
-}
+export const getStyles = ts.getStyles;
 
 /**
  * Takes keyframes and returns a generated animationName
  */
-export function keyframes(frames: types.KeyFrames) {
-  const { keyframes, $debugName  } = explodeKeyframes(frames);
-  // TODO: replace $debugName with display name
-  const animationName = freeStyle.registerKeyframes(keyframes, $debugName);
-  styleUpdated();
-  return animationName;
-}
+export const keyframes = ts.keyframes;
 
 /**
- * Merges various styles into a single style object.
- * Note: if two objects have the same property the last one wins
+ * Helps with testing. Reinitializes FreeStyle + raw
  */
-export function extend(...objects: types.NestedCSSProperties[]): types.NestedCSSProperties {
-  /** The final result we will return */
-  const result: types.CSSProperties & Dictionary = {};
-  for (const object of objects) {
-    for (const key in object) {
+export const reinit = ts.reinit;
 
-      /** Falsy values except a explicit 0 is ignored */
-      const val: any = (object as any)[key];
-      if (!val && val !== 0) {
-        continue;
-      }
+/**
+ * Takes CSSProperties and return a generated className you can use on your component
+ */
+export const style = ts.style;
 
-      /** if nested media or pseudo selector */
-      if (key === '$nest' && val) {
-        result[key] = result['$nest'] ? extend(result['$nest'], val) : val;
-      }
-      /** if freestyle sub key that needs merging. We come here due to our recursive calls */
-      else if ((key.indexOf('&') !== -1 || key.indexOf('@media') === 0)) {
-        result[key] = result[key] ? extend(result[key], val) : val;
-      }
-      else {
-        result[key] = val;
-      }
-    }
+/**
+ * Creates a new instance of TypeStyle separate from the default instance.
+ *
+ * - Use this for creating a different typestyle instance for a shadow dom component.
+ * - Use this if you don't want an auto tag generated and you just want to collect the CSS.
+ *
+ * NOTE: styles aren't shared between different instances.
+ */
+export function createTypeStyle(target?: { textContent: string | null }): TypeStyle {
+  const instance = new TypeStyle({ autoGenerateTag: false });
+  if (target) {
+    instance.setStylesTarget(target);
   }
-
-  return result;
-}
-
-/**
- * Utility to join classes conditionally
- */
-export function classes(...classes: (string | boolean | undefined | null)[]): string {
-  return classes.filter(c => !!c).join(' ');
-}
-
-/**
- * Utility to help customize styles with media queries. e.g.
- * ```
- * style(
- *  media({maxWidth:500}, {color:'red'})
- * )
- * ```
- */
-export const media = (mediaQuery: types.MediaQuery, ...objects: types.CSSProperties[]): types.CSSProperties => {
-  const mediaQuerySections: string[] = [];
-  if (mediaQuery.type) mediaQuerySections.push(mediaQuery.type);
-  if (mediaQuery.orientation) mediaQuerySections.push(mediaQuery.orientation);
-  if (mediaQuery.minWidth) mediaQuerySections.push(`(min-width: ${mediaQuery.minWidth}px)`);
-  if (mediaQuery.maxWidth) mediaQuerySections.push(`(max-width: ${mediaQuery.maxWidth}px)`);
-
-  const stringMediaQuery = `@media ${mediaQuerySections.join(' and ')}`;
-
-  const object = {
-    $nest: {
-      [stringMediaQuery]: extend(...objects)
-    }
-  };
-  return object;
+  return instance;
 }
