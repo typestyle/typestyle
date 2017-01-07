@@ -26,7 +26,7 @@ export class TypeStyle {
    */
   private _lastFreeStyleChangeId: number;
 
-  constructor(autoGenerateTag: boolean) {
+  constructor({ autoGenerateTag }: { autoGenerateTag: boolean }) {
     const freeStyle = FreeStyle.create();
 
     this._autoGenerateTag = autoGenerateTag;

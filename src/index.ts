@@ -12,7 +12,7 @@ export { types };
 export { extend, classes, media } from './internal/utilities';
 
 /** Zero configuration, default instance of TypeStyle */
-const ts = new TypeStyle(true);
+const ts = new TypeStyle({ autoGenerateTag: true });
 
 /** Sets the target tag where we write the css on style updates */
 export const setStylesTarget = ts.setStylesTarget;
@@ -65,10 +65,11 @@ export const style = ts.style;
 /**
  * Creates a new instance of TypeStyle separate from the default instance.
  * Use this for creating a different typestyle instance for a shadow dom component.
+ *
  * NOTE: styles aren't shared between different instances.
  */
-export function typestyle(target?: { textContent: string | null }): TypeStyle {
-  const instance = new TypeStyle(false);
+export function createTypeStyle(target?: { textContent: string | null }): TypeStyle {
+  const instance = new TypeStyle({ autoGenerateTag: false });
   if (target) {
     instance.setStylesTarget(target);
   }

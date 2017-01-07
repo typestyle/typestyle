@@ -1,4 +1,4 @@
-import { style, getStyles, reinit, classes, cssRule, typestyle } from '../index';
+import { style, getStyles, reinit, classes, cssRule, createTypeStyle } from '../index';
 import * as assert from 'assert';
 
 describe("initial test", () => {
@@ -122,8 +122,8 @@ describe("initial test", () => {
   });
 
   it("should generate unique instances when typestyle() is called", () => {
-    const ts1 = typestyle({ textContent: '' });
-    const ts2 = typestyle({ textContent: '' });
+    const ts1 = createTypeStyle({ textContent: '' });
+    const ts2 = createTypeStyle({ textContent: '' });
 
     ts1.style({ fontSize: 14 });
     ts2.style({ fontSize: 16 });
@@ -133,7 +133,7 @@ describe("initial test", () => {
   });
 
   it("should not fail if no target is set on an instance", () => {
-    const ts = typestyle();
+    const ts = createTypeStyle();
     ts.cssRule('body', { fontSize: 12 });
 
     assert.equal(ts.getStyles(), 'body{font-size:12px}');
