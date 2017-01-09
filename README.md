@@ -17,7 +17,7 @@ There are quite a few css in js frameworks out there. This one is different:
 - No custom AST transform or module loader support needed.
 - Works with any framework (react, angular2, [cyclejs](https://twitter.com/waynemaurer/status/788483714196078593), whatever, doesn't matter).
 - Zero config. Just use.
-- *super* **small** (~1k)
+- *super* **small** (~6k gz)
 
 > This project is powered by github 🌟s ^ go ahead and [star it please](https://github.com/typestyle/typestyle/stargazers).
 
