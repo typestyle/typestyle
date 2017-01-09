@@ -5,15 +5,28 @@ export type Dictionary = { [key: string]: any; };
 
 /**
  * We need to do the following to *our* objects before passing to freestyle:
- * - Convert any CSSType to their string value
  * - For any `$nest` directive move up to FreeStyle style nesting
  * - For any `$unique` directive map to FreeStyle Unique
  * - For any `$debugName` directive return the debug name
  */
-export function ensureStringObj(object: types.NestedCSSProperties): {result: any, debugName: string} {
+export function ensureStringObj(object: types.NestedCSSProperties): { result: any, debugName: string } {
   /** The final result we will return */
   const result: types.CSSProperties & Dictionary = {};
   let debugName = '';
+
+  if (object
+    && typeof object === 'object'
+    && '$priority' in object) {
+    const { $priority, ...others } = object;
+    if (object.$priority > 0) {
+      const { debugName, result: res } = ensureStringObj(others);
+      result[repeat('&', $priority! + 1)] = res;
+      return { debugName, result };
+    }
+    else {
+      object = others;
+    }
+  }
 
   for (const key in object) {
 
@@ -39,7 +52,7 @@ export function ensureStringObj(object: types.NestedCSSProperties): {result: any
     }
   }
 
-  return {result, debugName};
+  return { result, debugName };
 }
 
 // todo: better name here
@@ -47,13 +60,21 @@ export function explodeKeyframes(frames: types.KeyFrames): { $debugName?: string
   const result = { $debugName: undefined, keyframes: {} as types.KeyFrames };
 
   for (const offset in frames) {
-      const val: any = (frames as any)[offset];
-      if (offset === '$debugName') {
-        result.$debugName = val;
-      } else {
-        result.keyframes[offset] = val;
-      }
+    const val: any = (frames as any)[offset];
+    if (offset === '$debugName') {
+      result.$debugName = val;
+    } else {
+      result.keyframes[offset] = val;
+    }
   }
 
   return result;
+}
+
+/**
+ * Gets a str repeated by number of count
+ * Based on https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/repeat
+ */
+function repeat(str: string, count: number) {
+  return Array(count + 1).join(str);
 }

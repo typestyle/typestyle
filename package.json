@@ -7,7 +7,7 @@
   "module": "./lib.es2015/index.js",
   "jsnext:main": "./lib.es2015/index.js",
   "scripts": {
-    "build": "tsc -p . && tsc -p tsconfig.es2015.json && webpack ./webpack.config.js",
+    "build": "tsc -p . && tsc -p tsconfig.es2015.json && webpack && webpack --minimize",
     "unittest": "mocha ./lib/tests/**/*.js",
     "test": "npm run build && npm run unittest",
     "preversion": "npm run build",
