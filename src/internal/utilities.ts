@@ -2,7 +2,7 @@ import * as types from '../types';
 import { Dictionary } from './formatting';
 
 /** Raf for node + browser */
-export const raf = typeof requestAnimationFrame === 'undefined' ? setTimeout : requestAnimationFrame;
+export const raf = typeof requestAnimationFrame === 'undefined' ? setTimeout : requestAnimationFrame.bind(window);
 
 /**
  * Utility to join classes conditionally
