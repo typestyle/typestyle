@@ -2446,7 +2446,7 @@ export interface NestedCSSProperties extends CSSProperties {
    * Append number of & to increase CSS specifity
    * Must be >= 1 to have any effect
    **/
-  $priority?: number;
+  $priority?: 0 | 1 | 2;
 
   /**
    * A debug only (stripped in process.env.NODE_ENV !== 'production') name
