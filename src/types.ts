@@ -2443,6 +2443,12 @@ export interface NestedCSSProperties extends CSSProperties {
   $nest?: NestedCSSSelectors;
 
   /**
+   * Append number of & to increase CSS specifity
+   * Must be >= 1 to have any effect
+   **/
+  $priority?: number;
+
+  /**
    * A debug only (stripped in process.env.NODE_ENV !== 'production') name
    * Helps you figure out where the class is coming from if you care
    **/
