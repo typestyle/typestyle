@@ -132,7 +132,7 @@ describe("initial test", () => {
     assert.equal(ts2.getStyles(), '.f1rwc7t7{font-size:16px}');
   });
 
-  it("should not fail if no target is set on an instance", () => {
+  it("should work if no target is set on an instance", () => {
     const ts = createTypeStyle();
     ts.cssRule('body', { fontSize: 12 });
 
