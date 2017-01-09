@@ -91,4 +91,20 @@ describe("$priority", () => {
     });
     assert.equal(ts3.getStyles(), '.f8zejtz:focus{background:red}.f8zejtz:hover.f8zejtz:hover{background:green}');
   });
+
+  it("should be nestable", () => {
+    const hoverBackground = 'green';
+    const focusBackground = 'red';
+
+    const ts1 = createTypeStyle();
+    ts1.style({
+      $priority: 1,
+      $nest: {
+        '&:focus': { background: focusBackground },
+        /** Use priority to increase specifity and show that order matters */
+        '&:hover': { $priority: 1, background: hoverBackground },
+      },
+    });
+    assert.equal(ts1.getStyles(), '.f1fqqfqf.f1fqqfqf:focus{background:red}.f1fqqfqf.f1fqqfqf:hover.f1fqqfqf.f1fqqfqf:hover{background:green}');
+  });
 });

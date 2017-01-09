@@ -19,8 +19,9 @@ export function ensureStringObj(object: types.NestedCSSProperties): { result: an
     && '$priority' in object) {
     const { $priority, ...others } = object;
     if (object.$priority > 0) {
-      result[repeat('&', $priority! + 1)] = others;
-      return ensureStringObj(result);
+      const { debugName, result: res } = ensureStringObj(others);
+      result[repeat('&', $priority! + 1)] = res;
+      return { debugName, result };
     }
     else {
       object = others;
