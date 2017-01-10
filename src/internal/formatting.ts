@@ -14,20 +14,6 @@ export function ensureStringObj(object: types.NestedCSSProperties): { result: an
   const result: types.CSSProperties & Dictionary = {};
   let debugName = '';
 
-  if (object
-    && typeof object === 'object'
-    && '$priority' in object) {
-    const { $priority, ...others } = object;
-    if (object.$priority > 0) {
-      const { debugName, result: res } = ensureStringObj(others);
-      result[repeat('&', $priority! + 1)] = res;
-      return { debugName, result };
-    }
-    else {
-      object = others;
-    }
-  }
-
   for (const key in object) {
 
     /** Grab the value upfront */
@@ -69,12 +55,4 @@ export function explodeKeyframes(frames: types.KeyFrames): { $debugName?: string
   }
 
   return result;
-}
-
-/**
- * Gets a str repeated by number of count
- * Based on https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/repeat
- */
-function repeat(str: string, count: number) {
-  return Array(count + 1).join(str);
 }
