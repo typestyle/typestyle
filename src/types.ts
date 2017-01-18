@@ -2492,6 +2492,21 @@ export type NestedCSSSelectors = {
   '&:valid'?: NestedCSSProperties;
   '&:visited'?: NestedCSSProperties;
 
+  /**
+   * Pseudo-elements
+   * https://developer.mozilla.org/en/docs/Web/CSS/Pseudo-elements
+   */
+  '&::after'?: NestedCSSProperties;
+  '&::before'?: NestedCSSProperties;
+  '&::first-letter'?: NestedCSSProperties;
+  '&::first-line'?: NestedCSSProperties;
+  '&::selection'?: NestedCSSProperties;
+  '&::backdrop'?: NestedCSSProperties;
+  '&::placeholder'?: NestedCSSProperties;
+  '&::marker'?: NestedCSSProperties;
+  '&::spelling-error'?: NestedCSSProperties;
+  '&::grammar-error'?: NestedCSSProperties;
+
   /** Children */
   '&>*'?: NestedCSSProperties;
 
