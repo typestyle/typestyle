@@ -1358,6 +1358,12 @@ export interface CSSProperties {
   outlineOffset?: any;
 
   /**
+   * The outline-width CSS property is used to set the width of the outline of an element. An outline is a line that is drawn around elements, outside the border edge, to make the element stand out
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/outline-width
+   */
+  outlineWidth?: CSSGlobalValues | 'thin' | 'medium' | 'thick' | CSSLength;
+
+  /**
    * The overflow property controls how extra content exceeding the bounding box of an element is rendered. It can be used in conjunction with an element that has a fixed width and height, to eliminate text-induced page distortion.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/overflow
    */
