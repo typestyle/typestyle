@@ -189,7 +189,7 @@ export class TypeStyle {
   /**
    * Takes CSSProperties and return a generated className you can use on your component
    */
-  public style = (...objects: types.NestedCSSProperties[]): string => {
+  public style = (...objects: (types.NestedCSSProperties | false | null | undefined)[]): string => {
     const freeStyle = this._freeStyle;
     const { result, debugName } = ensureStringObj(extend(...objects));
     const className = debugName ? freeStyle.registerStyle(result, debugName) : freeStyle.registerStyle(result);

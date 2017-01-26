@@ -7,7 +7,7 @@ export const raf = typeof requestAnimationFrame === 'undefined' ? setTimeout : r
 /**
  * Utility to join classes conditionally
  */
-export function classes(...classes: (string | boolean | undefined | null)[]): string {
+export function classes(...classes: (string | false | undefined | null)[]): string {
   return classes.filter(c => !!c).join(' ');
 }
 
@@ -15,10 +15,13 @@ export function classes(...classes: (string | boolean | undefined | null)[]): st
  * Merges various styles into a single style object.
  * Note: if two objects have the same property the last one wins
  */
-export function extend(...objects: types.NestedCSSProperties[]): types.NestedCSSProperties {
+export function extend(...objects: (types.NestedCSSProperties | false | null | undefined)[]): types.NestedCSSProperties {
   /** The final result we will return */
   const result: types.CSSProperties & Dictionary = {};
   for (const object of objects) {
+    if (object == null || object === false) {
+      continue;
+    }
     for (const key in object) {
 
       /** Falsy values except a explicit 0 is ignored */
