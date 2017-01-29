@@ -6,6 +6,7 @@
 
 [![Build Status][travis-image]][travis-url]
 [![NPM version][npm-image]][npm-url]
+[![Downloads](https://img.shields.io/npm/dm/typestyle.svg)](https://www.npmjs.com/package/typestyle)
 
 Writing CSS with TypeStyle will be just as fluent as writing JavaScript with TypeScript.
 
