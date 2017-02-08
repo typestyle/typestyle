@@ -15,7 +15,7 @@ export function classes(...classes: (string | false | undefined | null)[]): stri
  * Merges various styles into a single style object.
  * Note: if two objects have the same property the last one wins
  */
-export function extend(...objects: (types.NestedCSSProperties | false | null | undefined)[]): types.NestedCSSProperties {
+export function extend(...objects: (types.NestedCSSProperties)[]): types.NestedCSSProperties {
   /** The final result we will return */
   const result: types.CSSProperties & Dictionary = {};
   for (const object of objects) {
