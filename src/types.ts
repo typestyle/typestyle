@@ -1593,6 +1593,12 @@ export interface CSSProperties {
   strokeDasharray?: number[];
 
   /**
+   * SVG: Specifies the shape to be used at the end of open subpaths when they are stroked.
+   * @see https://developer.mozilla.org/en/docs/Web/SVG/Attribute/stroke-linecap
+   */
+  strokeLinecap?: CSSGlobalValues | 'butt' | 'round' | 'square';
+
+  /**
    * SVG: Specifies the opacity of the outline on the current object.
    * @see https://developer.mozilla.org/en/docs/Web/CSS/stroke-opacity
    */
