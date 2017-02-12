@@ -1,5 +1,6 @@
 # 1.1.1
 * CSSProperties `strokeLineCap`.
+* `style` and `extend` safely ignore `null` and `undefined` [commit](https://github.com/typestyle/typestyle/commit/f74d7ca42e02d74ffdb541b552b3c29a20c967b2)
 
 # 1.1.0
 * Fixed broken autocomplete. [issue](https://github.com/typestyle/typestyle/issues/110#issuecomment-278357674) [fix](https://github.com/typestyle/typestyle/commit/0d9302e8339baa18ea660c901b9b8d920c558577)
