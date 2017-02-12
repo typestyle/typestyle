@@ -1,4 +1,5 @@
 # 1.1.1
+* CSSProperties `strokeDashoffset`.
 * CSSProperties `strokeLineCap`.
 * `style` and `extend` safely ignore `null` and `undefined` [commit](https://github.com/typestyle/typestyle/commit/f74d7ca42e02d74ffdb541b552b3c29a20c967b2)
 

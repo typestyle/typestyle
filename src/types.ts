@@ -1593,6 +1593,12 @@ export interface CSSProperties {
   strokeDasharray?: number[];
 
   /**
+   * SVG: Specifies the distance into the dash pattern to start the dash
+   * @see https://developer.mozilla.org/en/docs/Web/SVG/Attribute/stroke-dashoffset
+   */
+  strokeDashoffset?: CSSValue<CSSGlobalValues | CSSLength | CSSPercentage>;
+
+  /**
    * SVG: Specifies the shape to be used at the end of open subpaths when they are stroked.
    * @see https://developer.mozilla.org/en/docs/Web/SVG/Attribute/stroke-linecap
    */
