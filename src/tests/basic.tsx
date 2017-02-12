@@ -121,11 +121,13 @@ describe("initial test", () => {
     assert.equal(getStyles(), '.sample_fy3xmhm{color:blue}.sample_fy3xmhm:hover{color:rgba(0, 0, 0, 0)}');
   });
 
-  it("style should ignore 'false'", () => {
+  it("style should ignore 'false' 'null' and 'undefined'", () => {
     reinit();
     style(
       { color: 'blue' },
       false && { color: 'red' },
+      null,
+      undefined,
       { backgroundColor: 'red' }
     );
     assert.equal(getStyles(), '.fb25ljk{background-color:red;color:blue}');
