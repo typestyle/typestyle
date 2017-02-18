@@ -63,7 +63,7 @@ describe("initial test", () => {
     reinit();
     cssRule('.transparent', { color: 'transparent' });
     style({ color: 'transparent' });
-    assert.equal(getStyles(), '.transparent{color:transparent}.fwarpl0{color:transparent}');
+    assert.equal(getStyles(), '.transparent,.fwarpl0{color:transparent}');
   });
 
   it("should support dedupe by default", () => {
