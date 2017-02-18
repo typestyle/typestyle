@@ -1,3 +1,4 @@
+import { Styles } from 'free-style';
 import { ensureStringObj, explodeKeyframes } from './formatting';
 import { extend, raf } from './utilities';
 
@@ -130,7 +131,7 @@ export class TypeStyle {
    */
   public fontFace = (...fontFace: types.FontFace[]): void => {
     const freeStyle = this._freeStyle;
-    for (const face of fontFace) {
+    for (const face of fontFace as Styles[]) {
       freeStyle.registerRule('@font-face', face);
     }
     this._styleUpdated();
@@ -150,7 +151,7 @@ export class TypeStyle {
   public keyframes = (frames: types.KeyFrames): string => {
     const { keyframes, $debugName } = explodeKeyframes(frames);
     // TODO: replace $debugName with display name
-    const animationName = this._freeStyle.registerKeyframes(keyframes, $debugName);
+    const animationName = this._freeStyle.registerKeyframes(keyframes as Styles, $debugName);
     this._styleUpdated();
     return animationName;
   }
