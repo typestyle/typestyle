@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "target": "es5",
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
@@ -7,7 +8,11 @@
     "strictNullChecks": true,
     "declaration": true,
     "moduleResolution": "node",
-    "outDir": "./lib"
+    "outDir": "./lib",
+    "lib": [
+      "dom",
+      "es6"
+    ]
   },
   "include": [
     "src/**/*"
