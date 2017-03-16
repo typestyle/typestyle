@@ -2472,6 +2472,8 @@ export type MediaQuery = {
   orientation?: 'landscape' | 'portrait';
   minWidth?: number;
   maxWidth?: number;
+  minHeight?: number;
+  maxHeight?: number;
 }
 
 export type NestedCSSSelectors = {
