@@ -196,7 +196,7 @@ export type CSSRadialGradientEndingShape = 'circle' | 'ellipse';
 
 /**
  * Radial Gradient Size.
- * https://drafts.csswg.org/css-images-3/#ending-shape
+ * @see https://drafts.csswg.org/css-images-3/#ending-shape
  */
 export type CSSRadialGradientSize = CSSLength | Array<CSSLength>
   | 'closest-side' | 'farthest-side'
