@@ -9,7 +9,7 @@ export { types };
 /**
  * Export certain utilities
  */
-export { extend, classes, media } from './internal/utilities';
+export { extend, classes, media, mediaQueryToString } from './internal/utilities';
 
 /** Zero configuration, default instance of TypeStyle */
 const ts = new TypeStyle({ autoGenerateTag: true });
