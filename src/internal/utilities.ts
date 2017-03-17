@@ -62,6 +62,8 @@ export const media = (mediaQuery: types.MediaQuery, ...objects: types.CSSPropert
   if (mediaQuery.orientation) mediaQuerySections.push(mediaQuery.orientation);
   if (mediaQuery.minWidth) mediaQuerySections.push(`(min-width: ${mediaQuery.minWidth}px)`);
   if (mediaQuery.maxWidth) mediaQuerySections.push(`(max-width: ${mediaQuery.maxWidth}px)`);
+  if (mediaQuery.minHeight) mediaQuerySections.push(`(min-height: ${mediaQuery.minHeight}px)`);
+  if (mediaQuery.maxHeight) mediaQuerySections.push(`(max-height: ${mediaQuery.maxHeight}px)`);
 
   const stringMediaQuery = `@media ${mediaQuerySections.join(' and ')}`;
 
