@@ -192,6 +192,17 @@ export type CSSSideOrCorner = CSSAngle
   | 'to left top' | 'to right top' | 'to left bottom' | 'to right bottom'
   | 'to top left' | 'to top right' | 'to bottom left' | 'to bottom right';
 
+export type CSSRadialGradientEndingShape = 'circle' | 'ellipse';
+
+/**
+ * Radial Gradient Size.
+ * https://drafts.csswg.org/css-images-3/#ending-shape
+ */
+export type CSSRadialGradientSize = CSSLength | Array<CSSLength>
+  | 'closest-side' | 'farthest-side'
+  | 'closest-corner' | 'closest-side'
+;
+
 /** Supporting by `-timing-function` properties */
 export type CSSTimingFunction
   = /** e.g. steps(int,start|end)|cubic-bezier(n,n,n,n) */ string
