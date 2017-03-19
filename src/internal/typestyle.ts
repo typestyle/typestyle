@@ -1,6 +1,7 @@
 import { Styles } from 'free-style';
 import { ensureStringObj, explodeKeyframes } from './formatting';
 import { extend, raf } from './utilities';
+import { isDebugMode } from './debugMode';
 
 /**
  * All the CSS types in the 'types' namespace
@@ -27,8 +28,14 @@ export class TypeStyle {
    */
   private _lastFreeStyleChangeId: number;
 
-  constructor({ autoGenerateTag }: { autoGenerateTag: boolean }) {
-    const freeStyle = FreeStyle.create();
+  constructor({
+    autoGenerateTag,
+    debug = isDebugMode(process.env),
+  }: {
+    autoGenerateTag: boolean,
+    debug?: boolean,
+  }) {
+    const freeStyle = FreeStyle.create(undefined, debug);
 
     this._autoGenerateTag = autoGenerateTag;
     this._freeStyle = freeStyle;
