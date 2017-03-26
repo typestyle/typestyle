@@ -1,4 +1,4 @@
-# 1.2.1
+# 1.3.0
 * `$debugName` is now always respected.
 
 # 1.1.1
