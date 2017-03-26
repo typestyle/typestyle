@@ -1,3 +1,6 @@
+# 1.2.1
+* `$debugName` is now always respected.
+
 # 1.1.1
 * CSSProperties `strokeDashoffset`.
 * CSSProperties `strokeLineCap`.

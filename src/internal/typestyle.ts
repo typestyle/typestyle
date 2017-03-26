@@ -12,6 +12,16 @@ import * as FreeStyle from "free-style";
 export type StylesTarget = { textContent: string | null };
 
 /**
+ * Creates an instance of free style with our options
+ */
+const createFreeStyle = () => FreeStyle.create(
+  /** Use the default hash function */
+  undefined,
+  /** Preserve $debugName values */
+  true,
+);
+
+/**
  * Maintains a single stylesheet and keeps it in sync with requested styles
  */
 export class TypeStyle {
@@ -28,7 +38,7 @@ export class TypeStyle {
   private _lastFreeStyleChangeId: number;
 
   constructor({ autoGenerateTag }: { autoGenerateTag: boolean }) {
-    const freeStyle = FreeStyle.create();
+    const freeStyle = createFreeStyle();
 
     this._autoGenerateTag = autoGenerateTag;
     this._freeStyle = freeStyle;
@@ -161,7 +171,7 @@ export class TypeStyle {
    */
   public reinit = (): void => {
     /** reinit freestyle */
-    const freeStyle = FreeStyle.create();
+    const freeStyle = createFreeStyle();
     this._freeStyle = freeStyle;
     this._lastFreeStyleChangeId = freeStyle.changeId;
 
