@@ -1326,7 +1326,7 @@ export interface CSSProperties {
    * Specifies the transparency of an element.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/opacity
    */
-  opacity?: number;
+  opacity?: number | CSSGlobalValues;
 
   /**
    * Specifies the order used to lay out flex items in their flex container.
