@@ -74,3 +74,10 @@ export const media = (mediaQuery: types.MediaQuery, ...objects: types.CSSPropert
   };
   return object;
 }
+
+/**
+ * Assumes a kebab-case string in all lowercase, and returns the same in camelCase
+ */
+export const convertKebabCaseToCamelCase = (str: string): string => {
+	return str.replace(/-(\w)/g, (match) => match[1].toUpperCase());
+}

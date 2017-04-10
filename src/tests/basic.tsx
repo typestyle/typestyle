@@ -1,4 +1,4 @@
-import { style, getStyles, reinit, classes, cssRule, createTypeStyle } from '../index';
+import { style, styleSheet, getStyles, reinit, classes, cssRule, createTypeStyle } from '../index';
 import * as assert from 'assert';
 
 describe("initial test", () => {
@@ -119,6 +119,24 @@ describe("initial test", () => {
       }
     });
     assert.equal(getStyles(), '.sample_fy3xmhm{color:blue}.sample_fy3xmhm:hover{color:rgba(0, 0, 0, 0)}');
+  });
+
+  it("should generate a style sheet", () => {
+    reinit();
+    assert(getStyles() === '');
+
+    const styles = styleSheet({ red: { color: 'red' }, blue: { color: 'blue' } });
+    assert.equal(getStyles(), '.red_f1jvcvsh{color:red}.blue_f1mb383g{color:blue}');
+    assert.deepEqual(styles, { red: 'red_f1jvcvsh', blue: 'blue_f1mb383g'});
+  });
+
+  it("should generate a style sheet, converting a kebab-case key into camelCase", () => {
+    reinit();
+    assert(getStyles() === '');
+
+    const styles = styleSheet({ 'red-color': { color: 'red' } });
+    assert.equal(getStyles(), '.red-color_f1jvcvsh{color:red}');
+    assert.deepEqual(styles, { redColor: 'red-color_f1jvcvsh', 'red-color': 'red-color_f1jvcvsh'});
   });
 
   it("style should ignore 'false' 'null' and 'undefined'", () => {
