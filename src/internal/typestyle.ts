@@ -1,6 +1,6 @@
 import { Styles } from 'free-style';
 import { ensureStringObj, explodeKeyframes } from './formatting';
-import { extend, raf } from './utilities';
+import { extend, raf, convertKebabCaseToCamelCase } from './utilities';
 
 /**
  * All the CSS types in the 'types' namespace
@@ -206,5 +206,27 @@ export class TypeStyle {
     const className = debugName ? freeStyle.registerStyle(result, debugName) : freeStyle.registerStyle(result);
     this._styleUpdated();
     return className;
+  }
+
+  /**
+   * Takes a map of CSSProperties, and returns a new map with the original map's keys and
+   * typestyle-generated classNames with $debugName automatically mixed in
+   */
+  public styleSheet = (styleMap: types.StyleMap): types.StyleSheet => {
+    let retVal: types.StyleSheet = {};
+    for (const styleKey in styleMap) {
+      /* just skip over null and undefined values */
+      if (styleMap[styleKey]) {
+        const className = this.style({
+          $debugName: styleKey,
+          ...styleMap[styleKey]
+        });
+        if (convertKebabCaseToCamelCase(styleKey) !== styleKey) {
+          retVal[convertKebabCaseToCamelCase(styleKey)] = className;
+        }
+        retVal[styleKey] = className;
+      }
+    }
+    return retVal;
   }
 }

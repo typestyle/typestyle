@@ -63,6 +63,12 @@ export const reinit = ts.reinit;
 export const style = ts.style;
 
 /**
+ * Takes a map of CSSProperties, and returns a new map with the original map's keys and
+ * typestyle-generated classNames with $debugName automatically mixed in
+ */
+export const styleSheet = ts.styleSheet;
+
+/**
  * Creates a new instance of TypeStyle separate from the default instance.
  *
  * - Use this for creating a different typestyle instance for a shadow dom component.

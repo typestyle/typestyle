@@ -2556,6 +2556,14 @@ export type NestedCSSSelectors = {
   [selector: string]: NestedCSSProperties | undefined;
 };
 
+export interface StyleMap {
+  [key: string]: NestedCSSProperties | null | undefined;
+}
+
+export interface StyleSheet {
+  [key: string]: string;
+}
+
 /**
  * For animation keyframe definition
  */
