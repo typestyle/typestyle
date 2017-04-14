@@ -2481,10 +2481,10 @@ export interface NestedCSSProperties extends CSSProperties {
 export type MediaQuery = {
   type?: 'screen' | 'print' | 'all';
   orientation?: 'landscape' | 'portrait';
-  minWidth?: number;
-  maxWidth?: number;
-  minHeight?: number;
-  maxHeight?: number;
+  minWidth?: number | string;
+  maxWidth?: number | string;
+  minHeight?: number | string;
+  maxHeight?: number | string;
 }
 
 export type NestedCSSSelectors = {

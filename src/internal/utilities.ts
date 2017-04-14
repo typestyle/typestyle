@@ -60,10 +60,10 @@ export const media = (mediaQuery: types.MediaQuery, ...objects: types.CSSPropert
   const mediaQuerySections: string[] = [];
   if (mediaQuery.type) mediaQuerySections.push(mediaQuery.type);
   if (mediaQuery.orientation) mediaQuerySections.push(mediaQuery.orientation);
-  if (mediaQuery.minWidth) mediaQuerySections.push(`(min-width: ${mediaQuery.minWidth}px)`);
-  if (mediaQuery.maxWidth) mediaQuerySections.push(`(max-width: ${mediaQuery.maxWidth}px)`);
-  if (mediaQuery.minHeight) mediaQuerySections.push(`(min-height: ${mediaQuery.minHeight}px)`);
-  if (mediaQuery.maxHeight) mediaQuerySections.push(`(max-height: ${mediaQuery.maxHeight}px)`);
+  if (mediaQuery.minWidth) mediaQuerySections.push(`(min-width: ${mediaLength(mediaQuery.minWidth)})`);
+  if (mediaQuery.maxWidth) mediaQuerySections.push(`(max-width: ${mediaLength(mediaQuery.maxWidth)})`);
+  if (mediaQuery.minHeight) mediaQuerySections.push(`(min-height: ${mediaLength(mediaQuery.minHeight)})`);
+  if (mediaQuery.maxHeight) mediaQuerySections.push(`(max-height: ${mediaLength(mediaQuery.maxHeight)})`);
 
   const stringMediaQuery = `@media ${mediaQuerySections.join(' and ')}`;
 
@@ -74,3 +74,6 @@ export const media = (mediaQuery: types.MediaQuery, ...objects: types.CSSPropert
   };
   return object;
 }
+
+const mediaLength = (value: number | string) =>
+  typeof value === 'string' ? value : `${value}px`;
