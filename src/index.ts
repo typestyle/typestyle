@@ -77,3 +77,8 @@ export function createTypeStyle(target?: { textContent: string | null }): TypeSt
   }
   return instance;
 }
+
+/**
+ * Allows the use of importing the CSSProperties interface 
+ */
+export type CSSProps = CSSProperties
