@@ -31,6 +31,7 @@ export class TypeStyle {
   private _pendingRawChange: boolean;
   private _raw: string;
   private _tag?: StylesTarget;
+  private _window: Window = window;
 
   /**
    * We have a single stylesheet that we update as components register themselves
@@ -55,7 +56,7 @@ export class TypeStyle {
   private _afterAllSync(cb: () => void): void {
     this._pending++;
     const pending = this._pending;
-    raf(() => {
+    raf(this._window)(() => {
       if (pending !== this._pending) {
         return;
       }
@@ -68,12 +69,13 @@ export class TypeStyle {
       return this._tag;
     }
 
+    const win = this._window;
     if (this._autoGenerateTag) {
-      const tag = typeof window === 'undefined'
+      const tag = typeof win === 'undefined'
         ? { textContent: '' }
-        : document.createElement('style');
+        : win.document.createElement('style');
 
-      if (typeof document !== 'undefined') {
+      if (typeof win !== 'undefined' && typeof win.document !== 'undefined') {
         document.head.appendChild(tag as any);
       }
       this._tag = tag;
@@ -96,6 +98,15 @@ export class TypeStyle {
     this._pendingRawChange = false;
 
     this._afterAllSync(() => this.forceRenderStyles());
+  }
+
+  /**
+   * Assign base window object to given window element. This is useful for desktop apps
+   * where window is not global.
+   */
+  public setWindow = (win: Window): void  => {
+    this._window = win;
+    this.forceRenderStyles();
   }
 
   /**
