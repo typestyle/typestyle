@@ -76,7 +76,7 @@ export class TypeStyle {
         : win.document.createElement('style');
 
       if (typeof win !== 'undefined' && typeof win.document !== 'undefined') {
-        document.head.appendChild(tag as any);
+        win.document.head.appendChild(tag as any);
       }
       this._tag = tag;
       return tag;
@@ -104,7 +104,7 @@ export class TypeStyle {
    * Assign base window object to given window element. This is useful for desktop apps
    * where window is not global.
    */
-  public setWindow = (win: Window): void  => {
+  public setWindow = (win: Window): void => {
     this._window = win;
     this.forceRenderStyles();
   }
