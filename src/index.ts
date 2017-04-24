@@ -63,6 +63,12 @@ export const reinit = ts.reinit;
 export const style = ts.style;
 
 /**
+ * Assign base window object to given window element. This is useful for desktop apps
+ * where window is not global.
+ */
+export const setWindow = ts.setWindow;
+
+/**
  * Creates a new instance of TypeStyle separate from the default instance.
  *
  * - Use this for creating a different typestyle instance for a shadow dom component.
