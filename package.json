@@ -8,7 +8,7 @@
   "jsnext:main": "./lib.es2015/index.js",
   "scripts": {
     "build": "tsc -p . && tsc -p tsconfig.es2015.json && webpack && webpack --minimize",
-    "unittest": "mocha -r jsdom-global/register ./lib/tests/**/*.js",
+    "unittest": "mocha ./lib/tests/**/*.js",
     "test": "npm run build && npm run unittest",
     "preversion": "npm run build",
     "postversion": "git push --follow-tags && npm publish",
@@ -32,8 +32,6 @@
     "@types/mocha": "^2.2.39",
     "@types/node": "^7.0.5",
     "mocha": "^3.2.0",
-    "jsdom": "^9.0.0",
-    "jsdom-global": "^2.1.1",
     "ts-node": "^3.0.0",
     "typescript": "^2.3.0-dev.20170217",
     "webpack": "1.14.0"
