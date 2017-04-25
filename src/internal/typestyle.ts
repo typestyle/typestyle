@@ -31,7 +31,7 @@ export class TypeStyle {
   private _pendingRawChange: boolean;
   private _raw: string;
   private _tag?: StylesTarget;
-  private _window: Window = window;
+  private _window: Window | undefined = typeof window === 'undefined' ? undefined : window;
 
   /**
    * We have a single stylesheet that we update as components register themselves
@@ -104,7 +104,7 @@ export class TypeStyle {
    * Assign base window object to given window element. This is useful for desktop apps
    * where window is not global.
    */
-  public setWindow = (win: Window): void => {
+  public setGlobal = (win: Window): void => {
     this._window = win;
     this.forceRenderStyles();
   }
