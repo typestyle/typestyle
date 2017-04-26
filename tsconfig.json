@@ -1,11 +1,20 @@
 {
   "compilerOptions": {
+    "target": "es5",
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "declaration": true,
+    "moduleResolution": "node",
+    "outDir": "./lib",
+    "lib": [
+      "dom",
+      "es6"
+    ]
   },
   "include": [
-    "./**/*"
+    "src/**/*"
   ]
 }
