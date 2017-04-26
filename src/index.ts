@@ -63,6 +63,13 @@ export const reinit = ts.reinit;
 export const style = ts.style;
 
 /**
+ * Takes an object where property names are ideal class names and property values are CSSProperties, and
+ * returns an object where property names are the same ideal class names and the property values are
+ * the actual generated class names using the ideal class name as the $debugName
+ */
+export const styles = ts.styles;
+
+/**
  * Creates a new instance of TypeStyle separate from the default instance.
  *
  * - Use this for creating a different typestyle instance for a shadow dom component.
