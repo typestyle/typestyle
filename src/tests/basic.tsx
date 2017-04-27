@@ -1,4 +1,4 @@
-import { style, styles, getStyles, reinit, classes, cssRule, createTypeStyle } from '../index';
+import { style, stylesheet, getStyles, reinit, classes, cssRule, createTypeStyle } from '../index';
 import * as assert from 'assert';
 
 describe("initial test", () => {
@@ -121,9 +121,9 @@ describe("initial test", () => {
     assert.equal(getStyles(), '.sample_fy3xmhm{color:blue}.sample_fy3xmhm:hover{color:rgba(0, 0, 0, 0)}');
   });
 
-  it("should generate meaningful classnames using styles", () => {
+  it("should generate meaningful classnames using stylesheet", () => {
     reinit();
-    const classes = styles({
+    const classes = stylesheet({
       warning: {
         color: 'red'
       },

@@ -67,7 +67,7 @@ export const style = ts.style;
  * returns an object where property names are the same ideal class names and the property values are
  * the actual generated class names using the ideal class name as the $debugName
  */
-export const styles = ts.styles;
+export const stylesheet = ts.stylesheet;
 
 /**
  * Creates a new instance of TypeStyle separate from the default instance.
