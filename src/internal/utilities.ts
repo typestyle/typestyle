@@ -77,3 +77,51 @@ export const media = (mediaQuery: types.MediaQuery, ...objects: types.CSSPropert
 
 const mediaLength = (value: number | string) =>
   typeof value === 'string' ? value : `${value}px`;
+
+/**
+ * Utility to emit rgb color values as a string
+ * ```
+ * style({
+ *  color: rgb(255, 255, 255),
+ * })
+ * ```
+ */
+export const rgb = (r: number, g: number, b: number) => {
+  return `rgb(${r},${g},${b})`;
+}
+
+/**
+ * Utility to emit rgba color values as a string
+ * ```
+ * style({
+ *  color: rgba(255, 255, 255, 1),
+ * })
+ * ```
+ */
+export const rgba = (r: number, g: number, b: number, o: number) => {
+  return `rgba(${r},${g},${b},${o})`;
+}
+
+/**
+ * Utility to emit hsl color values as a string
+ * ```
+ * style({
+ *  color: hsl(0, '50%', '100%'),
+ * })
+ * ```
+ */
+export const hsl = (h: number, s: string, l: string) => {
+  return `hsl(${h},${s},${l})`;
+}
+
+/**
+ * Utility to emit hsla color values as a string
+ * ```
+ * style({
+ *  color: hsla(0, '50%', '100%', 1),
+ * })
+ * ```
+ */
+export const hsla = (h: number, s: string, l: string, o: number) => {
+  return `hsla(${h},${s},${l},${o})`;
+}
