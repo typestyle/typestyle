@@ -1,4 +1,4 @@
-import { style, getStyles, reinit, classes, cssRule, createTypeStyle } from '../index';
+import { style, getStyles, reinit, classes, cssRule, createTypeStyle, rgb, rgba, hsl, hsla } from '../index';
 import * as assert from 'assert';
 
 describe("initial test", () => {
@@ -149,5 +149,22 @@ describe("initial test", () => {
     ts.cssRule('body', { fontSize: 12 });
 
     assert.equal(ts.getStyles(), 'body{font-size:12px}');
+  });
+
+  it('should properly emit color function string values', () => {
+    const rgbEx = createTypeStyle();
+    const rgbaEx = createTypeStyle();
+    const hslEx = createTypeStyle();
+    const hslaEx = createTypeStyle();
+
+    rgbEx.style({ color: rgb(0, 0, 0) });
+    rgbaEx.style({ color: rgba(0, 0, 0, .2) });
+    hslEx.style({ color: hsl(0, '50%', '100%') });
+    hslaEx.style({ color: hsla(0, '50%', '100%', .2) });
+
+    assert.equal(rgbEx.getStyles(), '.f1kz9khw{color:rgb(0,0,0)}');
+    assert.equal(rgbaEx.getStyles(), '.ft50e4l{color:rgba(0,0,0,0.2)}');
+    assert.equal(hslEx.getStyles(), '.f377jgw{color:hsl(0,50%,100%)}');
+    assert.equal(hslaEx.getStyles(), '.f167mdw1{color:hsla(0,50%,100%,0.2)}');
   });
 })
