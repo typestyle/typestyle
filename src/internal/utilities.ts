@@ -77,3 +77,19 @@ export const media = (mediaQuery: types.MediaQuery, ...objects: types.CSSPropert
 
 const mediaLength = (value: number | string) =>
   typeof value === 'string' ? value : `${value}px`;
+
+export const rgb = (r: number, g: number, b: number) => {
+  return `rgb(${r},${g},${b})`;
+}
+
+export const rgba = (r: number, g: number, b: number, o: number) => {
+  return `rgba(${r},${g},${b},${o})`;
+}
+
+export const hsl = (h: number, s: string, l: string) => {
+  return `hsl(${h},${s},${l})`;
+}
+
+export const hsla = (h: number, s: string, l: string, o: number) => {
+  return `hsl(${h},${s},${l},${o})`;
+}
