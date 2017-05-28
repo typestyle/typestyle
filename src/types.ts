@@ -172,7 +172,29 @@ export type CSSRelativeSize = 'larger' | 'smaller';
  * Specifies how background images are tiled after they have been sized and positioned
  * https://drafts.csswg.org/css-backgrounds/#repeat-style
  */
-export type CSSRepeatStyle = string | 'repeat-x' | 'repeat-y' | 'repeat' | 'space' | 'round' | 'no-repeat';
+export type CSSRepeatStyle = 'repeat-x'
+  | 'repeat-y'
+  | 'repeat'
+  | 'space'
+  | 'round'
+  | 'no-repeat'
+  | 'repeat repeat'
+  | 'repeat space'
+  | 'repeat round'
+  | 'repeat no-repeat'
+  | 'space repeat'
+  | 'space space'
+  | 'space round'
+  | 'space no-repeat'
+  | 'round repeat'
+  | 'round space'
+  | 'round round'
+  | 'round no-repeat'
+  | 'no-repeat repeat'
+  | 'no-repeat space'
+  | 'no-repeat round'
+  | 'no-repeat no-repeat';
+
 
 /**
  * Tranform list for the element.
@@ -406,7 +428,7 @@ export interface CSSProperties {
    * Background-repeat defines if and how background images will be repeated after they have been sized and positioned
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/background-repeat
    */
-  backgroundRepeat?: CSSValue<CSSRepeatStyle>;
+  backgroundRepeat?: CSSValue<CSSRepeatStyle | string>;
 
   /**
    * Background-size specifies the size of a background image
