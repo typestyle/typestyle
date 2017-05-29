@@ -65,6 +65,13 @@ We really really want to make CSS maintainable and simple. So we even wrote a fr
 
 [![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/source/public/images/book/cover.png)][book]
 
+
+## Video Course
+The guide contains everything you need to know. But if you prefer to watch video [we have a free course up on egghead][course].
+
+[![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/source/public/images/course.png)][course]
+
+
 ## Why
 You are probably here cause you are unhappy with your current workflow. So why not just jump to the [guide][book] and give it a go. If you [still need reasons we have quite a few][why].
 
@@ -76,4 +83,5 @@ You are probably here cause you are unhappy with your current workflow. So why n
 [types.ts]:https://github.com/typestyle/typestyle/blob/master/src/types.ts
 [csx]:https://github.com/typestyle/typestyle#csx
 [book]:http://typestyle.io
+[course]:https://egghead.io/courses/maintainable-css-using-typestyle
 [why]:http://typestyle.io/#/why
