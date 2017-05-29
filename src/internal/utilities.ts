@@ -56,7 +56,8 @@ export function extend(...objects: (types.NestedCSSProperties | undefined | null
  * )
  * ```
  */
-export const media = (mediaQuery: types.MediaQuery, ...objects: types.CSSProperties[]): types.CSSProperties => {
+
+export const mediaQueryToString = (mediaQuery: types.MediaQuery): string => {
   const mediaQuerySections: string[] = [];
   if (mediaQuery.type) mediaQuerySections.push(mediaQuery.type);
   if (mediaQuery.orientation) mediaQuerySections.push(mediaQuery.orientation);
@@ -65,8 +66,10 @@ export const media = (mediaQuery: types.MediaQuery, ...objects: types.CSSPropert
   if (mediaQuery.minHeight) mediaQuerySections.push(`(min-height: ${mediaLength(mediaQuery.minHeight)})`);
   if (mediaQuery.maxHeight) mediaQuerySections.push(`(max-height: ${mediaLength(mediaQuery.maxHeight)})`);
 
-  const stringMediaQuery = `@media ${mediaQuerySections.join(' and ')}`;
-
+  return `@media ${mediaQuerySections.join(' and ')}`;
+}
+export const media = (mediaQuery: types.MediaQuery, ...objects: types.CSSProperties[]): types.CSSProperties => {
+  const stringMediaQuery = mediaQueryToString(mediaQuery);
   const object = {
     $nest: {
       [stringMediaQuery]: extend(...objects)
