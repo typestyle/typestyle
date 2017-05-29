@@ -116,7 +116,7 @@ export class TypeStyle {
   /**
    * Takes CSSProperties and registers it to a global selector (body, html, etc.)
    */
-  public cssRule = (selector: string, ...objects: types.NestedCSSProperties[]): void => {
+  public cssRule = (selector: string, ...objects: types.CSSProperties[]): void => {
     const object = ensureStringObj(extend(...objects)).result;
     this._freeStyle.registerRule(selector, object);
     this._styleUpdated();
