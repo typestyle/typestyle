@@ -16,14 +16,13 @@ export type CSSValueString = CSSValue<string>;
 
 /**
  * CSS properties that cascade also support these
- * https://drafts.csswg.org/css-cascade/#defaulting-keywords
+ * @see https://drafts.csswg.org/css-cascade/#defaulting-keywords
  */
 export type CSSGlobalValues
   = 'initial'
   | 'inherit'
   | /** combination of `initial` and `inherit` */ 'unset'
   | 'revert';
-
 
 export interface FontFace {
   fontFamily?: string;
@@ -42,40 +41,48 @@ export interface FontFace {
 
 /**
  * Absolute size keywords
- * https://drafts.csswg.org/css-fonts-3/#absolute-size-value
+ * @see https://drafts.csswg.org/css-fonts-3/#absolute-size-value
  */
 export type CSSAbsoluteSize = 'xx-small' | 'x-small' | 'small' | 'medium' | 'large'
   | 'x-large' | 'xx-large';
 
 /**
  * an angle; 0' | '0deg' | '0grad' | '0rad' | '0turn' | 'etc.
- * https://drafts.csswg.org/css-values-3/#angles
+ * @see https://drafts.csswg.org/css-values-3/#angles
  */
 export type CSSAngle = CSSGlobalValues | string | 0;
 
-
 /**
  * initial state of an animation.
- * https://drafts.csswg.org/css-animations/#animation-play-state
+ * @see https://drafts.csswg.org/css-animations/#animation-play-state
  */
 export type CSSAnimationPlayState = CSSGlobalValues | string | 'paused' | 'running';
 
 /**
  * blend mode
- * https://drafts.fxtf.org/compositing-1/#ltblendmodegt
+ * @see https://drafts.fxtf.org/compositing-1/#ltblendmodegt
  */
 export type CSSBlendMode = 'normal' | 'multiply' | 'screen' | 'overlay' | 'darken' | 'lighten' | 'color-dodge' | 'color-burn'
   | 'hard-light' | 'soft-light' | 'difference' | 'exclusion' | 'hue' | 'saturation' | 'color' | 'luminosity';
 
 /**
+ * border shorthand for style color and width
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/border-left
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/border-right
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/border-top
+ */
+export type CSSBorderShorthand = CSSGlobalValues | CSSColor | CSSLength | CSSLineStyleSet | string;
+
+/**
  * Determines the area within which the background is painted.
- * https://drafts.csswg.org/css-backgrounds/#box
+ * @see https://drafts.csswg.org/css-backgrounds/#box
  */
 export type CSSBox = CSSGlobalValues | string | 'border-box' | 'padding-box' | 'content-box';
 
 /**
  * Color can be a named color, transparent, or a color function
- * https://drafts.csswg.org/css-color-3/#valuea-def-color
+ * @see https://drafts.csswg.org/css-color-3/#valuea-def-color
  */
 export type CSSColor = CSSNamedColor | CSSGlobalValues | 'currentColor' | string;
 
@@ -97,9 +104,32 @@ export type CSSNamedColor =
 
 /**
  * Special type for border-color which can use 1 or 4 colors
- * https://drafts.csswg.org/css-backgrounds-3/#border-color
+ * @see https://drafts.csswg.org/css-backgrounds-3/#border-color
  */
 export type CSSColorSet = string | CSSColor;
+
+ /**
+   * This property specifies the type of rendering box used for an element. It is a shorthand property for many other display properties.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/display
+   */
+export type CSSDisplay =
+  /* <display-outside> values */
+  'block' | 'inline' | 'run-in'
+  /* <display-inside> values */
+  | 'flow' | 'flow-root' | 'table' | 'flex' | 'grid' | 'ruby' | 'subgrid'
+  /* <display-outside> plus <display-inside> values */
+  | 'block flow' | 'inline table' | 'flex run-in'
+  /* <display-listitem> values */
+  | 'list-item' | 'list-item block' | 'list-item inline' | 'list-item flow' | 'list-item flow-root'
+  | 'list-item block flow' | 'list-item block flow-root' | 'flow list-item block'
+  /* <display-internal> values */
+  | 'table-row-group' | 'table-header-group' | 'table-footer-group' | 'table-row' | 'table-cell'
+  | 'table-column-group' | 'table-column' | 'table-caption' | 'ruby-base' | 'ruby-text'
+  | 'ruby-base-container' | 'ruby-text-container'
+  /* <display-box> values */
+  | 'contents' | 'none'
+  /* <display-legacy> values */
+  | 'inline-block' | 'inline-list-item' | 'inline-table' | 'inline-flex' | 'inline-grid';
 
 /**
  * Type for align-items and align-self in flex
@@ -108,31 +138,31 @@ export type CSSFlexAlign = 'flex-start' | 'flex-end' | 'center' | 'baseline' | '
 
 /**
  * a gradient function like linear-gradient
- * https://drafts.csswg.org/css-images-3/#gradients
+ * @see https://drafts.csswg.org/css-images-3/#gradients
  */
 export type CSSGradient = CSSGlobalValues | string;
 
 /**
  * complex type that describes the size of fonts
- * https://drafts.csswg.org/css-fonts-3/#propdef-font-size
+ * @see https://drafts.csswg.org/css-fonts-3/#propdef-font-size
  */
 export type CSSFontSize = CSSGlobalValues | CSSLength | CSSPercentage | CSSAbsoluteSize | CSSRelativeSize;
 
 /**
  * a value that serves as an image
- * https://drafts.csswg.org/css-images-3/#typedef-image
+ * @see https://drafts.csswg.org/css-images-3/#typedef-image
  */
 export type CSSImage = CSSGlobalValues | string | CSSGradient | CSSUrl;
 
 /**
  * an length; 0 | '0px' | '0em' etc.
- * https://drafts.csswg.org/css-values-3/#lengths
+ * @see https://drafts.csswg.org/css-values-3/#lengths
  */
 export type CSSLength = CSSGlobalValues | string | number;
 
 /**
  * Style of a line (e.g. border-style)
- * https://drafts.csswg.org/css-backgrounds-3/#line-style
+ * @see https://drafts.csswg.org/css-backgrounds-3/#line-style
  */
 export type CSSLineStyle = string | 'none' | 'hidden' | 'dotted'
   | 'dashed' | 'solid' | 'double' | 'groove' | 'ridge' | 'inset'
@@ -140,37 +170,37 @@ export type CSSLineStyle = string | 'none' | 'hidden' | 'dotted'
 
 /**
  * Special type for border-style which can use 1 or 4 line-style
- * https://drafts.csswg.org/css-backgrounds-3/#border-style
+ * @see https://drafts.csswg.org/css-backgrounds-3/#border-style
  */
 export type CSSLineStyleSet = string | CSSLineStyle;
 
 /**
  * Overlow modes
- * https://drafts.csswg.org/css-overflow-3/#propdef-overflow
+ * @see https://drafts.csswg.org/css-overflow-3/#propdef-overflow
  */
 export type CSSOverflow = 'visible' | 'hidden' | 'scroll' | 'clip' | 'auto';
 
 /**
  * a percentage; 0 | '0%' etc.
- * https://drafts.csswg.org/css-values-3/#percentage
+ * @see https://drafts.csswg.org/css-values-3/#percentage
  */
 export type CSSPercentage = CSSGlobalValues | string | 0;
 
 /**
  * Defines a position (e.g. background-position)
- * https://drafts.csswg.org/css-backgrounds-3/#position
+ * @see https://drafts.csswg.org/css-backgrounds-3/#position
  */
 export type CSSPosition = CSSAngle | string;
 
 /**
  * Relative size keywords
- * https://drafts.csswg.org/css-fonts-3/#relative-size-value
+ * @see https://drafts.csswg.org/css-fonts-3/#relative-size-value
  */
 export type CSSRelativeSize = 'larger' | 'smaller';
 
 /**
  * Specifies how background images are tiled after they have been sized and positioned
- * https://drafts.csswg.org/css-backgrounds/#repeat-style
+ * @see https://drafts.csswg.org/css-backgrounds/#repeat-style
  */
 export type CSSRepeatStyle = 'repeat-x'
   | 'repeat-y'
@@ -195,7 +225,6 @@ export type CSSRepeatStyle = 'repeat-x'
   | 'no-repeat round'
   | 'no-repeat no-repeat';
 
-
 /**
  * Tranform list for the element.
  * @see https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function
@@ -204,7 +233,7 @@ export type CSSTransformFunction = string | 'none';
 
 /**
  * Starting position for many gradients
- * https://drafts.csswg.org/css-images-3/#typedef-side-or-corner
+ * @see https://drafts.csswg.org/css-images-3/#typedef-side-or-corner
  */
 export type CSSSideOrCorner = CSSAngle
   | 'left' | 'right' | 'top' | 'bottom'
@@ -223,7 +252,7 @@ export type CSSRadialGradientEndingShape = 'circle' | 'ellipse';
 export type CSSRadialGradientSize = CSSLength | Array<CSSLength>
   | 'closest-side' | 'farthest-side'
   | 'closest-corner' | 'closest-side'
-;
+  ;
 
 /** Supporting by `-timing-function` properties */
 export type CSSTimingFunction
@@ -233,7 +262,7 @@ export type CSSTimingFunction
 
 /**
  * Expressed as url('protocol://')
- * https://drafts.csswg.org/css-values-3/#urls
+ * @see https://drafts.csswg.org/css-values-3/#urls
  */
 export type CSSUrl = string;
 
@@ -459,7 +488,7 @@ export interface CSSProperties {
    * border-bottom-style, and border-bottom-width.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom
    */
-  borderBottom?: any;
+  borderBottom?: CSSBorderShorthand;
 
   /**
    * Sets the color of the bottom border of an element.
@@ -529,7 +558,7 @@ export interface CSSProperties {
    * Shorthand property that defines the border-width, border-style and border-color of an element's left border in a single declaration. Note that you can use the corresponding longhand properties to set specific individual properties of the left border — border-left-width, border-left-style and border-left-color.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/border-left
    */
-  borderLeft?: any;
+  borderLeft?: CSSBorderShorthand;
 
   /**
    * The CSS border-left-color property sets the color of an element's left border. This page explains the border-left-color value, but often you will find it more convenient to fix the border's left color as part of a shorthand set, either border-left or border-color.
@@ -560,7 +589,7 @@ export interface CSSProperties {
    * Shorthand property that defines the border-width, border-style and border-color of an element's right border in a single declaration. Note that you can use the corresponding longhand properties to set specific individual properties of the right border — border-right-width, border-right-style and border-right-color.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/border-right
    */
-  borderRight?: any;
+  borderRight?: CSSBorderShorthand;
 
   /**
    * Sets the color of an element's right border. This page explains the border-right-color value, but often you will find it more convenient to fix the border's right color as part of a shorthand set, either border-right or border-color.
@@ -585,7 +614,7 @@ export interface CSSProperties {
    * Specifies the distance between the borders of adjacent cells.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/border-spacing
    */
-  borderSpacing?: any;
+  borderSpacing?: CSSLength | string | 'inherit';
 
   /**
    * Sets the style of an element's four borders. This property can have from one to four values. With only one value, the value will be applied to all four borders; otherwise, this works as a shorthand property for each of border-top-style, border-right-style, border-bottom-style, border-left-style, where each border style may be assigned a separate value.
@@ -597,7 +626,7 @@ export interface CSSProperties {
    * Shorthand property that defines the border-width, border-style and border-color of an element's top border in a single declaration. Note that you can use the corresponding longhand properties to set specific individual properties of the top border — border-top-width, border-top-style and border-top-color.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/border-top
    */
-  borderTop?: any;
+  borderTop?: CSSBorderShorthand;
 
   /**
    * Sets the color of an element's top border. This page explains the border-top-color value, but often you will find it more convenient to fix the border's top color as part of a shorthand set, either border-top or border-color.
@@ -853,7 +882,7 @@ export interface CSSProperties {
    * This property specifies the type of rendering box used for an element. It is a shorthand property for many other display properties.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/display
    */
-  display?: CSSValue<CSSGlobalValues | string | 'none' | 'inline' | 'block' | 'inline-block' | 'contents' | 'list-item' | 'inline-list-item' | 'table' | 'inline-table' | 'table-cell' | 'table-column' | 'table-column-group' | 'table-footer-group' | 'table-header-group' | 'table-row' | 'table-row-group' | 'table-caption' | 'flex' | 'inline-flex' | 'grid' | 'inline-grid' | 'ruby' | 'ruby-base' | 'ruby-text' | 'ruby-base-container' | 'ruby-text-container' | 'run-in'>;
+  display?: CSSValue<CSSGlobalValues | CSSDisplay>;
 
   /**
    * SVG: Used to determine or re-determine a scaled-baseline-table.
@@ -865,7 +894,7 @@ export interface CSSProperties {
    * The ‘fill’ property paints the interior of the given graphical element. The area to be painted consists of any areas inside the outline of the shape. To determine the inside of the shape, all subpaths are considered, and the interior is determined according to the rules associated with the current value of the ‘fill-rule’ property. The zero-width geometric outline of a shape is included in the area to be painted.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/fill
    */
-  fill?: any;
+  fill?: CSSColor | 'context-stroke' | 'context-fill';
 
   /**
    * SVG: Specifies the opacity of the color or the content the current object is filled with.
@@ -878,13 +907,13 @@ export interface CSSProperties {
    * The ‘fill-rule’ property provides two options for how the inside of a shape is determined:
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/fill-rule
    */
-  fillRule?: any;
+  fillRule?: 'nonzero' | 'evenodd';
 
   /**
    * Applies various image processing effects. This property is largely unsupported. See Compatibility section for more information.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/filter
    */
-  filter?: any;
+  filter?: string;
 
   /**
    * Shorthand for `flex-grow`, `flex-shrink`, and `flex-basis`.
@@ -1532,7 +1561,7 @@ export interface CSSProperties {
    * The resize CSS property lets you control the resizability of an element.
    * @see https://developer.mozilla.org/en/docs/Web/CSS/resize
    */
-  resize?: CSSGlobalValues | 'none' | 'both '| 'horizontal' | 'vertical';
+  resize?: CSSGlobalValues | 'none' | 'both ' | 'horizontal' | 'vertical';
 
   /**
    * The rest-after property determines how long a speech media agent should pause after presenting an element's main content, before presenting that element's exit cue sound. It may be replaced by the shorthand property rest, which sets rest time before and after.
