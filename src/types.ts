@@ -175,6 +175,12 @@ export type CSSLineStyle = string | 'none' | 'hidden' | 'dotted'
 export type CSSLineStyleSet = string | CSSLineStyle;
 
 /**
+ * Specifies how the contents of a replaced element should be fitted to the box established by its used height and width.
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit
+ */
+export type CSSObjectFit = "fill" | "contain" | "cover" | "none" | "scale-down" | CSSGlobalValues
+
+/**
  * Overlow modes
  * @see https://drafts.csswg.org/css-overflow-3/#propdef-overflow
  */
@@ -1372,6 +1378,18 @@ export interface CSSProperties {
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode
    */
   mixBlendMode?: CSSValue<CSSBlendMode>;
+  
+  /**
+   * Specifies how the contents of a replaced element should be fitted to the box established by its used height and width.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit
+   */
+  objectFit?: CSSObjectFit
+
+  /**
+   * Determines the alignment of the element inside its box.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/object-position
+   */
+  objectPosition?: string | CSSGlobalValues;
 
   /**
    * Specifies the transparency of an element.
