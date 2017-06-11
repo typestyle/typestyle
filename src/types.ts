@@ -178,7 +178,7 @@ export type CSSLineStyleSet = string | CSSLineStyle;
  * Specifies how the contents of a replaced element should be fitted to the box established by its used height and width.
  * @see https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit
  */
-export type CSSObjectFit = "fill" | "contain" | "cover" | "none" | "scale-down" | CSSGlobalValues
+export type CSSObjectFit = "fill" | "contain" | "cover" | "none" | "scale-down" | CSSGlobalValues;
 
 /**
  * Overlow modes
@@ -1383,7 +1383,7 @@ export interface CSSProperties {
    * Specifies how the contents of a replaced element should be fitted to the box established by its used height and width.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit
    */
-  objectFit?: CSSObjectFit
+  objectFit?: CSSObjectFit;
 
   /**
    * Determines the alignment of the element inside its box.
