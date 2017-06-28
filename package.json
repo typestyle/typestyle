@@ -4,10 +4,11 @@
   "description": "TypeSafe CSS",
   "main": "./lib/index.js",
   "typings": "./lib/index",
+  "types": "./lib/index",
   "module": "./lib.es2015/index.js",
   "jsnext:main": "./lib.es2015/index.js",
   "scripts": {
-    "build": "tsc -p . && tsc -p tsconfig.es2015.json && webpack && webpack --minimize",
+    "build": "tsc -p . && tsc -p tsconfig.es2015.json && webpack",
     "unittest": "mocha ./lib/tests/**/*.js",
     "test": "npm run build && npm run unittest",
     "preversion": "npm run build",
@@ -34,6 +35,6 @@
     "mocha": "^3.2.0",
     "ts-node": "^3.0.0",
     "typescript": "2.4.1",
-    "webpack": "1.14.0"
+    "webpack": "^3.0.0"
   }
 }
