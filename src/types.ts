@@ -108,10 +108,10 @@ export type CSSNamedColor =
  */
 export type CSSColorSet = string | CSSColor;
 
- /**
-   * This property specifies the type of rendering box used for an element. It is a shorthand property for many other display properties.
-   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/display
-   */
+/**
+  * This property specifies the type of rendering box used for an element. It is a shorthand property for many other display properties.
+  * @see https://developer.mozilla.org/en-US/docs/Web/CSS/display
+  */
 export type CSSDisplay =
   /* <display-outside> values */
   'block' | 'inline' | 'run-in'
@@ -1378,7 +1378,7 @@ export interface CSSProperties {
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode
    */
   mixBlendMode?: CSSValue<CSSBlendMode>;
-  
+
   /**
    * Specifies how the contents of a replaced element should be fitted to the box established by its used height and width.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit
@@ -2629,8 +2629,9 @@ export type NestedCSSSelectors = {
  * For animation keyframe definition
  */
 export interface KeyFrames {
+  $debugName?: string,
   [
-  /** stuff like `from`, `to` or `10%` etc*/
-  key: string
-  ]: CSSProperties;
+    /** stuff like `from`, `to` or `10%` etc*/
+    key: string
+  ]: CSSProperties | string | undefined;
 }

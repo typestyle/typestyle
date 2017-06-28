@@ -15,7 +15,7 @@ export function classes(...classes: (string | false | undefined | null)[]): stri
  * Merges various styles into a single style object.
  * Note: if two objects have the same property the last one wins
  */
-export function extend(...objects: (types.NestedCSSProperties | undefined | null)[]): types.NestedCSSProperties {
+export function extend(...objects: (types.NestedCSSProperties | undefined | null | false)[]): types.NestedCSSProperties {
   /** The final result we will return */
   const result: types.CSSProperties & Dictionary = {};
   for (const object of objects) {
@@ -67,11 +67,11 @@ export const media = (mediaQuery: types.MediaQuery, ...objects: types.CSSPropert
 
   const stringMediaQuery = `@media ${mediaQuerySections.join(' and ')}`;
 
-  const object = {
+  const object  = {
     $nest: {
       [stringMediaQuery]: extend(...objects)
     }
-  };
+  } as types.CSSProperties;
   return object;
 }
 
