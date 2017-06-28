@@ -13,7 +13,8 @@ describe("media query", () => {
     const standardFreeStyle = getStyles();
     reinit();
     style({ color: 'red' }, media({
-      minWidth: 400 }, { color: 'red' }));
+      minWidth: 400
+    }, { color: 'red' }));
     assert.equal(getStyles(), standardFreeStyle);
   });
 
@@ -21,6 +22,21 @@ describe("media query", () => {
     reinit();
     style({ color: 'red' }, media({ minWidth: 400, type: 'screen' }, { color: 'red' }));
     assert.equal(getStyles(), '.f1960l9c{color:red}@media screen and (min-width: 400px){.f1960l9c{color:red}}');
+  });
+
+  it("support $nest", () => {
+    reinit();
+    style(media(
+      { minWidth: 400 },
+      {
+        color: 'red',
+        $nest: {
+          '&:hover': {
+            color: 'green'
+          }
+        }
+      }));
+    assert.equal(getStyles(), '@media (min-width: 400px){.f1wrs385{color:red}.f1wrs385:hover{color:green}}');
   });
 
   it("support non-pixel min-width", () => {
