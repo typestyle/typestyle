@@ -1094,10 +1094,34 @@ export interface CSSProperties {
   gridArea?: any;
 
   /**
+   * Specifies the size of an implicitly-created grid column track.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-columns
+   */
+  gridAutoColumns?: any;
+
+  /**
+   * Controls how the auto-placement algorithm works, specifying exactly how auto-placed items get flowed into the grid.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-flow
+   */
+  gridAutoFlow?: any;
+
+  /**
+   * Specifies the size of an implicitly-created grid row track.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows
+   */
+  gridAutoRows?: any;
+
+  /**
    * Controls a grid item's placement in a grid area, particularly grid position and a grid span. Shorthand for setting grid-column-start and grid-column-end in a single declaration.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column
    */
   gridColumn?: any;
+
+  /**
+   * Specifies the gutter between grid columns.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-gap
+   */
+  gridColumnGap?: any;
 
   /**
    * Controls a grid item's placement in a grid area as well as grid position and a grid span. The grid-column-end property (with grid-row-start, grid-row-end, and grid-column-start) determines a grid item's placement by specifying the grid lines of a grid item's grid area.
@@ -1112,6 +1136,12 @@ export interface CSSProperties {
   gridColumnStart?: any;
 
   /**
+   * Specifies the gutters between grid rows and columns, Shorthand for for grid-row-gap and grid-column-gap in a single declaration.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/grid-gap
+   */
+  gridGap?: any;
+
+  /**
    * Gets or sets a value that indicates which row an element within a Grid should appear in. Shorthand for setting grid-row-start and grid-row-end in a single declaration.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row
    */
@@ -1122,6 +1152,12 @@ export interface CSSProperties {
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-end
    */
   gridRowEnd?: any;
+
+  /**
+   * Specifies the gutter between grid rows.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-gap
+   */
+  gridRowGap?: any;
 
   /**
    * Determines a grid item’s start position within the grid row by contributing a line, a span, or nothing (automatic) to its grid placement, thereby specifying the inline-start edge of its grid area.
