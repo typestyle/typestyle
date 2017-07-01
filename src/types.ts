@@ -1236,6 +1236,12 @@ export interface CSSProperties {
   '-webkit-justify-content'?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around';
   '-ms-flex-pack'?: string;
 
+  /**
+   * Defines the default justify-self for all items of the box, given them the
+   * default way of justifying each box along the appropriate axis
+   */
+  justifyItems?: string;
+
   layoutGrid?: any;
 
   layoutGridChar?: any;
