@@ -61,7 +61,7 @@ export class MyComponent {}
 ```
 
 ## Guide
-We really really want to make CSS maintainable and simple. So we even wrote a free and open source book, covering the super simple core API, a handful of utility styles in `typestyle/lib/csx` and tons of other goodness 🌹. *[Jump to the guide][book]*
+We really really want to make CSS maintainable and simple. So we even wrote a free and open source book, covering the super simple core API, a handful of utility styles in [`csx`](https://github.com/typestyle/csx) and tons of other goodness 🌹. *[Jump to the guide][book]*
 
 [![](https://raw.githubusercontent.com/typestyle/typestyle.github.io/source/public/images/book/cover.png)][book]
 
