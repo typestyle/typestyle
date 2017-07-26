@@ -1,16 +1,38 @@
-var webpack = require('webpack');
-var minimize = process.argv.indexOf('--minimize') !== -1;
+var path = require('path')
+var webpack = require('webpack')
 
-module.exports = {
-    /** Build from built js file */
+module.exports = [
+  {
+    // unminified
     entry: {
-      typestyle: './lib/index.js',
+      'typestyle': './lib/index.js'
     },
     output: {
-        filename: minimize?'./umd/typestyle.min.js':'./umd/typestyle.js',
-        libraryTarget: 'umd',
-        /** The library name on window */
-        library: 'typestyle'
+      filename: './umd/typestyle.js',
+      libraryTarget: 'umd',
+      library: 'typestyle'
     },
-    plugins:minimize?[new webpack.optimize.UglifyJsPlugin({ minimize: true })]:[]
-};
+    plugins: [
+        new webpack.optimize.UglifyJsPlugin({ 
+            compress: false,
+            comments: true
+        })
+    ]
+  },
+  {
+    // minified
+    entry: {
+      'typestyle.min': './lib/index.js'
+    },
+    output: {
+      filename: './umd/typestyle.min.js',
+      libraryTarget: 'umd',
+      library: 'typestyle'
+    },
+    plugins: [
+        new webpack.optimize.UglifyJsPlugin({ 
+            compress: true 
+        })
+    ]
+  }
+]

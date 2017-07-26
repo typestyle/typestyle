@@ -1,4 +1,5 @@
 import { TypeStyle } from './internal/typestyle';
+export { TypeStyle };
 
 /**
  * All the CSS types in the 'types' namespace
