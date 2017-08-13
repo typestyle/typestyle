@@ -82,6 +82,6 @@ You are probably here cause you are unhappy with your current workflow. So why n
 [npm-url]:https://npmjs.org/package/typestyle
 [types.ts]:https://github.com/typestyle/typestyle/blob/master/src/types.ts
 [csx]:https://github.com/typestyle/typestyle#csx
-[book]:http://typestyle.io
+[book]:https://typestyle.github.io
 [course]:https://egghead.io/courses/maintainable-css-using-typestyle
 [why]:http://typestyle.io/#/why
