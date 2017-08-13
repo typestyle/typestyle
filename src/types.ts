@@ -2579,13 +2579,9 @@ export interface CSSProperties {
   '-webkit-writing-mode'?: CSSValueGeneral;
 }
 
-export interface ClassesWithNestedCSSProperties {
-  [className: string]: NestedCSSProperties;
-}
+export type CSSClasses<K extends string> = Record<K, NestedCSSProperties>;
 
-export type ClassNames<T extends ClassesWithNestedCSSProperties> = {
-  [P in keyof T]: string;
-}
+export type CSSClassNames<K extends string> = Record<K, string>;
 
 export interface NestedCSSProperties extends CSSProperties {
   $nest?: NestedCSSSelectors;
