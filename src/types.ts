@@ -1242,6 +1242,12 @@ export interface CSSProperties {
    */
   justifyItems?: string;
 
+  /**
+   * Defines the way of justifying a box inside its container along the appropriate axis.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/justify-self
+   */
+  justifySelf?: string;
+
   layoutGrid?: any;
 
   layoutGridChar?: any;
