@@ -64,9 +64,9 @@ export const reinit = ts.reinit;
 export const style = ts.style;
 
 /**
- * Takes an object where property names are ideal class names and property values are CSSProperties, and
- * returns an object where property names are the same ideal class names and the property values are
- * the actual generated class names using the ideal class name as the $debugName
+ * @param classes an object where property names are *ideal class name* and property values are CSSProperties
+ * @returns a {propertyNames:propertyValue} object where each propertyName is the same *ideal class name*, and the propertyValue
+ *  is the actual generated class names with `propertyName` used as $debugName
  */
 export const stylesheet = ts.stylesheet;
 

@@ -2585,9 +2585,15 @@ export interface CSSProperties {
   '-webkit-writing-mode'?: CSSValueGeneral;
 }
 
-export type CSSClasses<K extends string> = Record<K, NestedCSSProperties>;
 
-export type CSSClassNames<K extends string> = Record<K, string>;
+/**
+ * { [classNamePrefix: NestedCSSProperties] } map for use with the stylesheet function
+ */
+export type StylesheetClasses<K extends string> = Record<K, NestedCSSProperties>;
+/**
+ * { [classNamePrefix]: generatedStringClassName } return type from the stylesheet function
+ */
+export type StylesheetClassNames<K extends string> = Record<K, string>;
 
 export interface NestedCSSProperties extends CSSProperties {
   $nest?: NestedCSSSelectors;

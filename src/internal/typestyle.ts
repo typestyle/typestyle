@@ -209,13 +209,13 @@ export class TypeStyle {
   }
 
   /**
-   * Takes an object where property names are ideal class names and property values are CSSProperties, and
-   * returns an object where property names are the same ideal class names and the property values are
-   * the actual generated class names using the ideal class name as the $debugName
+   * @param classes an object where property names are *ideal class name* and property values are CSSProperties
+   * @returns a {propertyNames:propertyValue} object where each propertyName is the same *ideal class name*, and the propertyValue
+   *  is the actual generated class names with `propertyName` used as $debugName
    */
-  public stylesheet = <K extends string>(classes: types.CSSClasses<K>): types.CSSClassNames<K> => {
+  public stylesheet = <K extends string>(classes: types.StylesheetClasses<K>): types.StylesheetClassNames<K> => {
     const classNames = Object.getOwnPropertyNames(classes);
-    const result = {} as types.CSSClassNames<K>;
+    const result = {} as types.StylesheetClassNames<K>;
     for (let className of classNames) {
       result[className] = this.style({ ...classes[className], $debugName: className });
     }
