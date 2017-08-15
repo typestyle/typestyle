@@ -181,7 +181,7 @@ export type CSSLineStyleSet = string | CSSLineStyle;
 export type CSSObjectFit = "fill" | "contain" | "cover" | "none" | "scale-down" | CSSGlobalValues;
 
 /**
- * Overlow modes
+ * Overflow modes
  * @see https://drafts.csswg.org/css-overflow-3/#propdef-overflow
  */
 export type CSSOverflow = 'visible' | 'hidden' | 'scroll' | 'clip' | 'auto';
@@ -1501,6 +1501,14 @@ export interface CSSProperties {
    * Specifies the preferred scrolling methods for elements that overflow.
    */
   overflowStyle?: any;
+  
+  /**
+    * The overflow-wrap CSS property specifies whether or not the browser should insert line breaks within words to prevent
+    * text from overflowing its content box. In contrast to word-break, overflow-wrap will only create a break if an entire
+    * word cannot be placed on its own line without overflowing.
+    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap
+    */
+  overflowWrap?: CSSGlobalValues | 'normal' | 'break-word';
 
   /**
    * Controls how extra content exceeding the x-axis of the bounding box of an element is rendered.
