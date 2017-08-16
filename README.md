@@ -22,7 +22,7 @@ There are quite a few css in js frameworks out there. This one is different:
 
 > This project is powered by github 🌟s ^ go ahead and [star it please](https://github.com/typestyle/typestyle/stargazers).
 
-Checkout [the awesome list of reviews 🌹](http://typestyle.io/#/reviews).
+Checkout [the awesome list of reviews 🌹][reviews].
 
 ## Overview
 
@@ -84,4 +84,5 @@ You are probably here cause you are unhappy with your current workflow. So why n
 [csx]:https://github.com/typestyle/typestyle#csx
 [book]:https://typestyle.github.io
 [course]:https://egghead.io/courses/maintainable-css-using-typestyle
-[why]:http://typestyle.io/#/why
+[why]:https://typestyle.github.io/#/why
+[reviews]:https://typestyle.github.io/#/reviews
