@@ -2165,7 +2165,7 @@ export interface CSSProperties {
    * When elements overlap, z-order determines which one covers the other.
    * @see https://developer.mozilla.org/en/docs/Web/CSS/z-index
    */
-  zIndex?: 'auto' | number;
+  zIndex?: CSSGlobalValues | 'auto' | number;
 
   /**
    * Sets the initial zoom factor of a document defined by @viewport.
