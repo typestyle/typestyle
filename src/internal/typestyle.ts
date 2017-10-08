@@ -207,4 +207,11 @@ export class TypeStyle {
     this._styleUpdated();
     return className;
   }
+
+  public getStyleObject = (...objects: (types.NestedCSSProperties | undefined | null | false)[]): any => {
+    const css = ensureStringObj(extend(...objects));
+    return css.result;
+  }
+
+
 }

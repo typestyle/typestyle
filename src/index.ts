@@ -63,6 +63,12 @@ export const reinit = ts.reinit;
  */
 export const style = ts.style;
 
+
+/**
+ * Return a parsed style object generated based on the style properties that where provided, without adding the object to the sheet
+ */
+export const getStyleObject = ts.getStyleObject;
+
 /**
  * Creates a new instance of TypeStyle separate from the default instance.
  *
