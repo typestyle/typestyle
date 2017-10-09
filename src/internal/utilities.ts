@@ -67,11 +67,11 @@ export const media = (mediaQuery: types.MediaQuery, ...objects: types.NestedCSSP
 
   const stringMediaQuery = `@media ${mediaQuerySections.join(' and ')}`;
 
-  const object  = {
+  const object: types.NestedCSSProperties  = {
     $nest: {
       [stringMediaQuery]: extend(...objects)
     }
-  } as types.CSSProperties;
+  };
   return object;
 }
 
