@@ -1,4 +1,4 @@
-import { style, getStyles, reinit, classes, cssRule, createTypeStyle } from '../index';
+import { style, getStyles, reinit, classes, cssRule, createTypeStyle, getStyleObject } from '../index';
 import * as assert from 'assert';
 
 describe("initial test", () => {
@@ -65,6 +65,14 @@ describe("initial test", () => {
     style({ color: 'transparent' });
     assert.equal(getStyles(), '.transparent,.fwarpl0{color:transparent}');
   });
+
+  it("should return a style object", () => {
+    reinit();
+    var result = getStyleObject({
+      color: 'blue'
+    });
+    assert.equal( result.color,  'blue' );
+  } );
 
   it("should support dedupe by default", () => {
     reinit();
