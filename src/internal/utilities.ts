@@ -2,7 +2,15 @@ import * as types from '../types';
 import { Dictionary } from './formatting';
 
 /** Raf for node + browser */
-export const raf = typeof requestAnimationFrame === 'undefined' ? (cb: () => void) => setTimeout(cb, 0) : requestAnimationFrame.bind(window);
+export const raf: (cb: () => void) => void =
+  typeof requestAnimationFrame === 'undefined'
+    /**
+     * make sure setTimeout is always invoked with
+     * `this` set to `window` or `global` automatically
+     **/
+    ? (cb) => setTimeout(cb)
+    /** make sure raf is always invoked with `this` window */
+    : requestAnimationFrame.bind(window);
 
 /**
  * Utility to join classes conditionally
@@ -67,7 +75,7 @@ export const media = (mediaQuery: types.MediaQuery, ...objects: types.NestedCSSP
 
   const stringMediaQuery = `@media ${mediaQuerySections.join(' and ')}`;
 
-  const object: types.NestedCSSProperties  = {
+  const object: types.NestedCSSProperties = {
     $nest: {
       [stringMediaQuery]: extend(...objects)
     }
