@@ -1174,6 +1174,12 @@ export interface CSSProperties {
   gridRowSpan?: any;
 
   /**
+   * Is a shorthand property for defining grid columns, rows, and areas.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas
+   */
+  gridTemplate?: any;
+
+  /**
    * Specifies named grid areas which are not associated with any particular grid item, but can be referenced from the grid-placement properties. The syntax of the grid-template-areas property also provides a visualization of the structure of the grid, making the overall layout of the grid container easier to understand.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas
    */
