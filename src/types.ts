@@ -132,9 +132,98 @@ export type CSSDisplay =
   | 'inline-block' | 'inline-list-item' | 'inline-table' | 'inline-flex' | 'inline-grid';
 
 /**
- * Type for align-items and align-self in flex
- */
-export type CSSFlexAlign = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
+  * CSS Type <baseline-position> of Box Alignment
+  * @see https://www.w3.org/TR/css-align-3/#typedef-baseline-position
+  */
+export type CSSBoxAlignmentBaselinePosition = 'baseline' | 'first baseline' | 'last baseline';
+
+/**
+  * CSS Type <content-distribution> of Box Alignment
+  * @see https://www.w3.org/TR/css-align-3/#typedef-content-distribution
+  */
+export type CSSBoxAlignmentContentDistribution = 'space-between' | 'space-around' | 'space-evenly' | 'stretch';
+
+export type CSSBoxAlignmentContentPositionWithOverflow =
+  | 'center' | 'start' | 'end' | 'flex-start' | 'flex-end'
+  | 'unsafe center' | 'unsafe start' | 'unsafe end' | 'unsafe flex-start' | 'unsafe flex-end'
+  | 'safe center' | 'safe start' | 'safe end' | 'safe flex-start' | 'safe flex-end';
+
+export type CSSBoxAlignmentSelfPositionWithOverflow =
+  | 'center' | 'start' | 'end' | 'self-start' | 'self-end' | 'flex-start' | 'flex-end'
+  | 'unsafe center' | 'unsafe start' | 'unsafe end' | 'unsafe self-start' | 'unsafe self-end' | 'unsafe flex-start' | 'unsafe flex-end'
+  | 'safe center' | 'safe start' | 'safe end' | 'safe self-start' | 'safe self-end' | 'safe flex-start' | 'safe flex-end';
+
+export type CSSBoxAlignmentLeftRightWithOverflow = 'left' | 'right' | 'unsafe left' | 'unsafe right' | 'safe left' | 'safe right';
+
+/**
+  * Type for justify-content in flex or grid
+  * @see https://www.w3.org/TR/css-align-3/#propdef-justify-content
+  */
+export type JustifyContent =
+  | 'normal'
+  | CSSBoxAlignmentContentDistribution
+  | CSSBoxAlignmentContentPositionWithOverflow
+  | 'left'
+  | 'right';
+
+/**
+  * Type for align-content in flex or grid
+  * @see https://www.w3.org/TR/css-align-3/#propdef-align-content
+  */
+export type AlignContent =
+  | 'normal'
+  | CSSBoxAlignmentBaselinePosition
+  | CSSBoxAlignmentContentDistribution
+  | CSSBoxAlignmentContentPositionWithOverflow;
+
+/**
+  * Type for justify-items in flex or grid
+  * @see https://www.w3.org/TR/css-align-3/#propdef-justify-items
+  */
+export type JustifyItems =
+  | 'normal'
+  | 'stretch'
+  | CSSBoxAlignmentBaselinePosition
+  | CSSBoxAlignmentSelfPositionWithOverflow
+  | 'left'
+  | 'right'
+  | 'center'
+  | 'legacy left'
+  | 'legacy right'
+  | 'legacy center';
+
+/**
+  * Type for align-items in flex or grid
+  * @see https://www.w3.org/TR/css-align-3/#propdef-align-items
+  */
+export type AlignItems =
+  | 'normal'
+  | 'stretch'
+  | CSSBoxAlignmentBaselinePosition
+  | CSSBoxAlignmentSelfPositionWithOverflow;
+
+/**
+  * Type for justify-self in flex or grid
+  * @see https://www.w3.org/TR/css-align-3/#propdef-justify-self
+  */
+export type JustifySelf =
+  | 'auto'
+  | 'normal'
+  | 'stretch'
+  | CSSBoxAlignmentBaselinePosition
+  | CSSBoxAlignmentSelfPositionWithOverflow
+  | CSSBoxAlignmentLeftRightWithOverflow;
+
+/**
+  * Type for align-self in flex or grid
+  * @see https://www.w3.org/TR/css-align-3/#propdef-align-self
+  */
+export type AlignSelf =
+  | 'auto'
+  | 'normal'
+  | 'stretch'
+  | CSSBoxAlignmentBaselinePosition
+  | CSSBoxAlignmentSelfPositionWithOverflow;
 
 /**
  * a gradient function like linear-gradient
@@ -302,22 +391,22 @@ export interface CSSProperties {
    * Aligns a flex container's lines within the flex container when there is extra space in the cross-axis, similar to how justify-content aligns individual items within the main-axis.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/align-content
    */
-  alignContent?: 'stretch' | 'center' | 'flex-start' | 'flex-end' | 'space-between' | 'space-around' | 'initial' | 'inherit';
+  alignContent?: AlignContent;
 
   /**
    * Sets the default alignment in the cross axis for all of the flex container's items, including anonymous flex items, similarly to how justify-content aligns items along the main axis.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/align-items
    */
-  alignItems?: CSSValue<CSSFlexAlign>;
-  '-ms-align-items'?: CSSValue<CSSFlexAlign>;
-  '-webkit-align-items'?: CSSValue<CSSFlexAlign>;
+  alignItems?: CSSValue<AlignItems>;
+  '-ms-align-items'?: CSSValue<AlignItems>;
+  '-webkit-align-items'?: CSSValue<AlignItems>;
 
   /**
    * Allows the default alignment to be overridden for individual flex items.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/align-self
    */
-  alignSelf?: CSSValue<'auto' | CSSFlexAlign>;
-  '-webkit-align-self'?: CSSValue<'auto' | CSSFlexAlign>;
+  alignSelf?: CSSValue<AlignSelf>;
+  '-webkit-align-self'?: CSSValue<AlignSelf>;
   '-ms-flex-item-align'?: string;
 
   /**
@@ -1238,21 +1327,21 @@ export interface CSSProperties {
    * along the main-axis of their container.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content
    */
-  justifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around';
-  '-webkit-justify-content'?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around';
+  justifyContent?: JustifyContent;
+  '-webkit-justify-content'?: JustifyContent;
   '-ms-flex-pack'?: string;
 
   /**
    * Defines the default justify-self for all items of the box, given them the
    * default way of justifying each box along the appropriate axis
    */
-  justifyItems?: string;
+  justifyItems?: JustifyItems;
 
   /**
    * Defines the way of justifying a box inside its container along the appropriate axis.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/justify-self
    */
-  justifySelf?: string;
+  justifySelf?: JustifySelf;
 
   layoutGrid?: any;
 
