@@ -33,7 +33,7 @@
     "@types/mocha": "^2.2.39",
     "@types/node": "^8.0.0",
     "mocha": "^4.0.0",
-    "ts-node": "^3.3.0",
+    "ts-node": "^4.0.0",
     "typescript": "2.6.2",
     "webpack": "^3.5.5"
   }
