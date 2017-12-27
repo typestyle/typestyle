@@ -1,4 +1,5 @@
-import * as types from './../types';
+import * as types from '../types';
+import {debugNameDisabled} from '../index';
 import * as FreeStyle from 'free-style';
 
 export type Dictionary = { [key: string]: any; };
@@ -31,7 +32,7 @@ export function ensureStringObj(object: types.NestedCSSProperties): { result: an
       }
     }
     else if (key === '$debugName') {
-      debugName = val;
+      debugName = debugNameDisabled() ? '' : val;
     }
     else {
       result[key] = val

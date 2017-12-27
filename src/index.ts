@@ -64,6 +64,18 @@ export const reinit = ts.reinit;
 export const style = ts.style;
 
 /**
+ * Overrides stripping of $debugName when process.env.NODE_ENV is not available (like in the browser).
+ * If a value is passed, then it will become the new value.
+ */
+let _debugNameDisabled: boolean = false;
+export function debugNameDisabled(newValue?: boolean): boolean{
+  if (typeof newValue !== 'undefined')
+    _debugNameDisabled = newValue;
+
+  return _debugNameDisabled;
+}
+
+/**
  * Creates a new instance of TypeStyle separate from the default instance.
  *
  * - Use this for creating a different typestyle instance for a shadow dom component.

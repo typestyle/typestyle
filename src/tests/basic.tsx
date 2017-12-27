@@ -1,4 +1,4 @@
-import { style, getStyles, reinit, classes, cssRule, createTypeStyle } from '../index';
+import { style, getStyles, reinit, classes, cssRule, createTypeStyle, debugNameDisabled } from '../index';
 import * as assert from 'assert';
 
 describe("initial test", () => {
@@ -109,6 +109,8 @@ describe("initial test", () => {
 
   it("should support $debugName", () => {
     reinit();
+    debugNameDisabled(false);
+
     style({
       $debugName: 'sample',
       color: 'blue',
@@ -119,6 +121,22 @@ describe("initial test", () => {
       }
     });
     assert.equal(getStyles(), '.sample_fy3xmhm{color:blue}.sample_fy3xmhm:hover{color:rgba(0, 0, 0, 0)}');
+  });
+
+  it("should support disabling $debugName via function call", () => {
+    reinit();
+    debugNameDisabled(true);
+
+    style({
+      $debugName: 'sample',
+      color: 'blue',
+      $nest: {
+        '&:hover': {
+          color: 'rgba(0, 0, 0, 0)',
+        }
+      }
+    });
+    assert.equal(getStyles(), '.fy3xmhm{color:blue}.fy3xmhm:hover{color:rgba(0, 0, 0, 0)}');
   });
 
   it("style should ignore 'false' 'null' and 'undefined'", () => {
