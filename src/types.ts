@@ -986,6 +986,12 @@ export interface CSSProperties {
   dominantBaseline?: 'auto' | 'use-script' | 'no-change' | 'reset-size' | 'ideographic' | 'alphabetic' | 'hanging' | 'mathematical' | 'central' | 'middle' | 'text-after-edge' | 'text-before-edge' | 'inherit';
 
   /**
+   * The ‘empty-cells’ CSS property specifies how the user agent should render borders and backgrounds around <table> cells that have no visible content.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/empty-cells
+   */
+  emptyCells?: CSSGlobalValues | 'show' | 'hide';
+
+  /**
    * The ‘fill’ property paints the interior of the given graphical element. The area to be painted consists of any areas inside the outline of the shape. To determine the inside of the shape, all subpaths are considered, and the interior is determined according to the rules associated with the current value of the ‘fill-rule’ property. The zero-width geometric outline of a shape is included in the area to be painted.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/fill
    */
@@ -1596,7 +1602,7 @@ export interface CSSProperties {
    * Specifies the preferred scrolling methods for elements that overflow.
    */
   overflowStyle?: any;
-  
+
   /**
     * The overflow-wrap CSS property specifies whether or not the browser should insert line breaks within words to prevent
     * text from overflowing its content box. In contrast to word-break, overflow-wrap will only create a break if an entire
@@ -2214,6 +2220,12 @@ export interface CSSProperties {
    * @see https://developer.mozilla.org/en/docs/Web/CSS/width
    */
   width?: CSSValue<'auto' | CSSLength | CSSPercentage | CSSGlobalValues>;
+
+  /**
+   * The ‘will-change’ CSS property provides a way for authors to hint browsers about the kind of changes to be expected on an element, so that the browser can set up appropriate optimizations ahead of time before the element is actually changed. These kind of optimizations can increase the responsiveness of a page by doing potentially expensive work ahead of time before they are actually required.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/will-change
+   */
+  willChange?: CSSValue<'auto' | 'scroll-position' | 'contents' | CSSValueString>;
 
   /**
    * The word-break property is often used when there is long generated content that is strung together without and spaces or hyphens to beak apart. A common case of this is when there is a long URL that does not have any hyphens. This case could potentially cause the breaking of the layout as it could extend past the parent element.
