@@ -67,7 +67,7 @@ export function extend(...objects: (types.NestedCSSProperties | undefined | null
 export const media = (mediaQuery: types.MediaQuery, ...objects: types.NestedCSSProperties[]): types.NestedCSSProperties => {
   const mediaQuerySections: string[] = [];
   if (mediaQuery.type) mediaQuerySections.push(mediaQuery.type);
-  if (mediaQuery.orientation) mediaQuerySections.push(mediaQuery.orientation);
+  if (mediaQuery.orientation) mediaQuerySections.push(`(orientation: ${mediaQuery.orientation})`);
   if (mediaQuery.minWidth) mediaQuerySections.push(`(min-width: ${mediaLength(mediaQuery.minWidth)})`);
   if (mediaQuery.maxWidth) mediaQuerySections.push(`(max-width: ${mediaLength(mediaQuery.maxWidth)})`);
   if (mediaQuery.minHeight) mediaQuerySections.push(`(min-height: ${mediaLength(mediaQuery.minHeight)})`);

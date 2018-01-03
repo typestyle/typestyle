@@ -86,4 +86,16 @@ describe("media query", () => {
     cssRule('.component', mediaRules);
     assert.equal(getStyles(), '@media (max-height: 20vh){.component{height:10vh}}');
   });
+
+  it("support orientation", () => {
+    reinit();
+
+    const mediaRules = media(
+      { orientation: 'portrait' },
+      { color: 'red' }
+    );
+
+    cssRule('.component', mediaRules);
+    assert.equal(getStyles(), '@media (orientation: portrait){.component{color:red}}');
+  });
 })
