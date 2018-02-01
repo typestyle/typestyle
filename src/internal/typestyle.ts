@@ -208,16 +208,21 @@ export class TypeStyle {
     return className;
   }
 
+
   /**
    * Takes an object where property names are ideal class names and property values are CSSProperties, and
    * returns an object where property names are the same ideal class names and the property values are
    * the actual generated class names using the ideal class name as the $debugName
    */
-  public stylesheet = <K extends string>(classes: types.CSSClasses<K>): types.CSSClassNames<K> => {
-    const classNames = Object.getOwnPropertyNames(classes);
-    const result = {} as types.CSSClassNames<K>;
+  public stylesheet = <T extends Record<string, types.NestedCSSProperties | undefined | null | false>>(classes: T): types.CSSClassNames<keyof T> => {
+    const classNames = Object.getOwnPropertyNames(classes) as (keyof T)[];
+    const result = {} as types.CSSClassNames<keyof T>;
     for (let className of classNames) {
-      result[className] = this.style({ ...classes[className], $debugName: className });
+      const classDef = classes[className] as types.NestedCSSProperties
+      if (classDef) {
+        classDef.$debugName = className
+        result[className] = this.style(classDef);
+      }
     }
     return result;
   }
