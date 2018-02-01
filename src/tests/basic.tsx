@@ -1,4 +1,4 @@
-import { style, getStyles, reinit, classes, cssRule, createTypeStyle } from '../index';
+import { style, stylesheet, getStyles, reinit, classes, cssRule, createTypeStyle } from '../index';
 import * as assert from 'assert';
 
 describe("initial test", () => {
@@ -120,6 +120,23 @@ describe("initial test", () => {
     });
     assert.equal(getStyles(), '.sample_fy3xmhm{color:blue}.sample_fy3xmhm:hover{color:rgba(0, 0, 0, 0)}');
   });
+
+  it("should generate meaningful classnames using stylesheet", () => {
+    reinit();
+    const classes = stylesheet({
+      warning: {
+        color: 'red'
+      },
+      success: {
+        color: 'green'
+      }
+    });
+    assert.deepEqual(classes, {
+      warning: 'warning_f1jvcvsh',
+      success: 'success_fmubem1'
+    });
+    assert.equal(getStyles(), '.warning_f1jvcvsh{color:red}.success_fmubem1{color:green}');
+  })
 
   it("style should ignore 'false' 'null' and 'undefined'", () => {
     reinit();
