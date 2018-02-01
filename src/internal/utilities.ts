@@ -2,7 +2,15 @@ import * as types from '../types';
 import { Dictionary } from './formatting';
 
 /** Raf for node + browser */
-export const raf = typeof requestAnimationFrame === 'undefined' ? setTimeout : requestAnimationFrame.bind(window);
+export const raf: (cb: () => void) => void =
+  typeof requestAnimationFrame === 'undefined'
+    /**
+     * make sure setTimeout is always invoked with
+     * `this` set to `window` or `global` automatically
+     **/
+    ? (cb) => setTimeout(cb)
+    /** make sure raf is always invoked with `this` window */
+    : requestAnimationFrame.bind(window);
 
 /**
  * Utility to join classes conditionally
@@ -59,7 +67,7 @@ export function extend(...objects: (types.NestedCSSProperties | undefined | null
 export const media = (mediaQuery: types.MediaQuery, ...objects: types.NestedCSSProperties[]): types.NestedCSSProperties => {
   const mediaQuerySections: string[] = [];
   if (mediaQuery.type) mediaQuerySections.push(mediaQuery.type);
-  if (mediaQuery.orientation) mediaQuerySections.push(mediaQuery.orientation);
+  if (mediaQuery.orientation) mediaQuerySections.push(`(orientation: ${mediaQuery.orientation})`);
   if (mediaQuery.minWidth) mediaQuerySections.push(`(min-width: ${mediaLength(mediaQuery.minWidth)})`);
   if (mediaQuery.maxWidth) mediaQuerySections.push(`(max-width: ${mediaLength(mediaQuery.maxWidth)})`);
   if (mediaQuery.minHeight) mediaQuerySections.push(`(min-height: ${mediaLength(mediaQuery.minHeight)})`);
@@ -67,11 +75,11 @@ export const media = (mediaQuery: types.MediaQuery, ...objects: types.NestedCSSP
 
   const stringMediaQuery = `@media ${mediaQuerySections.join(' and ')}`;
 
-  const object  = {
+  const object: types.NestedCSSProperties = {
     $nest: {
       [stringMediaQuery]: extend(...objects)
     }
-  } as types.CSSProperties;
+  };
   return object;
 }
 

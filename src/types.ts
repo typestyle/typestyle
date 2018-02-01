@@ -132,9 +132,98 @@ export type CSSDisplay =
   | 'inline-block' | 'inline-list-item' | 'inline-table' | 'inline-flex' | 'inline-grid';
 
 /**
- * Type for align-items and align-self in flex
- */
-export type CSSFlexAlign = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
+  * CSS Type <baseline-position> of Box Alignment
+  * @see https://www.w3.org/TR/css-align-3/#typedef-baseline-position
+  */
+export type CSSBoxAlignmentBaselinePosition = 'baseline' | 'first baseline' | 'last baseline';
+
+/**
+  * CSS Type <content-distribution> of Box Alignment
+  * @see https://www.w3.org/TR/css-align-3/#typedef-content-distribution
+  */
+export type CSSBoxAlignmentContentDistribution = 'space-between' | 'space-around' | 'space-evenly' | 'stretch';
+
+export type CSSBoxAlignmentContentPositionWithOverflow =
+  | 'center' | 'start' | 'end' | 'flex-start' | 'flex-end'
+  | 'unsafe center' | 'unsafe start' | 'unsafe end' | 'unsafe flex-start' | 'unsafe flex-end'
+  | 'safe center' | 'safe start' | 'safe end' | 'safe flex-start' | 'safe flex-end';
+
+export type CSSBoxAlignmentSelfPositionWithOverflow =
+  | 'center' | 'start' | 'end' | 'self-start' | 'self-end' | 'flex-start' | 'flex-end'
+  | 'unsafe center' | 'unsafe start' | 'unsafe end' | 'unsafe self-start' | 'unsafe self-end' | 'unsafe flex-start' | 'unsafe flex-end'
+  | 'safe center' | 'safe start' | 'safe end' | 'safe self-start' | 'safe self-end' | 'safe flex-start' | 'safe flex-end';
+
+export type CSSBoxAlignmentLeftRightWithOverflow = 'left' | 'right' | 'unsafe left' | 'unsafe right' | 'safe left' | 'safe right';
+
+/**
+  * Type for justify-content in flex or grid
+  * @see https://www.w3.org/TR/css-align-3/#propdef-justify-content
+  */
+export type JustifyContent =
+  | 'normal'
+  | CSSBoxAlignmentContentDistribution
+  | CSSBoxAlignmentContentPositionWithOverflow
+  | 'left'
+  | 'right';
+
+/**
+  * Type for align-content in flex or grid
+  * @see https://www.w3.org/TR/css-align-3/#propdef-align-content
+  */
+export type AlignContent =
+  | 'normal'
+  | CSSBoxAlignmentBaselinePosition
+  | CSSBoxAlignmentContentDistribution
+  | CSSBoxAlignmentContentPositionWithOverflow;
+
+/**
+  * Type for justify-items in flex or grid
+  * @see https://www.w3.org/TR/css-align-3/#propdef-justify-items
+  */
+export type JustifyItems =
+  | 'normal'
+  | 'stretch'
+  | CSSBoxAlignmentBaselinePosition
+  | CSSBoxAlignmentSelfPositionWithOverflow
+  | 'left'
+  | 'right'
+  | 'center'
+  | 'legacy left'
+  | 'legacy right'
+  | 'legacy center';
+
+/**
+  * Type for align-items in flex or grid
+  * @see https://www.w3.org/TR/css-align-3/#propdef-align-items
+  */
+export type AlignItems =
+  | 'normal'
+  | 'stretch'
+  | CSSBoxAlignmentBaselinePosition
+  | CSSBoxAlignmentSelfPositionWithOverflow;
+
+/**
+  * Type for justify-self in flex or grid
+  * @see https://www.w3.org/TR/css-align-3/#propdef-justify-self
+  */
+export type JustifySelf =
+  | 'auto'
+  | 'normal'
+  | 'stretch'
+  | CSSBoxAlignmentBaselinePosition
+  | CSSBoxAlignmentSelfPositionWithOverflow
+  | CSSBoxAlignmentLeftRightWithOverflow;
+
+/**
+  * Type for align-self in flex or grid
+  * @see https://www.w3.org/TR/css-align-3/#propdef-align-self
+  */
+export type AlignSelf =
+  | 'auto'
+  | 'normal'
+  | 'stretch'
+  | CSSBoxAlignmentBaselinePosition
+  | CSSBoxAlignmentSelfPositionWithOverflow;
 
 /**
  * a gradient function like linear-gradient
@@ -181,7 +270,7 @@ export type CSSLineStyleSet = string | CSSLineStyle;
 export type CSSObjectFit = "fill" | "contain" | "cover" | "none" | "scale-down" | CSSGlobalValues;
 
 /**
- * Overlow modes
+ * Overflow modes
  * @see https://drafts.csswg.org/css-overflow-3/#propdef-overflow
  */
 export type CSSOverflow = 'visible' | 'hidden' | 'scroll' | 'clip' | 'auto';
@@ -302,22 +391,22 @@ export interface CSSProperties {
    * Aligns a flex container's lines within the flex container when there is extra space in the cross-axis, similar to how justify-content aligns individual items within the main-axis.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/align-content
    */
-  alignContent?: 'stretch' | 'center' | 'flex-start' | 'flex-end' | 'space-between' | 'space-around' | 'initial' | 'inherit';
+  alignContent?: AlignContent;
 
   /**
    * Sets the default alignment in the cross axis for all of the flex container's items, including anonymous flex items, similarly to how justify-content aligns items along the main axis.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/align-items
    */
-  alignItems?: CSSValue<CSSFlexAlign>;
-  '-ms-align-items'?: CSSValue<CSSFlexAlign>;
-  '-webkit-align-items'?: CSSValue<CSSFlexAlign>;
+  alignItems?: CSSValue<AlignItems>;
+  '-ms-align-items'?: CSSValue<AlignItems>;
+  '-webkit-align-items'?: CSSValue<AlignItems>;
 
   /**
    * Allows the default alignment to be overridden for individual flex items.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/align-self
    */
-  alignSelf?: CSSValue<'auto' | CSSFlexAlign>;
-  '-webkit-align-self'?: CSSValue<'auto' | CSSFlexAlign>;
+  alignSelf?: CSSValue<AlignSelf>;
+  '-webkit-align-self'?: CSSValue<AlignSelf>;
   '-ms-flex-item-align'?: string;
 
   /**
@@ -876,7 +965,7 @@ export interface CSSProperties {
    * Specifies the mouse cursor displayed when the mouse pointer is over an element.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/cursor
    */
-  cursor?: CSSGlobalValues | string | 'auto' | 'default' | 'none' | 'context-menu' | 'help' | 'pointer' | 'progress' | 'wait' | 'cell' | 'crosshair' | 'text' | 'vertical-text' | 'alias' | 'copy' | 'move' | 'no-drop' | 'not-allowed' | 'e-resize' | 'n-resize' | 'ne-resize' | 'nw-resize' | 's-resize' | 'se-resize' | 'sw-resize' | 'w-resize' | 'ew-resize' | 'ns-resize' | 'nesw-resize' | 'nwse-resize' | 'col-resize' | 'row-resize' | 'all-scroll' | 'zoom-in' | 'zoom-out' | 'grab' | 'grabbing';
+  cursor?: CSSValue<CSSGlobalValues | string | 'auto' | 'default' | 'none' | 'context-menu' | 'help' | 'pointer' | 'progress' | 'wait' | 'cell' | 'crosshair' | 'text' | 'vertical-text' | 'alias' | 'copy' | 'move' | 'no-drop' | 'not-allowed' | 'e-resize' | 'n-resize' | 'ne-resize' | 'nw-resize' | 's-resize' | 'se-resize' | 'sw-resize' | 'w-resize' | 'ew-resize' | 'ns-resize' | 'nesw-resize' | 'nwse-resize' | 'col-resize' | 'row-resize' | 'all-scroll' | 'zoom-in' | 'zoom-out' | 'grab' | 'grabbing'>;
 
   /**
    * The direction CSS property specifies the text direction/writing direction. The rtl is used for Hebrew or Arabic text, the ltr is for other languages.
@@ -895,6 +984,12 @@ export interface CSSProperties {
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/dominant-baseline
    */
   dominantBaseline?: 'auto' | 'use-script' | 'no-change' | 'reset-size' | 'ideographic' | 'alphabetic' | 'hanging' | 'mathematical' | 'central' | 'middle' | 'text-after-edge' | 'text-before-edge' | 'inherit';
+
+  /**
+   * The ‘empty-cells’ CSS property specifies how the user agent should render borders and backgrounds around <table> cells that have no visible content.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/empty-cells
+   */
+  emptyCells?: CSSGlobalValues | 'show' | 'hide';
 
   /**
    * The ‘fill’ property paints the interior of the given graphical element. The area to be painted consists of any areas inside the outline of the shape. To determine the inside of the shape, all subpaths are considered, and the interior is determined according to the rules associated with the current value of the ‘fill-rule’ property. The zero-width geometric outline of a shape is included in the area to be painted.
@@ -1174,6 +1269,12 @@ export interface CSSProperties {
   gridRowSpan?: any;
 
   /**
+   * Is a shorthand property for defining grid columns, rows, and areas.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas
+   */
+  gridTemplate?: any;
+
+  /**
    * Specifies named grid areas which are not associated with any particular grid item, but can be referenced from the grid-placement properties. The syntax of the grid-template-areas property also provides a visualization of the structure of the grid, making the overall layout of the grid container easier to understand.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas
    */
@@ -1232,15 +1333,21 @@ export interface CSSProperties {
    * along the main-axis of their container.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content
    */
-  justifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around';
-  '-webkit-justify-content'?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around';
+  justifyContent?: JustifyContent;
+  '-webkit-justify-content'?: JustifyContent;
   '-ms-flex-pack'?: string;
 
   /**
    * Defines the default justify-self for all items of the box, given them the
    * default way of justifying each box along the appropriate axis
    */
-  justifyItems?: string;
+  justifyItems?: JustifyItems;
+
+  /**
+   * Defines the way of justifying a box inside its container along the appropriate axis.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/justify-self
+   */
+  justifySelf?: JustifySelf;
 
   layoutGrid?: any;
 
@@ -1497,6 +1604,14 @@ export interface CSSProperties {
   overflowStyle?: any;
 
   /**
+    * The overflow-wrap CSS property specifies whether or not the browser should insert line breaks within words to prevent
+    * text from overflowing its content box. In contrast to word-break, overflow-wrap will only create a break if an entire
+    * word cannot be placed on its own line without overflowing.
+    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap
+    */
+  overflowWrap?: CSSGlobalValues | 'normal' | 'break-word';
+
+  /**
    * Controls how extra content exceeding the x-axis of the bounding box of an element is rendered.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-x
    */
@@ -1598,7 +1713,7 @@ export interface CSSProperties {
    * The position property controls the type of positioning used by an element within its parent elements. The effect of the position property depends on a lot of factors, for example the position property of parent elements.
    * @see https://developer.mozilla.org/en/docs/Web/CSS/position
    */
-  position?: CSSGlobalValues | 'static' | 'relative' | 'absolute' | 'sticky' | 'fixed';
+  position?: CSSValue<CSSGlobalValues | 'static' | 'relative' | 'absolute' | 'sticky' | '-webkit-sticky' | 'fixed'>;
 
   /**
    * Obsolete: unsupported.
@@ -2107,6 +2222,12 @@ export interface CSSProperties {
   width?: CSSValue<'auto' | CSSLength | CSSPercentage | CSSGlobalValues>;
 
   /**
+   * The ‘will-change’ CSS property provides a way for authors to hint browsers about the kind of changes to be expected on an element, so that the browser can set up appropriate optimizations ahead of time before the element is actually changed. These kind of optimizations can increase the responsiveness of a page by doing potentially expensive work ahead of time before they are actually required.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/will-change
+   */
+  willChange?: CSSValue<'auto' | 'scroll-position' | 'contents' | CSSValueString>;
+
+  /**
    * The word-break property is often used when there is long generated content that is strung together without and spaces or hyphens to beak apart. A common case of this is when there is a long URL that does not have any hyphens. This case could potentially cause the breaking of the layout as it could extend past the parent element.
    * @see https://developer.mozilla.org/en/docs/Web/CSS/word-break
    */
@@ -2151,7 +2272,7 @@ export interface CSSProperties {
    * When elements overlap, z-order determines which one covers the other.
    * @see https://developer.mozilla.org/en/docs/Web/CSS/z-index
    */
-  zIndex?: 'auto' | number;
+  zIndex?: CSSGlobalValues | 'auto' | number;
 
   /**
    * Sets the initial zoom factor of a document defined by @viewport.

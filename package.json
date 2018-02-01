@@ -1,6 +1,6 @@
 {
-  "name": "typestyle",
-  "version": "1.4.0",
+  "name": "typestyle", 
+  "version": "1.6.0", 
   "description": "TypeSafe CSS",
   "main": "./lib/index.js",
   "typings": "./lib/index",
@@ -27,14 +27,14 @@
   },
   "homepage": "https://github.com/typestyle/typestyle#readme",
   "dependencies": {
-    "free-style": "2.3.1"
+    "free-style": "2.5.1"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.39",
-    "@types/node": "^8.0.0",
-    "mocha": "^3.2.0",
-    "ts-node": "^3.0.0",
-    "typescript": "2.4.2",
-    "webpack": "^3.0.0"
+    "@types/node": "^9.3.0",
+    "mocha": "^5.0.0",
+    "ts-node": "^4.0.0",
+    "typescript": "2.6.2",
+    "webpack": "^3.5.5"
   }
 }
