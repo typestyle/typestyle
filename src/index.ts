@@ -5,6 +5,7 @@ export { TypeStyle };
  * All the CSS types in the 'types' namespace
  */
 import * as types from './types';
+
 export { types };
 
 /**
