@@ -238,6 +238,21 @@ export type CSSGradient = CSSGlobalValues | string;
 export type CSSFontSize = CSSGlobalValues | CSSLength | CSSPercentage | CSSAbsoluteSize | CSSRelativeSize;
 
 /**
+* The numeric-figure-values Controls the usage of alternate glyphs for numbers, fractions, and ordinal markers.
+* @see https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-numeric
+*/
+export type CSSNumericFigureValue = CSSGlobalValues | 'normal'
+    | 'ordinal'
+    | 'slashed-zero'
+    | 'lining-nums'     
+    | 'oldstyle-nums'   
+    | 'proportional-nums'
+    | 'tabular-nums'     
+    | 'diagonal-fractions'
+    | 'stacked-fractions' 
+    | 'oldstyle-nums stacked-fractions'
+
+/**
  * a value that serves as an image
  * @see https://drafts.csswg.org/css-images-3/#typedef-image
  */
@@ -1169,6 +1184,12 @@ export interface CSSProperties {
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant
    */
   fontVariant?: any;
+
+  /**
+   * The font-variant-numeric CSS property controls the usage of alternate glyphs for numbers, fractions, and ordinal markers.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-numeric
+   */
+  fontVariantNumeric?: CSSNumericFigureValue
 
   /**
    * Fonts can provide alternate glyphs in addition to default glyph for a character. This property provides control over the selection of these alternate glyphs.
@@ -2699,6 +2720,10 @@ export interface CSSProperties {
   '-webkit-user-modify'?: CSSValueGeneral;
   '-webkit-writing-mode'?: CSSValueGeneral;
 }
+
+export type CSSClasses<K extends string> = Record<K, NestedCSSProperties>;
+
+export type CSSClassNames<K extends string> = Record<K, string>;
 
 export interface NestedCSSProperties extends CSSProperties {
   $nest?: NestedCSSSelectors;
