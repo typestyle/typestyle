@@ -1,3 +1,6 @@
+# 1.7.2
+* Fix : `ReferenceError: window is not defined` no longer happens when using `import 'raf/polyfill';`.
+
 # 1.3.0
 * `$debugName` is now always respected.
 
