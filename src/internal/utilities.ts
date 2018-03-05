@@ -5,12 +5,17 @@ import { Dictionary } from './formatting';
 export const raf: (cb: () => void) => void =
   typeof requestAnimationFrame === 'undefined'
     /**
-     * make sure setTimeout is always invoked with
+     * Make sure setTimeout is always invoked with
      * `this` set to `window` or `global` automatically
      **/
     ? (cb) => setTimeout(cb)
-    /** make sure raf is always invoked with `this` window */
-    : requestAnimationFrame.bind(window);
+    /**
+     * Make sure window.requestAnimationFrame is always invoked with `this` window
+     * We might have raf without window in case of `raf/polyfill` (recommended by React)
+     **/
+    : typeof window === 'undefined'
+      ? requestAnimationFrame
+      : requestAnimationFrame.bind(window);
 
 /**
  * Utility to join classes conditionally
