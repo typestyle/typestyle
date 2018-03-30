@@ -1757,7 +1757,7 @@ export interface CSSProperties {
    * The resize CSS property lets you control the resizability of an element.
    * @see https://developer.mozilla.org/en/docs/Web/CSS/resize
    */
-  resize?: CSSGlobalValues | 'none' | 'both ' | 'horizontal' | 'vertical';
+  resize?: CSSGlobalValues | 'none' | 'both' | 'horizontal' | 'vertical';
 
   /**
    * The rest-after property determines how long a speech media agent should pause after presenting an element's main content, before presenting that element's exit cue sound. It may be replaced by the shorthand property rest, which sets rest time before and after.
