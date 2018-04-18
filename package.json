@@ -35,7 +35,7 @@
     "mocha": "5.1.0",
     "ts-node": "6.0.0",
     "typescript": "2.6.2",
-    "webpack": "3.5.5"
+    "webpack": "4.6.0"
   },
   "greenkeeper": {
     "ignore": [
