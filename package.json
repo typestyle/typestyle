@@ -30,7 +30,7 @@
     "free-style": "2.5.1"
   },
   "devDependencies": {
-    "@types/mocha": "5.0.0",
+    "@types/mocha": "5.1.0",
     "@types/node": "9.6.5",
     "mocha": "5.1.1",
     "ts-node": "6.0.0",
