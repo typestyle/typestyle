@@ -1,3 +1,4 @@
+
 import { TypeStyle } from './internal/typestyle';
 export { TypeStyle };
 
