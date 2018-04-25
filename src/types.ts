@@ -1,6 +1,6 @@
 import * as CSS from 'csstype';
 
-export type TLength = number | string
+export type TLength = number | string;
 
 export interface CSSProperties extends
   CSS.StandardPropertiesFallback<TLength>,
