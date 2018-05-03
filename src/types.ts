@@ -868,6 +868,12 @@ export interface CSSProperties {
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/caption-side
    */
   captionSide?: CSSGlobalValues | 'top' | 'bottom' | 'block-start' | 'block-end' | 'inline-start' | 'inline-end';
+  
+  /**
+   * The color of the insertion caret—the visible indicator of the point at which the next character typed by the user will be inserted—within an element such as <input> or one with the contenteditable attribute set.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/caret-color
+   */
+  caretColor?: CSSValue<CSSColor>;
 
   /**
    * The clear CSS property specifies if an element can be positioned next to or must be positioned below the floating elements that precede it in the markup.
