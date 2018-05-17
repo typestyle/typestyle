@@ -1,14 +1,8 @@
-import { Styles } from 'free-style';
+import * as FreeStyle from "free-style";
+import * as types from '../types';
 
 import { ensureStringObj, explodeKeyframes } from './formatting';
 import { extend, raf } from './utilities';
-
-/**
- * All the CSS types in the 'types' namespace
- */
-import * as types from '../types';
-
-import * as FreeStyle from "free-style";
 
 export type StylesTarget = { textContent: string | null };
 
@@ -48,6 +42,9 @@ export class TypeStyle {
     this._pendingRawChange = false;
     this._raw = '';
     this._tag = undefined;
+
+    // rebind prototype to TypeStyle.  It might be better to do a function() { return this.style.apply(this, arguments)}
+    this.style = this.style.bind(this);
   }
 
   /**
@@ -142,7 +139,7 @@ export class TypeStyle {
    */
   public fontFace = (...fontFace: types.FontFace[]): void => {
     const freeStyle = this._freeStyle;
-    for (const face of fontFace as Styles[]) {
+    for (const face of fontFace as FreeStyle.Styles[]) {
       freeStyle.registerRule('@font-face', face);
     }
     this._styleUpdated();
@@ -162,7 +159,7 @@ export class TypeStyle {
   public keyframes = (frames: types.KeyFrames): string => {
     const { keyframes, $debugName } = explodeKeyframes(frames);
     // TODO: replace $debugName with display name
-    const animationName = this._freeStyle.registerKeyframes(keyframes as Styles, $debugName);
+    const animationName = this._freeStyle.registerKeyframes(keyframes as FreeStyle.Styles, $debugName);
     this._styleUpdated();
     return animationName;
   }
@@ -201,21 +198,22 @@ export class TypeStyle {
   /**
    * Takes CSSProperties and return a generated className you can use on your component
    */
-  public style = (...objects: (types.NestedCSSProperties | undefined | null | false)[]): string => {
+  public style(...objects: (types.NestedCSSProperties | undefined)[]): string;
+  public style(...objects: (types.NestedCSSProperties | null | false | undefined)[]): string;
+  public style() {
     const freeStyle = this._freeStyle;
-    const { result, debugName } = ensureStringObj(extend(...objects));
+    const { result, debugName } = ensureStringObj(extend.apply(undefined, arguments));
     const className = debugName ? freeStyle.registerStyle(result, debugName) : freeStyle.registerStyle(result);
     this._styleUpdated();
     return className;
   }
-
 
   /**
    * Takes an object where property names are ideal class names and property values are CSSProperties, and
    * returns an object where property names are the same ideal class names and the property values are
    * the actual generated class names using the ideal class name as the $debugName
    */
-  public stylesheet = <T extends Record<string, types.NestedCSSProperties | undefined | null | false>>(classes: T): types.CSSClassNames<keyof T> => {
+  public stylesheet = <T extends Record<string, types.NestedCSSProperties>>(classes: T): types.CSSClassNames<keyof T> => {
     const classNames = Object.getOwnPropertyNames(classes) as (keyof T)[];
     const result = {} as types.CSSClassNames<keyof T>;
     for (let className of classNames) {
