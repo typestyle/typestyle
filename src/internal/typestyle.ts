@@ -1,4 +1,5 @@
 import { Styles } from 'free-style';
+
 import { ensureStringObj, explodeKeyframes } from './formatting';
 import { extend, raf } from './utilities';
 
