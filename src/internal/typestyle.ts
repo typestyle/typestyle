@@ -25,6 +25,7 @@ export class TypeStyle {
   private _pending: number;
   private _pendingRawChange: boolean;
   private _raw: string;
+  private _nonce: string;
   private _tag?: StylesTarget;
 
   /**
@@ -70,6 +71,10 @@ export class TypeStyle {
       const tag = typeof window === 'undefined'
         ? { textContent: '' }
         : document.createElement('style');
+
+      if ('setAttribute' in tag && typeof this._nonce !== 'undefined' && this._nonce.length) {
+        (tag as any).setAttribute('nonce', this._nonce);
+      }
 
       if (typeof document !== 'undefined') {
         document.head.appendChild(tag as any);
@@ -224,5 +229,13 @@ export class TypeStyle {
       }
     }
     return result;
+  }
+
+  /**
+   * Takes a string and uses to set a nonce value on the <style> tag
+   * Result will look like <style nonce="2726c7f26c">...</style>
+   */
+  public setNonce = (nonce: string): void => {
+    this._nonce = nonce;
   }
 }

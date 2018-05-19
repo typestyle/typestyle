@@ -72,6 +72,12 @@ export const style = ts.style;
 export const stylesheet = ts.stylesheet;
 
 /**
+ * Takes a string and uses to set a nonce value on the <style> tag
+ * Result will look like <style nonce="2726c7f26c">...</style>
+ */
+export const setNonce = ts.setNonce;
+
+/**
  * Creates a new instance of TypeStyle separate from the default instance.
  *
  * - Use this for creating a different typestyle instance for a shadow dom component.
