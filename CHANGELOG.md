@@ -1,3 +1,6 @@
+# 2.0.0
+Migrated types to use the csstype project.
+
 # 1.7.2
 * Fix : `ReferenceError: window is not defined` no longer happens when using `import 'raf/polyfill';`.
 
