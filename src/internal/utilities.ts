@@ -90,3 +90,11 @@ export const media = (mediaQuery: types.MediaQuery, ...objects: types.NestedCSSP
 
 const mediaLength = (value: number | string) =>
   typeof value === 'string' ? value : `${value}px`;
+
+/**
+ * Utility to help disable debugName when necessary.
+ * If force is true or `process.env.NODE_ENV == 'production'` (which is the default for free-style), it will return a NestedCSSProperties containing only
+ * $debugName, otherwise a empty object is returned.
+ */
+export const debugName = ($debugName: string, force?: boolean) =>
+  force === false || (typeof process === 'object' && process.hasOwnProperty('env') && process.env.NODE_ENV === 'production') ? {} : {$debugName};

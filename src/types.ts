@@ -30,7 +30,7 @@ export interface NestedCSSProperties extends CSSProperties {
   $nest?: NestedCSSSelectors;
 
   /**
-   * A debug only (stripped in process.env.NODE_ENV !== 'production') name
+   * A debug only (stripped in process.env.NODE_ENV === 'production') name
    * Helps you figure out where the class is coming from if you care
    **/
   $debugName?: string;
