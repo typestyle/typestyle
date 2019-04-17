@@ -57,6 +57,7 @@ describe("initial test", () => {
     assert.equal(classes("a", "b"), "a b");
     assert.equal(classes("a", false && "b"), "a");
     assert.equal(classes("a", false && "b", "c"), "a c");
+    assert.equal(classes("a", false && "b", "c", { d: false, e: true }, { f: {}, g: null }), "a c e f");
   });
 
   it("transparent string should render transparent in color property", () => {

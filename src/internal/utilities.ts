@@ -20,8 +20,12 @@ export const raf: (cb: () => void) => void =
 /**
  * Utility to join classes conditionally
  */
-export function classes(...classes: (string | false | undefined | null)[]): string {
-  return classes.filter(c => !!c).join(' ');
+export function classes(...classes: (string | false | undefined | null | { [className: string]: any })[]): string {
+  return classes
+    .map(c => c && typeof c === 'object' ? Object.keys(c).map(key => !!c[key] && key) : [c])
+    .reduce((flattened, c) => flattened.concat(c), [] as string[])
+    .filter(c => !!c)
+    .join(' ');
 }
 
 /**
