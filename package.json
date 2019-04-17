@@ -11,7 +11,7 @@
     "build": "tsc -p . && tsc -p tsconfig.es2015.json && webpack",
     "unittest": "mocha ./lib/tests/**/*.js",
     "test": "npm run build && npm run unittest",
-    "preversion": "npm run build",
+    "preversion": "npm run test",
     "postversion": "git push --follow-tags && npm publish",
     "start": "npm run build -- -w & npm run unittest -- --watch"
   },
