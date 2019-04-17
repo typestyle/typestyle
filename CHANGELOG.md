@@ -1,3 +1,6 @@
+# 2.0.2
+`typestyle.classes` now takes objects. e.g. `assert.equal(classes("a", false && "b", "c", { d: false, e: true }, { f: {}, g: null }), "a c e f");`. Ref : https://github.com/typestyle/typestyle/pull/332
+
 # 2.0.0
 Migrated types to use the csstype project.
 
