@@ -28,7 +28,7 @@
   "homepage": "https://github.com/typestyle/typestyle#readme",
   "dependencies": {
     "csstype": "^2.4.0",
-    "free-style": "2.5.1"
+    "free-style": "2.6.1"
   },
   "devDependencies": {
     "@types/mocha": "5.1.0",
