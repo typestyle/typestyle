@@ -151,6 +151,15 @@ describe("initial test", () => {
     assert.equal(getStyles(), '.fb25ljk{background-color:red;color:blue}');
   });
 
+  it("style should not append px to numeric properties", () => {
+    reinit();
+    style({
+      strokeWidth: 4,
+      strokeMiterlimit: 10,
+    });
+    assert.equal(getStyles(), '.fdky2ev{stroke-width:4,stroke-miterlimit:10}');
+  });
+
   it("should generate unique instances when typestyle() is called", () => {
     const ts1 = createTypeStyle({ textContent: '' });
     const ts2 = createTypeStyle({ textContent: '' });
