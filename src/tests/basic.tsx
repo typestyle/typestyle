@@ -157,7 +157,7 @@ describe("initial test", () => {
       strokeWidth: 4,
       strokeMiterlimit: 10,
     });
-    assert.equal(getStyles(), '.fdky2ev{stroke-width:4,stroke-miterlimit:10}');
+    assert.equal(getStyles(), '.f1xs2ny7{stroke-miterlimit:10;stroke-width:4}');
   });
 
   it("should generate unique instances when typestyle() is called", () => {
