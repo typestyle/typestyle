@@ -198,14 +198,19 @@ export class TypeStyle {
   /**
    * Takes CSSProperties and return a generated className you can use on your component
    */
-  public style(...objects: (types.NestedCSSProperties | undefined)[]): string;
+  public style(...objects: (types.NestedCSSProperties | undefined | string)[]): string;
   public style(...objects: (types.NestedCSSProperties | null | false | undefined)[]): string;
-  public style() {
+  public style(...args: any[]) {
     const freeStyle = this._freeStyle;
-    const { result, debugName } = ensureStringObj(extend.apply(undefined, arguments));
+    const existingClassNames = args.filter(x => typeof x === 'string');
+    const { result, debugName } = ensureStringObj(
+      extend.apply(undefined, args.filter(x => typeof x !== 'string'))
+    );
     const className = debugName ? freeStyle.registerStyle(result, debugName) : freeStyle.registerStyle(result);
     this._styleUpdated();
-    return className;
+    return existingClassNames.length
+      ? (existingClassNames.join(' ') + ' ' + className)
+      : className;
   }
 
   /**
