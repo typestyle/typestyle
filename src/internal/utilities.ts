@@ -73,7 +73,7 @@ export function extend(...objects: (types.NestedCSSProperties | undefined | null
  * )
  * ```
  */
-export const media = (mediaQuery: types.MediaQuery, ...objects: types.NestedCSSProperties[]): types.NestedCSSProperties => {
+export const media = (mediaQuery: types.MediaQuery, ...objects: (types.NestedCSSProperties | undefined | null | false)[]): types.NestedCSSProperties => {
   const mediaQuerySections: string[] = [];
   if (mediaQuery.type) mediaQuerySections.push(mediaQuery.type);
   if (mediaQuery.orientation) mediaQuerySections.push(`(orientation: ${mediaQuery.orientation})`);
