@@ -1,5 +1,4 @@
-import * as types from '../types';
-import { Dictionary } from './formatting';
+import {CSSProperties, MediaQuery, NestedCSSProperties} from '../types';
 
 /** Raf for node + browser */
 export const raf: (cb: () => void) => void =
@@ -32,9 +31,9 @@ export function classes(...classes: (string | false | undefined | null | { [clas
  * Merges various styles into a single style object.
  * Note: if two objects have the same property the last one wins
  */
-export function extend(...objects: (types.NestedCSSProperties | undefined | null | false)[]): types.NestedCSSProperties {
+export function extend(...objects: (NestedCSSProperties | undefined | null | false)[]): NestedCSSProperties {
   /** The final result we will return */
-  const result: types.CSSProperties & Dictionary = {};
+  const result: CSSProperties & Record<string, any> = {};
   for (const object of objects) {
     if (object == null || object === false) {
       continue;
@@ -73,7 +72,7 @@ export function extend(...objects: (types.NestedCSSProperties | undefined | null
  * )
  * ```
  */
-export const media = (mediaQuery: types.MediaQuery, ...objects: (types.NestedCSSProperties | undefined | null | false)[]): types.NestedCSSProperties => {
+export const media = (mediaQuery: MediaQuery, ...objects: (NestedCSSProperties | undefined | null | false)[]): NestedCSSProperties => {
   const mediaQuerySections: string[] = [];
   if (mediaQuery.type) mediaQuerySections.push(mediaQuery.type);
   if (mediaQuery.orientation) mediaQuerySections.push(`(orientation: ${mediaQuery.orientation})`);
@@ -84,7 +83,7 @@ export const media = (mediaQuery: types.MediaQuery, ...objects: (types.NestedCSS
 
   const stringMediaQuery = `@media ${mediaQuerySections.join(' and ')}`;
 
-  const object: types.NestedCSSProperties = {
+  const object: NestedCSSProperties = {
     $nest: {
       [stringMediaQuery]: extend(...objects)
     }

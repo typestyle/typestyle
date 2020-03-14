@@ -1,7 +1,7 @@
 import * as FreeStyle from "free-style";
 import * as types from '../types';
 
-import { ensureStringObj, explodeKeyframes } from './formatting';
+import { convertToStyles, convertToKeyframes } from './formatting';
 import { extend, raf } from './utilities';
 
 export type StylesTarget = { textContent: string | null };
@@ -9,12 +9,7 @@ export type StylesTarget = { textContent: string | null };
 /**
  * Creates an instance of free style with our options
  */
-const createFreeStyle = () => FreeStyle.create(
-  /** Use the default hash function */
-  undefined,
-  /** Preserve $debugName values */
-  true,
-);
+const createFreeStyle = () => FreeStyle.create();
 
 /**
  * Maintains a single stylesheet and keeps it in sync with requested styles
@@ -115,8 +110,8 @@ export class TypeStyle {
    * Takes CSSProperties and registers it to a global selector (body, html, etc.)
    */
   public cssRule = (selector: string, ...objects: types.NestedCSSProperties[]): void => {
-    const object = ensureStringObj(extend(...objects)).result;
-    this._freeStyle.registerRule(selector, object);
+    const styles = convertToStyles(extend(...objects));
+    this._freeStyle.registerRule(selector, styles);
     this._styleUpdated();
     return;
   }
@@ -157,9 +152,9 @@ export class TypeStyle {
    * Takes keyframes and returns a generated animationName
    */
   public keyframes = (frames: types.KeyFrames): string => {
-    const { keyframes, $debugName } = explodeKeyframes(frames);
+    const keyframes = convertToKeyframes(frames);
     // TODO: replace $debugName with display name
-    const animationName = this._freeStyle.registerKeyframes(keyframes as FreeStyle.Styles, $debugName);
+    const animationName = this._freeStyle.registerKeyframes(keyframes);
     this._styleUpdated();
     return animationName;
   }
@@ -201,9 +196,8 @@ export class TypeStyle {
   public style(...objects: (types.NestedCSSProperties | undefined)[]): string;
   public style(...objects: (types.NestedCSSProperties | null | false | undefined)[]): string;
   public style() {
-    const freeStyle = this._freeStyle;
-    const { result, debugName } = ensureStringObj(extend.apply(undefined, arguments));
-    const className = debugName ? freeStyle.registerStyle(result, debugName) : freeStyle.registerStyle(result);
+    const className = this._freeStyle.registerStyle(
+      convertToStyles(extend.apply(undefined, arguments)));
     this._styleUpdated();
     return className;
   }
