@@ -12,8 +12,10 @@ export type StylesTarget = { textContent: string | null };
 const createFreeStyle = () => FreeStyle.create(
   /** Use the default hash function */
   undefined,
-  /** Preserve $debugName values */
-  true,
+  /** Preserve $debugName values if NODE_ENV is not available (browser) */
+  typeof process !== 'undefined'
+    ? process.env.NODE_ENV !== 'production'
+    : true
 );
 
 /**

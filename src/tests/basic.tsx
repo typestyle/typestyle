@@ -122,6 +122,23 @@ describe("initial test", () => {
     assert.equal(getStyles(), '.sample_fy3xmhm{color:blue}.sample_fy3xmhm:hover{color:rgba(0, 0, 0, 0)}');
   });
 
+  it("should omit $debugName in production", () => {
+    const NODE_ENV = process.env.NODE_ENV;
+    process.env.NODE_ENV = 'production';
+    reinit();
+    style({
+      $debugName: 'sample',
+      color: 'blue',
+      $nest: {
+        '&:hover': {
+          color: 'rgba(0, 0, 0, 0)',
+        }
+      }
+    });
+    process.env.NODE_ENV = NODE_ENV;
+    assert.equal(getStyles(), '.fy3xmhm{color:blue}.fy3xmhm:hover{color:rgba(0, 0, 0, 0)}');
+  });
+ 
   it("should generate meaningful classnames using stylesheet", () => {
     reinit();
     const classes = stylesheet({
