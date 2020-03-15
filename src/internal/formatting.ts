@@ -1,4 +1,4 @@
-import * as types from './../types';
+import {KeyFrames, NestedCSSProperties} from './../types';
 import {Styles} from 'free-style';
 
 /**
@@ -7,7 +7,7 @@ import {Styles} from 'free-style';
  * - For any `$unique` directive map to FreeStyle Unique
  * - For any `$debugName` directive return the debug name
  */
-export function convertToStyles(object: types.NestedCSSProperties): Styles {
+export function convertToStyles(object: NestedCSSProperties): Styles {
   /** The final result we will return */
   const styles: Styles = {};
   for (const key in object) {
@@ -34,8 +34,7 @@ export function convertToStyles(object: types.NestedCSSProperties): Styles {
   return styles;
 }
 
-// todo: better name here
-export function convertToKeyframes(frames: types.KeyFrames): Styles {
+export function convertToKeyframes(frames: KeyFrames): Styles {
   const result: Styles =  {};
 
   for (const offset in frames) {

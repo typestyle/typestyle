@@ -208,15 +208,31 @@ export class TypeStyle {
    * the actual generated class names using the ideal class name as the $debugName
    */
   public stylesheet = <Names extends string = any>(classes: types.CSSClasses<Names>): types.CSSClassNames<Names> => {
-    const classNames = Object.getOwnPropertyNames(classes) as (Names)[];
-    const result = {} as types.CSSClassNames<Names>;
-    for (let className of classNames) {
-      const classDef = classes[className] as types.NestedCSSProperties
-      if (classDef) {
-        classDef.$debugName = className
-        result[className] = this.style(classDef);
-      }
+    // Get the list of debugNames sorted alphabetically.
+    const classNameList = Object.getOwnPropertyNames(classes).sort() as Names[];
+
+    // Generate all top level class names and add the appropriate class deps object for nested calls.
+    const classMap = {} as Record<Names, string>;
+    const classDeps = {} as Record<Names, { (props: types.NestedCSSProperties): types.NestedCSSProperties }>;
+    for (const debugName of classNameList) {
+      classMap[debugName] = this.style({ $debugName: debugName, $unique: true });
+      classDeps[debugName] = (properties: types.NestedCSSProperties) => ({
+        $nest: {['.' + classMap[debugName]]: properties}
+      });
     }
-    return result;
+
+    // Register all styles
+    for (let debugName of classNameList) {
+      const classDef = classes[debugName];
+      const classStyles = typeof classDef === 'function'
+        ? (classDef as types.CSSClassNestedPropertiesProducer<Names>)(classDeps)
+        : classDef;
+
+      const freestyleStyles = convertToStyles((classStyles || {}) as types.NestedCSSProperties);
+      this._freeStyle.registerRule(classMap[debugName], freestyleStyles);
+    }
+
+    this._styleUpdated();
+    return classMap;
   }
 }

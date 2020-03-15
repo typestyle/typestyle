@@ -22,7 +22,13 @@ export interface CSSProperties extends
 
 export interface FontFace extends CSS.FontFace {}
 
-export type CSSClasses<K extends string> = Record<K, NestedCSSProperties>;
+export interface CSSClassNestedPropertiesProducer<TClassName extends string> {
+  (t: CSSDeps<TClassName>): NestedCSSProperties;
+}
+
+export type CSSDeps<TClassName extends string> = Record<TClassName, (nested: NestedCSSProperties) => NestedCSSProperties>;
+
+export type CSSClasses<K extends string> = Record<K, NestedCSSProperties|CSSClassNestedPropertiesProducer<K>>;
 
 export type CSSClassNames<K extends string> = Record<K, string>;
 
