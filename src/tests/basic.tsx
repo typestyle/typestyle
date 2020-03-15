@@ -133,10 +133,30 @@ describe("initial test", () => {
       }
     });
     assert.deepEqual(classes, {
-      warning: 'warning_f1jvcvsh',
-      success: 'success_fmubem1'
+      warning: 'warning_f45h',
+      success: 'success_f45h'
     });
-    assert.equal(getStyles(), '.warning_f1jvcvsh{color:red}.success_fmubem1{color:green}');
+    assert.equal(getStyles(), '.success_f45h{color:green}.warning_f45h{color:red}');
+  })
+
+  it("should allow nested dependent classes using stylesheet", () => {
+    reinit();
+    const classes = stylesheet({
+      button: {
+        color: 'red'
+      },
+      card(sheet) {
+        return [
+          { border: 'solid 1px black' },
+          sheet.button({ color: 'blue' })
+        ];
+      }
+    });
+    assert.deepEqual(classes, {
+      button: 'button_f45h',
+      card: 'card_f45h'
+    });
+    assert.equal(getStyles(), '.button_f45h{color:red}.card_f45h{border:solid 1px black}.card_f45h .button_f45h{color:blue}');
   })
 
   it("style should ignore 'false' 'null' and 'undefined'", () => {

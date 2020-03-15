@@ -213,7 +213,7 @@ export class TypeStyle {
 
     // Generate all top level class names and add the appropriate class deps object for nested calls.
     const classMap = {} as Record<Names, string>;
-    const classDeps = {} as Record<Names, { (props: types.NestedCSSProperties): types.NestedCSSProperties }>;
+    const classDeps = {} as Record<Names, { (props: types.NestedCSSProperties): types.NestedCSSProperties}>;
     for (const debugName of classNameList) {
       classMap[debugName] = this.style({ $debugName: debugName, $unique: true });
       classDeps[debugName] = (properties: types.NestedCSSProperties) => ({
@@ -226,10 +226,10 @@ export class TypeStyle {
       const classDef = classes[debugName];
       const classStyles = typeof classDef === 'function'
         ? (classDef as types.CSSClassNestedPropertiesProducer<Names>)(classDeps)
-        : classDef;
+        : [(classDef || {}) as types.NestedCSSProperties];
 
-      const freestyleStyles = convertToStyles((classStyles || {}) as types.NestedCSSProperties);
-      this._freeStyle.registerRule(classMap[debugName], freestyleStyles);
+      const freestyleStyles = convertToStyles(extend(...classStyles));
+      this._freeStyle.registerRule('.' + classMap[debugName], freestyleStyles);
     }
 
     this._styleUpdated();
