@@ -1,7 +1,5 @@
 import * as types from './../types';
-import * as FreeStyle from 'free-style';
-
-export type Dictionary = { [key: string]: any; };
+import {Styles} from 'free-style';
 
 /**
  * We need to do the following to *our* objects before passing to freestyle:
@@ -9,49 +7,45 @@ export type Dictionary = { [key: string]: any; };
  * - For any `$unique` directive map to FreeStyle Unique
  * - For any `$debugName` directive return the debug name
  */
-export function ensureStringObj(object: types.NestedCSSProperties): { result: any, debugName: string } {
+export function convertToStyles(object: types.NestedCSSProperties): Styles {
   /** The final result we will return */
-  const result: types.CSSProperties & Dictionary = {};
-  let debugName = '';
-
+  const styles: Styles = {};
   for (const key in object) {
 
     /** Grab the value upfront */
-    const val: any = (object as any)[key];
+    const val = (object as any)[key as any];
 
     /** TypeStyle configuration options */
-    if (key === '$unique') {
-      result[FreeStyle.IS_UNIQUE] = val;
-    }
-    else if (key === '$nest') {
+    if (key === '$nest') {
       const nested = val!;
       for (let selector in nested) {
         const subproperties = nested[selector]!;
-        result[selector] = ensureStringObj(subproperties).result;
+        styles[selector] = convertToStyles(subproperties);
       }
     }
     else if (key === '$debugName') {
-      debugName = val;
+      styles.$displayName = val;
     }
     else {
-      result[key] = val
+      styles[key] = val
     }
   }
 
-  return { result, debugName };
+  return styles;
 }
 
 // todo: better name here
-export function explodeKeyframes(frames: types.KeyFrames): { $debugName?: string, keyframes: types.KeyFrames } {
-  const result = { $debugName: undefined, keyframes: {} as types.KeyFrames };
+export function convertToKeyframes(frames: types.KeyFrames): Styles {
+  const result: Styles =  {};
 
   for (const offset in frames) {
-    const val: any = (frames as any)[offset];
-    if (offset === '$debugName') {
-      result.$debugName = val;
-    } else {
-      result.keyframes[offset] = val;
+    if (offset !== '$debugName') {
+      result[offset] = (frames as Styles)[offset];
     }
+  }
+
+  if (frames.$debugName) {
+    result.$displayName = frames.$debugName;
   }
 
   return result;
