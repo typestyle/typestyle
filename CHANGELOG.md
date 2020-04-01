@@ -1,3 +1,7 @@
+# 2.1.0 
+* Updated `free-style` to `3.1.0`. Ref : https://github.com/typestyle/typestyle/pull/350
+* Fix: Go to definition for stylesheet function: https://github.com/typestyle/typestyle/pull/355
+
 # 2.0.3 
 Updated `free-style` to `2.6.1`.
 
