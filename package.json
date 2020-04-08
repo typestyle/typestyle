@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@types/mocha": "7.0.2",
-    "@types/node": "12.6.4",
+    "@types/node": "13.11.1",
     "mocha": "7.1.0",
     "ts-node": "7.0.1",
     "typescript": "3.8.3",
