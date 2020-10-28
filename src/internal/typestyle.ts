@@ -207,9 +207,9 @@ export class TypeStyle {
    * returns an object where property names are the same ideal class names and the property values are
    * the actual generated class names using the ideal class name as the $debugName
    */
-  public stylesheet = <Classes extends types.CSSClasses<string>>(classes: Classes): { [ClassName in keyof Classes]: string} => {
-    const classNames = Object.getOwnPropertyNames(classes) as (keyof Classes)[];
-    const result = {} as { [ClassName in keyof Classes]: string};
+  public stylesheet = <Classes extends string>(classes: types.CSSClasses<Classes>): { [ClassName in Classes]: string} => {
+    const classNames = Object.getOwnPropertyNames(classes) as Classes[];
+    const result = {} as { [ClassName in Classes]: string};
     for (let className of classNames) {
       const classDef = classes[className] as types.NestedCSSProperties
       if (classDef) {
