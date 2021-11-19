@@ -1,3 +1,6 @@
+# 2.2.0 
+* Better safety and navigation for `stylesheet` function. Ref: https://github.com/typestyle/typestyle/pull/365
+
 # 2.1.0 
 * Updated `free-style` to `3.1.0`. Ref : https://github.com/typestyle/typestyle/pull/350
 * Fix: Go to definition for stylesheet function: https://github.com/typestyle/typestyle/pull/355
