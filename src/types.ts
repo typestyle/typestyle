@@ -20,7 +20,7 @@ export interface CSSProperties extends
   $unique?: boolean;
 }
 
-export interface FontFace extends CSS.FontFace {}
+export interface FontFace extends CSS.AtRule.FontFace {}
 
 export type CSSClasses<K extends string> = Record<K, NestedCSSProperties>;
 
