@@ -1,3 +1,6 @@
+# 2.3.0 
+* Better TypeScript completion for properties. Ref: https://github.com/typestyle/typestyle/pull/376
+
 # 2.2.0 
 * Better safety and navigation for `stylesheet` function. Ref: https://github.com/typestyle/typestyle/pull/365
 
