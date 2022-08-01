@@ -1,3 +1,6 @@
+# 2.4.0
+Support for `prefersColorScheme` in Media queries. Ref: https://github.com/typestyle/typestyle/pull/371
+
 # 2.3.0 
 * Better TypeScript completion for properties. Ref: https://github.com/typestyle/typestyle/pull/376
 
