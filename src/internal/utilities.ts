@@ -80,6 +80,7 @@ export const media = (mediaQuery: MediaQuery, ...objects: (NestedCSSProperties |
   if (mediaQuery.maxWidth) mediaQuerySections.push(`(max-width: ${mediaLength(mediaQuery.maxWidth)})`);
   if (mediaQuery.minHeight) mediaQuerySections.push(`(min-height: ${mediaLength(mediaQuery.minHeight)})`);
   if (mediaQuery.maxHeight) mediaQuerySections.push(`(max-height: ${mediaLength(mediaQuery.maxHeight)})`);
+  if (mediaQuery.prefersColorScheme) mediaQuerySections.push(`(prefers-color-scheme: ${mediaQuery.prefersColorScheme})`);
 
   const stringMediaQuery = `@media ${mediaQuerySections.join(' and ')}`;
 

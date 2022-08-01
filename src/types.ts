@@ -43,6 +43,7 @@ export type MediaQuery = {
   maxWidth?: number | string;
   minHeight?: number | string;
   maxHeight?: number | string;
+  prefersColorScheme?: "dark" | "light";
 }
 
 export type NestedCSSSelectors = {
