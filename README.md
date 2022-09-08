@@ -7,6 +7,7 @@
 [![Build Status][travis-image]][travis-url]
 [![NPM version][npm-image]][npm-url]
 [![Downloads](https://img.shields.io/npm/dm/typestyle.svg)](https://www.npmjs.com/package/typestyle)
+[![Minzipped Size](https://img.shields.io/bundlephobia/minzip/typestyle)](https://bundlephobia.com/package/typestyle)
 
 Writing CSS with TypeStyle will be just as fluent as writing JavaScript with TypeScript.
 
@@ -18,7 +19,7 @@ There are quite a few css in js frameworks out there. This one is different:
 - No custom AST transform or module loader support needed.
 - Works with any framework (react, angular2, [cyclejs](https://twitter.com/waynemaurer/status/788483714196078593), whatever, doesn't matter).
 - Zero config. Just use.
-- *super* **small** (~6k gz)
+- *super* **small**
 
 > This project is powered by github 🌟s ^ go ahead and [star it please](https://github.com/typestyle/typestyle/stargazers).
 
